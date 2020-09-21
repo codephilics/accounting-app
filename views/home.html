@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MSB Group</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/index.css" />
+    <script src="https://kit.fontawesome.com/7e2a2d30e8.js" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+   
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark" style="background-color: teal;">
+        <a class="navbar-brand"><b style="color: floralwhite; font-size: large;">MSB Group</b></a>
+    </nav>
+
+
+
+    <div class="warpper" style="padding-top: 10px;">
+        <input class="radio" id="one" name="group" type="radio" checked>
+        <input class="radio" id="two" name="group" type="radio">
+        <input class="radio" id="three" name="group" type="radio">
+
+        <div class="tabs">
+            <label class="tab" id="one-tab" for="one">Daily Statistics</label>
+            <label class="tab" id="two-tab" for="two">Search Portal</label>
+            <label class="tab" id="three-tab" for="three">+ Add Account</label>
+        </div>
+
+
+        <div class="panels">
+            <div class="panel" id="one-panel">
+                <h6 class="debitHeadline">Debit Portion</h6>
+
+                <input class="form-control theme_cal_Selected" placeholder="Please Select A Date" required
+                    data-hint="Please choose a Delivery date" tabindex="20" name="reqDeliveryDate" id="reqDeliveryDate"
+                    type="text" data-role="datebox"
+                    data-options='{"mode": "calbox", "overrideDateFormat": "%B %-d, %Y", "useClearButton": true, "useCancelButton": true,"popupPosition": "window", "useFocus": true, "calUsePickers":"true", "useInlineBlind":true, "themeDate": "info", "themeDatePick": "danger","useCollapsedBut":true}'>
+
+                <div class="row debitPortionCell">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="th-sm" id="debitRecordForm">SL
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Company
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">CO_CO
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Site
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Person/Car_Who_will_Get
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Department
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Cause
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Carrier/Driver
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Refer_By
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Amount
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Other_Cost
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Total
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Dena
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Paona
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Vara
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Warning
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Note
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Edited_By
+                                </th>
+                                <th class="th-sm" id="debitRecordForm">Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td></td>
+                                <td></td>
+                                <td>Guimara (TID 12122)</td>
+                                <td>SO Guimara (Monju)</td>
+                                <td></td>
+                                <td>PC Babod</td>
+                                <td>Mr. Siddik</td>
+                                <td>Mr. Siddik</td>
+                                <td>200000</td>
+                                <td>0</td>
+                                <td>200000</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Mehedi</td>
+                                <td>
+                                    <i class="fas fa-pen" style="cursor: pointer;"></i>
+                                    <i class="fas fa-trash-alt" style="padding-left: 8px; cursor: pointer;"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: flex; justify-content: center;">
+                    <button type="button" class="btn btn-info btn-lg" style="margin: .5%;" data-toggle="modal"
+                        data-target="#debitForm">
+                        <b>Debit Record +</b>
+                    </button>
+                    <button type="button" class="btn btn-info btn-lg" style="margin: .5%;" data-toggle="modal"
+                        data-target="#creditForm">
+                        <b>Credit Record +</b>
+                    </button>
+                </div>
+
+                <h6 class="creditHeadline">Credit Portion</h6>
+                
+                <div class="row creditPortionCell">
+                    <div class="row  creditPortionCell2" style="justify-content: center;">
+                        ISA of Date 14/9/2020 is <span style="padding-left: 5px; padding-right: 5px; font-weight: bolder;"> 200000</span> taka
+                        <!-- ISA means total credit of a day - total debit of that day -->
+                        <!-- Last date ISA will show on the top side of next day credit portion -->
+                    </div>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="th-sm" id="creditRecordForm">SL
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Company
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">CO_CO
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Site
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Person/Car_Who_will_Get
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Department
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Cause
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Carrier/Driver
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Refer_By
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Amount
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Other_Cost
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Total
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Due
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Invest
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Note
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Edited_By
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                <td>2011/04/25</td>
+                                <td>$320,800</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <i class="fas fa-pen" style="cursor: pointer;"></i>
+                                    <i class="fas fa-trash-alt" style="padding-left: 8px; cursor: pointer;"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal fade" id="debitForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color: unset; border: none;">
+
+                            <div class="form-modal">
+                                <button data-dismiss="modal" type="button" class="btn close"
+                                    style=" color: red; font-weight: bolder;">✕</button>
+                                <h4 class="debitFormHeadline">Debit Record Form
+                                </h4>
+
+                                <div class="row"
+                                    style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
+                                    <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Company">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="CO-CO">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Site">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Person/Car Who will Get">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Department">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Cause">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Carrier/Driver">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Refer By">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Amount">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Other Cost">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Total">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Dena">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Paona">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Vara">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Warning">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field note"
+                                                    placeholder="Note">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Edited By">
+                                        </div>
+                                        <div style="display: flex; justify-content: center; margin-top:0.6em;">
+                                            <button type="button" class="btn btn-info btn-lg" style="margin: .5%;">
+                                                <b>Submit</b>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="creditForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color: unset; border: none;">
+
+                            <div class="form-modal">
+                                <button data-dismiss="modal" type="button" class="btn close"
+                                    style=" color: red; font-weight: bolder;">✕</button>
+                                <h4 class="debitFormHeadline">Credit Record
+                                    Form</h4>
+
+                                <div class="row"
+                                    style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
+                                    <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Company">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="CO-CO">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Site">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Person/Car Who will Get">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Department">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Cause">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Carrier/Driver">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Refer By">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Amount">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Other Cost">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Total">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Due">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Invest">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field note"
+                                                    placeholder="Note">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Edited By">
+                                        </div>
+                                        <div style="display: flex; justify-content: center; margin-top:0.6em;">
+                                            <button type="button" class="btn btn-info btn-lg" style="margin: .5%;">
+                                                <b>Submit</b>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="panel" id="two-panel">
+                <div class="row search-password">
+                    <h4 style="text-align: center; padding-top: 20px; font-weight: bolder;">Insert Your Password
+                    </h4>
+                    <div class="row" style="padding-bottom: 15px; display: flex; justify-content: center;">
+                        <div>
+                            <form>
+                                <input style="margin-top: 15px; margin-bottom: 15px;" type="password" name="password"
+                                    class="input-field password-input" placeholder="Password" />
+                            </form>
+                        </div>
+                    </div>
+                    <button data-dismiss="modal" id="serach-access-button" type="button" class="btn btn-info"
+                        style="margin: auto; display: flex; justify-content: center;">
+                        <b>Access</b>
+                    </button>
+                </div>
+
+
+                <div class="row searchPortal" style="display: none;">
+                    <div style="padding-top: 10px; padding-left: 15px;">
+                        <button class="print-pdf-excel-button" title="Print">
+                            <i class="fas fa-print"></i>
+                        </button>
+                        <button class="print-pdf-excel-button" title="PDF">
+                            <i class="far fa-file-pdf"></i>
+                        </button>
+                        <button class="print-pdf-excel-button" title="Excel">
+                            <i class="far fa-file-excel"></i>
+                        </button>
+
+                        <div class="c-input-wrapper">
+                            <div class="o-input o-input--cut-right">
+                                <input id="start_date" type="date" class="o-input__input">
+                            </div>
+                            <div class="o-input o-input--cut-left">
+                                <input id="end_date" type="date" class="o-input__input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="width: 100%; margin-top: 15px; margin-left: 15px;">
+                        <div class="select select-fancy select-fancy-noimage">
+                            <select>
+                                <option style="display:none">Site</option>
+                                <option>Gudam</option>
+                                <option>STC</option>
+                            </select>
+                        </div>
+                        <div class="select select-fancy select-fancy-noimage">
+                            <select>
+                                <option style="display:none">Person/Car Who will Get</option>
+                                <option>Gudam</option>
+                                <option>STC</option>
+                            </select>
+                        </div>
+                        <div class="select select-fancy select-fancy-noimage">
+                            <select>
+                                <option style="display:none">Department</option>
+                                <option>Gudam</option>
+                                <option>STC</option>
+                            </select>
+                        </div>
+                        <div class="select select-fancy select-fancy-noimage">
+                            <select>
+                                <option style="display:none">Cause</option>
+                                <option>Gudam</option>
+                                <option>STC</option>
+                            </select>
+                        </div>
+                        <div class="select select-fancy select-fancy-noimage">
+                            <select>
+                                <option style="display:none">Carrier/Driver</option>
+                                <option>Gudam</option>
+                                <option>STC</option>
+                            </select>
+                        </div>
+                        <div class="select select-fancy select-fancy-noimage">
+                            <select>
+                                <option style="display:none">Refer By</option>
+                                <option>Gudam</option>
+                                <option>STC</option>
+                            </select>
+                        </div>
+                        <div class="select select-fancy select-fancy-noimage">
+                            <select>
+                                <option style="display:none">Edited By</option>
+                                <option>Gudam</option>
+                                <option>STC</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel" id="three-panel">
+                <div class="add-profile-panel">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="th-sm" id="creditRecordForm">SL
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Full_Name
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">ID
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">NID
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Blood_Group
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Father's_Name
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Mother's_Name
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Permanent_Address
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Present_Address
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Opening_Date
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Closing_Date
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Note
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Picture
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Created_By
+                                </th>
+                                <th class="th-sm" id="creditRecordForm">Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>STC</td>
+                                <td>123</td>
+                                <td>5555</td>
+                                <td>O+</td>
+                                <td>Karim</td>
+                                <td>Karima</td>
+                                <td>Chittagong</td>
+                                <td>Dhaka</td>
+                                <td>2/8/2019</td>
+                                <td>2/5/2020</td>
+                                <td>Good Cutomer</td>
+                                <td></td>
+                                <td>Mehedi</td>
+                                <td>
+                                    <i class="fas fa-pen" style="cursor: pointer;"></i>
+                                    <i class="fas fa-trash-alt" style="padding-left: 8px; cursor: pointer;"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal fade" id="addAccountForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color: unset; border: none;">
+
+                            <div class="form-modal">
+                                <button data-dismiss="modal" type="button" class="btn close"
+                                    style=" color: red; font-weight: bolder;">✕</button>
+                                <h4 style="text-align: center; margin-top: 20px; font-weight: bolder;">Add Account Form
+                                </h4>
+
+                                <div class="row" style="padding-bottom: 15px; display: flex; justify-content: center;">
+                                    <div class="col-lg-4 col-md-4" style="padding-left: 50px;">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Full Name">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="ID">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="NID">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Blood Group">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Father's Name">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Mother's Name">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Permanent Address">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Present Address">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Opening Date">
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Closing Date">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" name="firstname" class="input-field"
+                                                    placeholder="Note">
+                                        </div>
+                                        <div class="avatar-upload"
+                                            style="display: flex; justify-content: center; margin-left: 50px;">
+                                            <div class="avatar-edit">
+                                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                                <label for="imageUpload"><i class="fas fa-camera camera-icon"
+                                                        id="imageUpload"></i></label>
+                                            </div>
+                                            <div class="avatar-preview">
+                                                <div id="imagePreview"
+                                                    style="background-image: url('assets/images/no-profile-picture.jpg');">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; justify-content: center;">
+                                            <button type="button" class="btn btn-info btn-lg">
+                                                <b>Create Account</b>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center;">
+                    <button type="button" class="btn btn-info btn-lg" style="margin: .5%;" data-toggle="modal"
+                        data-target="#addAccountForm">
+                        <b>Add Account +</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@5.3.3/jtsage-datebox.min.js"></script>
+
+</body>
+
+</html>
