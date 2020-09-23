@@ -95,6 +95,8 @@ html {
     padding: 20px;
     overflow-y: scroll;
   }
+
+  
   
   .add-profile-panel {
     background-color: whitesmoke;
@@ -274,8 +276,6 @@ html {
     height: 530px;
     background-color: whitesmoke;
     margin: 0.5%;
-    overflow-y: scroll;
-    overflow-x: scroll;
   }
   
   .c-input-wrapper {
@@ -534,3 +534,34 @@ html {
       transition: 0.4s;
     }
     
+    .search-portal-search-button{
+        height: 31px; 
+        width: 90px; 
+        background-color: #7dccc8; 
+        color: rgb(10, 67, 85); 
+        border: 1px solid #7dccc8; 
+        border-radius: 5px;
+        font-weight: bolder;
+    }
+
+    .search-portal-search-button:hover{
+        border: 1px solid rgb(10, 67, 85);
+        background-color: rgb(10, 67, 85);
+        color: #7dccc8; 
+        font-weight: bolder;
+    }
+
+    #serach-access-button{
+        background-color: #7dccc8; 
+        color: rgb(10, 67, 85); 
+        border: 1px solid #7dccc8; 
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    #serach-access-button:hover{
+        border: 1px solid #7dccc8;
+        background-color: rgb(10, 67, 85);
+        color: #7dccc8; 
+        font-weight: bold;
+    }
