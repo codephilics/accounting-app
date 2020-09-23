@@ -110,8 +110,110 @@ $("#credit-file-upload").change(function () {
   $("#credit-filename").html(filename);
 });
 
-// debit table insertation
+// Show debit data
+function  showDebitData(debitData) {
+  
+  var row = "<tr class ='debit-tr'>";
 
+  var debitSL = $(".debit-tr").length;
+  function updateDebitSL(currentDebitSL) {
+    currentDebitSL = debitSL;
+
+    return currentDebitSL;
+  }
+  row +=
+    "<td>" +
+    updateDebitSL(debitSL) +
+    "</td>" +
+    "<td>" +
+    debitData['company'] +
+    "</td>" +
+    "<td>" +
+    debitData['coco'] +
+    "</td>" +
+    "<td>" +
+    debitData['site'] +
+    "</td>" +
+    "<td>" +
+    debitData['person'] +
+    "</td>" +
+    "<td>" +
+    debitData['department'] +
+    "</td>" +
+    "<td>" +
+    debitData['cause'] +
+    "</td>" +
+    "<td>" +
+    debitData['carrier'] +
+    "</td>" +
+    "<td>" +
+    debitData['referBy'] +
+    "</td>" +
+    "<td>" +
+    debitData['amount'] +
+    "</td>" +
+    "<td>" +
+    debitData['otherCost'] +
+    "</td>" +
+    "<td class='debit-total-sum'>" +
+    debitData['total'] +
+    "</td>" +
+    "<td>" +
+    debitData['dena'] +
+    "</td>" +
+    "<td>" +
+    debitData['paona'] +
+    "</td>" +
+    "<td>" +
+    debitData['vara'] +
+    "</td>" +
+    "<td>" +
+    debitData['warning'] +
+    "</td>" +
+    "<td>" +
+    debitData['note'] +
+    "</td>" +
+    "<td>" +
+    debitData['editedBy'] +
+    "</td>" +
+    "<td>" +
+    debitData['image_url'] +
+    "</td>" +
+    "<td>" +
+    "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt remove-item-debit' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "</td>";
+  row += "</tr>";
+
+  console.debug(row);
+
+  $(".debit-table .debit-tbody").append(row);
+}
+
+function debitDataShowAPI(){
+  var settings = {
+    "url": "/debit/get",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": sessionStorage.getItem('token'),
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+
+    for(var i=0;i<response.length; i++){
+      showDebitData(response[i]);
+      console.log(response[i]);
+    }
+    
+  });
+}
+debitDataShowAPI();
+
+// debit table insertation
 $("#debit-submit").on("click", function (event) {
   event.preventDefault();
   var debitCompany = $("#dCompany").val();
@@ -132,107 +234,149 @@ $("#debit-submit").on("click", function (event) {
   var debitNote = $("#dNote").val();
   var debitEditor = $("#dEdited-By").val();
   var debitFile = $("#debit-file-upload").val();
+  var date = "12/11/2020";
+  
+  var settings = {
+    "url": "/debit/add",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": sessionStorage.getItem('token')
+    },
+    "data": JSON.stringify({
+      "company": debitCompany,
+      "coco": debitCO_CO,
+      "site": debitSite,
+      "person": debitPerson_Car,
+      "department": debitDepartment,
+      "cause": debitCause,
+      "carrier": debitCarrier,
+      "referBy": debitRefer,
+      "amount": debitAmount, 
+      "otherCost": debitOtherCost ,
+      "total": debitTotal,
+      "dena": debitDena,
+      "paona": debitPaona,
+      "vara": debitVara,
+      "warning": debitWarning,
+      "note": debitNote,
+      "editedBy": debitEditor,
+      "image_url": "https://avatars3.githubusercontent.com/u/21359492?s=60&v=4",
+      "date": "12/11/2020"
+    }),
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    debitDataShowAPI();
+  })
+  .fail(function (xhr, textStatus, errorThrown) {
+    console.log(textStatus);
+  });;
 
-  var row = "<tr class ='debit-tr'>";
+  
 
-  var debitSL = $(".debit-tr").length;
-  function updateDebitSL(currentDebitSL) {
-    currentDebitSL = debitSL;
+  // var row = "<tr class ='debit-tr'>";
 
-    return currentDebitSL;
-  }
-  row +=
-    "<td>" +
-    updateDebitSL(debitSL) +
-    "</td>" +
-    "<td>" +
-    debitCompany +
-    "</td>" +
-    "<td>" +
-    debitCO_CO +
-    "</td>" +
-    "<td>" +
-    debitSite +
-    "</td>" +
-    "<td>" +
-    debitPerson_Car +
-    "</td>" +
-    "<td>" +
-    debitDepartment +
-    "</td>" +
-    "<td>" +
-    debitCause +
-    "</td>" +
-    "<td>" +
-    debitCarrier +
-    "</td>" +
-    "<td>" +
-    debitRefer +
-    "</td>" +
-    "<td>" +
-    debitAmount +
-    "</td>" +
-    "<td>" +
-    debitOtherCost +
-    "</td>" +
-    "<td class='debit-total-sum'>" +
-    debitTotal +
-    "</td>" +
-    "<td>" +
-    debitDena +
-    "</td>" +
-    "<td>" +
-    debitPaona +
-    "</td>" +
-    "<td>" +
-    debitVara +
-    "</td>" +
-    "<td>" +
-    debitWarning +
-    "</td>" +
-    "<td>" +
-    debitNote +
-    "</td>" +
-    "<td>" +
-    debitEditor +
-    "</td>" +
-    "<td>" +
-    debitFile +
-    "</td>" +
-    "<td>" +
-    "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt remove-item-debit' style='padding-left: 8px; cursor: pointer;'></i>" +
-    "</td>";
-  row += "</tr>";
+  // var debitSL = $(".debit-tr").length;
+  // function updateDebitSL(currentDebitSL) {
+  //   currentDebitSL = debitSL;
 
-  console.debug(row);
+  //   return currentDebitSL;
+  // }
+  // row +=
+  //   "<td>" +
+  //   updateDebitSL(debitSL) +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitCompany +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitCO_CO +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitSite +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitPerson_Car +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitDepartment +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitCause +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitCarrier +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitRefer +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitAmount +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitOtherCost +
+  //   "</td>" +
+  //   "<td class='debit-total-sum'>" +
+  //   debitTotal +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitDena +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitPaona +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitVara +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitWarning +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitNote +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitEditor +
+  //   "</td>" +
+  //   "<td>" +
+  //   debitFile +
+  //   "</td>" +
+  //   "<td>" +
+  //   "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
+  //   "<i class='fas fa-trash-alt remove-item-debit' style='padding-left: 8px; cursor: pointer;'></i>" +
+  //   "</td>";
+  // row += "</tr>";
 
-  $(".debit-table .debit-tbody").append(row);
+  // console.debug(row);
 
-  var total = 0;
-  var ISAresult = 0;
-  var ISAvalue = parseFloat($(".ISA-value-today").text());
+  // $(".debit-table .debit-tbody").append(row);
 
-  var debitTableSum = $(".debit-total-sum");
-  for (var i = 0; i < debitSL; i++) {
-    total = total + parseFloat(debitTableSum[i].innerHTML);
-    ISAresult = ISAvalue - parseFloat(debitTableSum[i].innerHTML);
-  }
-  $("#debit-sum").html(total);
+  // var total = 0;
+  // var ISAresult = 0;
+  // var ISAvalue = parseFloat($(".ISA-value-today").text());
 
-  console.log(ISAvalue);
-  $(".ISA-value-today").html(ISAresult);
-  console.log($(".debit-amount-sum"));
+  // var debitTableSum = $(".debit-total-sum");
+  // for (var i = 0; i < debitSL; i++) {
+  //   total = total + parseFloat(debitTableSum[i].innerHTML);
+  //   ISAresult = ISAvalue - parseFloat(debitTableSum[i].innerHTML);
+  // }
+  // $("#debit-sum").html(total);
 
-  console.log($(".debit-tr"));
+  // console.log(ISAvalue);
+  // $(".ISA-value-today").html(ISAresult);
+  // console.log($(".debit-amount-sum"));
 
-  $(".debit-tr").on("click", ".remove-item-debit", function () {
-    console.log("hello");
-    $(this).closest("tr").remove();
-    debitSL--;
-    console.log(debitSL);
-    updateDebitSL(debitSL);
-  });
+  // console.log($(".debit-tr"));
+
+  // $(".debit-tr").on("click", ".remove-item-debit", function () {
+  //   console.log("hello");
+  //   $(this).closest("tr").remove();
+  //   debitSL--;
+  //   console.log(debitSL);
+  //   updateDebitSL(debitSL);
+  // });
 
 
 });

@@ -19,7 +19,7 @@ const debitFormValidation = Joi.object({
     warning: Joi.optional(),
     note: Joi.optional(),
     editedBy: Joi.string().min(1).required(),
-    image_url: Joi.string(),
+    image_url: Joi.optional(),
     date: Joi.date()
 });
 
