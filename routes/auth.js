@@ -1,6 +1,4 @@
 const router = require('express').Router();
-const { required } = require('@hapi/joi');
-const express = require('express');
 const User = require('../models/User');
 const {registerValidation,loginValidation} = require('../validations/auth.validation');
 const bcrypt = require('bcryptjs');
