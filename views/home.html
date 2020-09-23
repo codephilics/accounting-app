@@ -13,7 +13,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-   
+
 
 </head>
 
@@ -40,81 +40,67 @@
             <div class="panel" id="one-panel">
                 <h6 class="debitHeadline">Debit Portion</h6>
 
-                <input class="form-control theme_cal_Selected" placeholder="Please Select A Date" required
-                    data-hint="Please choose a Delivery date" tabindex="20" name="reqDeliveryDate" id="reqDeliveryDate"
-                    type="text" data-role="datebox"
-                    data-options='{"mode": "calbox", "overrideDateFormat": "%B %-d, %Y", "useClearButton": true, "useCancelButton": true,"popupPosition": "window", "useFocus": true, "calUsePickers":"true", "useInlineBlind":true, "themeDate": "info", "themeDatePick": "danger","useCollapsedBut":true}'>
-
+                <div class="c-input-wrapper">
+                    <div class="o-input o-input--cut-right">
+                        <input id="start_date" type="date" class="o-input__input">
+                    </div>
+                </div>
                 <div class="row debitPortionCell">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover debit-table">
                         <thead>
                             <tr>
-                                <th class="th-sm" id="debitRecordForm">SL
+                                <th class="th-sm">SL
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Company
+                                <th class="th-sm">Company
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">CO_CO
+                                <th class="th-sm">CO_CO
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Site
+                                <th class="th-sm">Site
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Person/Car_Who_will_Get
+                                <th class="th-sm">Person/Car_Who_will_Get
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Department
+                                <th class="th-sm">Department
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Cause
+                                <th class="th-sm">Cause
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Carrier/Driver
+                                <th class="th-sm">Carrier/Driver
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Refer_By
+                                <th class="th-sm">Refer_By
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Amount
+                                <th class="th-sm ">Amount
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Other_Cost
+                                <th class="th-sm">Other_Cost
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Total
+                                <th class="th-sm">Total
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Dena
+                                <th class="th-sm">Dena
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Paona
+                                <th class="th-sm">Paona
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Vara
+                                <th class="th-sm">Vara
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Warning
+                                <th class="th-sm">Warning
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Note
+                                <th class="th-sm">Note
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Edited_By
+                                <th class="th-sm">Edited_By
                                 </th>
-                                <th class="th-sm" id="debitRecordForm">Action
+                                <th class="th-sm">File
+                                </th>
+                                <th class="th-sm">Action
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td></td>
-                                <td></td>
-                                <td>Guimara (TID 12122)</td>
-                                <td>SO Guimara (Monju)</td>
-                                <td></td>
-                                <td>PC Babod</td>
-                                <td>Mr. Siddik</td>
-                                <td>Mr. Siddik</td>
-                                <td>200000</td>
-                                <td>0</td>
-                                <td>200000</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Mehedi</td>
-                                <td>
-                                    <i class="fas fa-pen" style="cursor: pointer;"></i>
-                                    <i class="fas fa-trash-alt" style="padding-left: 8px; cursor: pointer;"></i>
-                                </td>
+                        <tbody class="debit-tbody">
+                            <tr class="debit-tr">
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan='11' class='text-right'>Sum</th>
+                                <th id="debit-sum">-</th>
+                                <th>&nbsp;</th>
+                        </tfoot>
                     </table>
                 </div>
 
@@ -130,76 +116,85 @@
                 </div>
 
                 <h6 class="creditHeadline">Credit Portion</h6>
-                
+                <div class="row  creditPortionCell2">
+                    <span style="padding-left: 10px;">ISA from Last Day is <span class="ISA-value-last-day"
+                            style="padding-left: 5px; padding-right: 5px; font-weight: bolder;">0</span> taka</span>
+                    <span style="margin-left: auto; padding-right: 10px;">ISA for Today is <span class="ISA-value-today"
+                            style="padding-left: 5px; padding-right: 5px; font-weight: bolder;">0</span> taka</span>
+                    <!-- ISA means total credit of a day - total debit of that day -->
+                    <!-- Last date ISA will show on the top side of next day credit portion -->
+                </div>
                 <div class="row creditPortionCell">
-                    <div class="row  creditPortionCell2" style="justify-content: center;">
-                        ISA of Date 14/9/2020 is <span style="padding-left: 5px; padding-right: 5px; font-weight: bolder;"> 200000</span> taka
-                        <!-- ISA means total credit of a day - total debit of that day -->
-                        <!-- Last date ISA will show on the top side of next day credit portion -->
-                    </div>
-                    <table class="table table-bordered table-hover">
+
+                    <table class="table table-bordered table-hover credit-table">
                         <thead>
+                            
                             <tr>
-                                <th class="th-sm" id="creditRecordForm">SL
+                                <th class="th-sm">SL
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Company
+                                <th class="th-sm">Company
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">CO_CO
+                                <th class="th-sm">CO_CO
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Site
+                                <th class="th-sm">Site
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Person/Car_Who_will_Get
+                                <th class="th-sm">Person/Car_Who_will_Get
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Department
+                                <th class="th-sm">Department
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Cause
+                                <th class="th-sm">Cause
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Carrier/Driver
+                                <th class="th-sm">Carrier/Driver
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Refer_By
+                                <th class="th-sm">Refer_By
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Amount
+                                <th class="th-sm">Amount
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Other_Cost
+                                <th class="th-sm">Other_Cost
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Total
+                                <th class="th-sm">Total
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Due
+                                <th class="th-sm">Due
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Invest
+                                <th class="th-sm">Invest
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Note
+                                <th class="th-sm">Note
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Edited_By
+                                <th class="th-sm">Warning
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Action
+                                <th class="th-sm">Edited_By
                                 </th>
+                                <th class="th-sm">File
+                                </th>
+                                <th class="th-sm">Action
+                                </th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th><span class="ISA-value-last-day">0</span></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
-                                <td>2011/04/25</td>
-                                <td>$320,800</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <i class="fas fa-pen" style="cursor: pointer;"></i>
-                                    <i class="fas fa-trash-alt" style="padding-left: 8px; cursor: pointer;"></i>
-                                </td>
+                        <tbody class="credit-tbody">
+                            <tr class="credit-tr">
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan='11' class='text-right'>Sum</th>
+                                <th id="credit-sum">-</th>
+                                <th>&nbsp;</th>
+                            </tr>    
+                        </tfoot>
                     </table>
                 </div>
 
@@ -219,102 +214,122 @@
                                     <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dCompany" class="input-field"
                                                     placeholder="Company">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="CO-CO">
+                                                <input type="text" id="dCO_CO" class="input-field" placeholder="CO-CO">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Site">
+                                                <input type="text" id="dSite" class="input-field" placeholder="Site">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dPerson-Car-Who-will-Get" class="input-field"
                                                     placeholder="Person/Car Who will Get">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dDepartment" class="input-field"
                                                     placeholder="Department">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Cause">
+                                                <input type="text" id="dCause" class="input-field" placeholder="Cause">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dCarrier-Driver" class="input-field"
                                                     placeholder="Carrier/Driver">
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dRefer-By" class="input-field"
                                                     placeholder="Refer By">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dAmount" class="input-field"
                                                     placeholder="Amount">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dOther-Cost" class="input-field"
                                                     placeholder="Other Cost">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Total">
+                                                <input type="text" id="dTotal" class="input-field" placeholder="Total">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Dena">
+                                                <input type="text" id="dDena" class="input-field" placeholder="Dena">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Paona">
+                                                <input type="text" id="dPaona" class="input-field" placeholder="Paona">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Vara">
+                                                <input type="text" id="dVara" class="input-field" placeholder="Vara">
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dWarning" class="input-field"
                                                     placeholder="Warning">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field note"
+                                                <input type="text" id="dNote" class="input-field note"
                                                     placeholder="Note">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="dEdited-By" class="input-field"
                                                     placeholder="Edited By">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form method="post" enctype="multipart/form-data" action="">
+                                                <span id="debit-filename" style="color: rgb(131, 130, 130);">Select your file</span>
+                                                  <label for="debit-file-upload">Browse<input type="file" id="debit-file-upload"></label>
+                                              </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button type="button" class="btn btn-info btn-lg" style="margin: .5%;">
+                                            <button type="button" id="debit-submit" class="btn btn-info btn-lg"
+                                                name='debit-append' style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
                                         </div>
                                     </div>
 
                                 </div>
-
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -336,92 +351,107 @@
                                     <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crCompany" class="input-field"
                                                     placeholder="Company">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="CO-CO">
+                                                <input type="text" id="crCO_CO" class="input-field" placeholder="CO-CO">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Site">
+                                                <input type="text" id="crSite" class="input-field" placeholder="Site">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crPerson-Car-Who-will-Get" class="input-field"
                                                     placeholder="Person/Car Who will Get">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crDepartment" class="input-field"
                                                     placeholder="Department">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Cause">
+                                                <input type="text" id="crCause" class="input-field" placeholder="Cause">
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crCarrier-Driver" class="input-field"
                                                     placeholder="Carrier/Driver">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crRefer-By" class="input-field"
                                                     placeholder="Refer By">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crAmount" class="input-field"
                                                     placeholder="Amount">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crOther-Cost" class="input-field"
                                                     placeholder="Other Cost">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Total">
+                                                <input type="text" id="crTotal" class="input-field" placeholder="Total">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Due">
+                                                <input type="text" id="crDue" class="input-field" placeholder="Due">
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crInvest" class="input-field"
                                                     placeholder="Invest">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field note"
+                                                <input type="text" id="crNote" class="input-field note"
                                                     placeholder="Note">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="crEdited-By" class="input-field"
                                                     placeholder="Edited By">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form method="post" enctype="multipart/form-data" action="">
+                                                <span id="credit-filename" style="color: rgb(131, 130, 130);">Select your file</span>
+                                                  <label for="credit-file-upload">Browse<input type="file" id="credit-file-upload"></label>
+                                              </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button type="button" class="btn btn-info btn-lg" style="margin: .5%;">
+                                            <button type="button" id="credit-submit" class="btn btn-info btn-lg"
+                                                style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -430,6 +460,7 @@
             </div>
 
 
+            <i class='fas fa-trash-alt remove-item-account' style='padding-left: 8px; cursor: pointer;'></i>
 
             <div class="panel" id="two-panel">
                 <div class="row search-password">
@@ -530,63 +561,48 @@
 
             </div>
 
+
+
+
             <div class="panel" id="three-panel">
                 <div class="add-profile-panel">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover add-account-table">
                         <thead>
                             <tr>
-                                <th class="th-sm" id="creditRecordForm">SL
+                                <th class="th-sm">SL
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Full_Name
+                                <th class="th-sm">Full_Name
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">ID
+                                <th class="th-sm">ID
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">NID
+                                <th class="th-sm">NID
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Blood_Group
+                                <th class="th-sm">Blood_Group
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Father's_Name
+                                <th class="th-sm">Father's_Name
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Mother's_Name
+                                <th class="th-sm">Mother's_Name
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Permanent_Address
+                                <th class="th-sm">Permanent_Address
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Present_Address
+                                <th class="th-sm">Present_Address
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Opening_Date
+                                <th class="th-sm">Opening_Date
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Closing_Date
+                                <th class="th-sm">Closing_Date
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Note
+                                <th class="th-sm">Note
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Picture
+                                <th class="th-sm">Picture
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Created_By
+                                <th class="th-sm">Created_By
                                 </th>
-                                <th class="th-sm" id="creditRecordForm">Action
+                                <th class="th-sm">Action
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>STC</td>
-                                <td>123</td>
-                                <td>5555</td>
-                                <td>O+</td>
-                                <td>Karim</td>
-                                <td>Karima</td>
-                                <td>Chittagong</td>
-                                <td>Dhaka</td>
-                                <td>2/8/2019</td>
-                                <td>2/5/2020</td>
-                                <td>Good Cutomer</td>
-                                <td></td>
-                                <td>Mehedi</td>
-                                <td>
-                                    <i class="fas fa-pen" style="cursor: pointer;"></i>
-                                    <i class="fas fa-trash-alt" style="padding-left: 8px; cursor: pointer;"></i>
-                                </td>
+                        <tbody class="add-account-tbody">
+                            <tr class="add-account-tr">
                             </tr>
                         </tbody>
                     </table>
@@ -607,62 +623,70 @@
                                     <div class="col-lg-4 col-md-4" style="padding-left: 50px;">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acFull-Name" class="input-field"
                                                     placeholder="Full Name">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="ID">
+                                                <input type="text" id="acID" class="input-field" placeholder="ID">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="NID">
+                                                <input type="text" id="acNID" class="input-field" placeholder="NID">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acBlood-Group" class="input-field"
                                                     placeholder="Blood Group">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acFathers-Name" class="input-field"
                                                     placeholder="Father's Name">
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acMothers-Name" class="input-field"
                                                     placeholder="Mother's Name">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acPermanent-Address" class="input-field"
                                                     placeholder="Permanent Address">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acPresent-Address" class="input-field"
                                                     placeholder="Present Address">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acOpening-Date" class="input-field"
                                                     placeholder="Opening Date">
+                                            </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
+                                                <input type="text" id="acClosing-Date" class="input-field"
                                                     placeholder="Closing Date">
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" name="firstname" class="input-field"
-                                                    placeholder="Note">
+                                                <input type="text" id="acNote" class="input-field" placeholder="Note">
+                                            </form>
                                         </div>
                                         <div class="avatar-upload"
                                             style="display: flex; justify-content: center; margin-left: 50px;">
@@ -677,15 +701,20 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div style="display: flex; justify-content: center;">
-                                            <button type="button" class="btn btn-info btn-lg">
+                                        <div id="login-form">
+                                            <form>
+                                                <input type="text" id="acCreated-By" class="input-field"
+                                                    placeholder="Created By">
+                                            </form>
+                                        </div>
+                                        <div style="display: flex; justify-content: center; margin-top: 10px;">
+                                            <button id="create-account-button" type="button"
+                                                class="btn btn-info btn-lg">
                                                 <b>Create Account</b>
                                             </button>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -705,8 +734,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@5.3.3/jtsage-datebox.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@5.3.3/jtsage-datebox.min.js"></script> -->
 
 </body>
 
