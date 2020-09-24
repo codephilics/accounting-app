@@ -277,82 +277,6 @@ $("#debit-submit").on("click", function (event) {
 
   
 
-  // var row = "<tr class ='debit-tr'>";
-
-  // var debitSL = $(".debit-tr").length;
-  // function updateDebitSL(currentDebitSL) {
-  //   currentDebitSL = debitSL;
-
-  //   return currentDebitSL;
-  // }
-  // row +=
-  //   "<td>" +
-  //   updateDebitSL(debitSL) +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitCompany +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitCO_CO +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitSite +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitPerson_Car +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitDepartment +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitCause +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitCarrier +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitRefer +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitAmount +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitOtherCost +
-  //   "</td>" +
-  //   "<td class='debit-total-sum'>" +
-  //   debitTotal +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitDena +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitPaona +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitVara +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitWarning +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitNote +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitEditor +
-  //   "</td>" +
-  //   "<td>" +
-  //   debitFile +
-  //   "</td>" +
-  //   "<td>" +
-  //   "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
-  //   "<i class='fas fa-trash-alt remove-item-debit' style='padding-left: 8px; cursor: pointer;'></i>" +
-  //   "</td>";
-  // row += "</tr>";
-
-  // console.debug(row);
-
-  // $(".debit-table .debit-tbody").append(row);
-
   // var total = 0;
   // var ISAresult = 0;
   // var ISAvalue = parseFloat($(".ISA-value-today").text());
@@ -398,8 +322,10 @@ $("#credit-submit").on("click", function (event) {
   var creditAmount = $("#crAmount").val();
   var creditOtherCost = $("#crOther-Cost").val();
   var creditTotal = $("#crTotal").val();
-  var creditDue = $("#crDue").val();
-  var creditInvest = $("#crInvest").val();
+  var creditDena = $("#crDena").val();
+  var creditPaona = $("#crPaona").val();
+  var creditVara = $("#crVara").val();
+  var creditWarning = $("#crWarning").val();
   var creditNote = $("#crNote").val();
   var creditEditor = $("#crEdited-By").val();
   var creditFile = $("#credit-file-upload").val();
@@ -444,10 +370,16 @@ $("#credit-submit").on("click", function (event) {
     creditTotal +
     "</td>" +
     "<td>" +
-    creditDue +
+    creditDena +
     "</td>" +
     "<td>" +
-    creditInvest +
+    creditPaona +
+    "</td>" +
+    "<td>" +
+    creditVara +
+    "</td>" +
+    "<td>" +
+    creditWarning +
     "</td>" +
     "<td>" +
     creditNote +
