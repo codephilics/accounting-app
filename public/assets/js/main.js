@@ -578,58 +578,63 @@ $("#create-account-button").on("click", function (event) {
   var accountPicture = $("#imagePreview").val();
   var accountCreator = $("#acCreated-By").val();
 
-  var row = "<tr class ='add-account-tr'>";
-  var accountSL = $(".add-account-tr").length;
-  row +=
-    "<td>" +
-    accountSL +
-    "</td>" +
-    "<td>" +
-    accountFullname +
-    "</td>" +
-    "<td>" +
-    accountID +
-    "</td>" +
-    "<td>" +
-    accountNID +
-    "</td>" +
-    "<td>" +
-    accountBloodGroup +
-    "</td>" +
-    "<td>" +
-    accountFatersName +
-    "</td>" +
-    "<td>" +
-    accountMothersName +
-    "</td>" +
-    "<td>" +
-    accountPermanentAddress +
-    "</td>" +
-    "<td>" +
-    accountPresentAddress +
-    "</td>" +
-    "<td>" +
-    accountOpeningDate +
-    "</td>" +
-    "<td>" +
-    accountClosingDate +
-    "</td>" +
-    "<td>" +
-    accountNote +
-    "</td>" +
-    "<td>" +
-    "<img class='profileCellImage' width='100%' height='50%' src='http://dummyimage.com/68x68/000/fff' />" +
-    "</td>" +
-    "<td>" +
-    accountCreator +
-    "</td>" +
-    "<td>" +
-    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt remove-item-account' style='padding-left: 8px; cursor: pointer;'></i>" +
-    "</td>";
-  row += "</tr>";
 
-  console.debug(row);
+  
 
-  $(".add-account-table .add-account-tbody").append(row);
+
+
+  // var row = "<tr class ='add-account-tr'>";
+  // var accountSL = $(".add-account-tr").length;
+  // row +=
+  //   "<td>" +
+  //   accountSL +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountFullname +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountID +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountNID +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountBloodGroup +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountFatersName +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountMothersName +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountPermanentAddress +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountPresentAddress +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountOpeningDate +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountClosingDate +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountNote +
+  //   "</td>" +
+  //   "<td>" +
+  //   "<img class='profileCellImage' width='100%' height='50%' src='http://dummyimage.com/68x68/000/fff' />" +
+  //   "</td>" +
+  //   "<td>" +
+  //   accountCreator +
+  //   "</td>" +
+  //   "<td>" +
+  //   "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+  //   "<i class='fas fa-trash-alt remove-item-account' style='padding-left: 8px; cursor: pointer;'></i>" +
+  //   "</td>";
+  // row += "</tr>";
+
+  // console.debug(row);
+
+  // $(".add-account-table .add-account-tbody").append(row);
 });

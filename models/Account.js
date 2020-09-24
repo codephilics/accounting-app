@@ -85,6 +85,10 @@ const accountSchema = new mongoose.Schema({
         min:2,
         max:1024
     },
+    date: {
+        type: Date,
+        default: Date.now 
+    }
 
 });
 
