@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 
 // register validation
-const debitFormValidation = Joi.object({
+const creditFormValidation = Joi.object({
     company: Joi.string().min(1).required(),
     coco: Joi.string().min(1).required(),
     site: Joi.string().min(1).required(),
@@ -13,14 +13,12 @@ const debitFormValidation = Joi.object({
     amount: Joi.number().required(), 
     otherCost: Joi.number().required(),
     total: Joi.number().required(),
-    dena: Joi.number().required(),
-    paona: Joi.number().required(),
-    vara: Joi.number().required(),
-    warning: Joi.optional(),
+    due: Joi.number().required(),
+    invest: Joi.number().required(),
     note: Joi.optional(),
     editedBy: Joi.string().min(1).required(),
     file_url: Joi.optional(),
     date: Joi.date()
 });
 
-module.exports.debitFormValidation = debitFormValidation;
+module.exports.creditFormValidation = creditFormValidation;

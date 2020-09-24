@@ -177,7 +177,7 @@ function  showDebitData(debitData) {
     debitData['editedBy'] +
     "</td>" +
     "<td>" +
-    debitData['image_url'] +
+    debitData['file_url'] +
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
@@ -262,7 +262,7 @@ $("#debit-submit").on("click", function (event) {
       "warning": debitWarning,
       "note": debitNote,
       "editedBy": debitEditor,
-      "image_url": "https://avatars3.githubusercontent.com/u/21359492?s=60&v=4",
+      "file_url": "https://avatars3.githubusercontent.com/u/21359492?s=60&v=4",
       "date": "12/11/2020"
     }),
   };

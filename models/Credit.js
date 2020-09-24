@@ -1,0 +1,94 @@
+const mongoose = require("mongoose");
+
+const creditSchema = new mongoose.Schema({
+    company: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    coco: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    site: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    person: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    department: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    cause: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    carrier: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    referBy: {
+        type: String,
+        required: true,
+        min:1,
+        max:255
+    },
+    amount: {
+        type: Number,
+        required: true,
+    },
+    otherCost: {
+        type: Number,
+        required: true,
+    },
+    total: {
+        type: Number,
+        required: true,
+    },
+    due: {
+        type: Number,
+        required: true,
+    },
+    invest: {
+        type: Number,
+        required: true,
+    },
+    note: {
+        type: String,
+        min:1,
+        max:1024
+    },
+    editedBy: {
+        type: String,
+        required: true,
+        min:1,
+        max:1024
+    },
+    file_url: {
+        type: String,
+        min:1,
+        max:1024
+    },
+    date: {
+        type: Date,
+        default: Date.now 
+    }
+});
+
+module.exports = mongoose.model('credit', creditSchema);

@@ -3,6 +3,7 @@ const express = require('express');
 const indexRoutes = require("./routes/index");
 const authRoute = require('./routes/auth');
 const debitRoute = require('./routes/debit.route');
+const creditRoute = require('./routes/credit.route');
 const dotenv = require('dotenv'); 
 const mongoose = require('mongoose');
 // const verify = require('./routes/verifyToken');
@@ -35,6 +36,7 @@ app.use(express.static(__dirname + '/public'));
 // Custom routes
 app.use('/auth',authRoute);
 app.use('/debit',debitRoute);
+app.use('/credit',creditRoute);
 
 app.use("/index", indexRoutes);
 

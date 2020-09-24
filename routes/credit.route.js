@@ -1,16 +1,16 @@
 const router = require('express').Router();
-const Debit = require('../models/Debit');
+const Credit = require('../models/Credit');
 const verify = require('./verifyToken');
-const {debitFormValidation} = require('../validations/debit.validation');
+const {creditFormValidation} = require('../validations/credit.validation');
 
 
 router.post("/add",verify, async (req, res) => {
     
-    const {error} = debitFormValidation.validate(req.body);
+    const {error} = creditFormValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
     
     try{
-        const debit = new Debit({
+        const credit = new Credit({
             company: req.body.company,
             coco: req.body.coco,
             site: req.body.site,
@@ -22,17 +22,15 @@ router.post("/add",verify, async (req, res) => {
             amount: req.body.amount, 
             otherCost: req.body.otherCost,
             total: req.body.total,
-            dena: req.body.dena,
-            paona: req.body.paona,
-            vara: req.body.vara,
-            warning: req.body.warning,
+            due: req.body.due,
+            invest: req.body.invest,
             note: req.body.note,
             editedBy: req.body.editedBy,
             file_url: req.body.file_url,
             date: req.body.date
         });
-        const saveDebitForm = await debit.save();
-        res.send(saveDebitForm);
+        const saveCreditForm = await credit.save();
+        res.send(saveCreditForm);
    }catch(err){
         console.log(err);
         res.status(400).send(err);
@@ -43,8 +41,8 @@ router.post("/add",verify, async (req, res) => {
 
 router.get("/get",verify, async (req, res) => {
     try{
-        const debitList = await Debit.find({});
-        res.send(debitList);
+        const creditList = await Credit.find({});
+        res.send(creditList);
    }catch(err){
         console.log(err);
         res.status(400).send(err);
