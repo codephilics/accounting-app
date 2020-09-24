@@ -213,6 +213,9 @@ function debitDataShowAPI(){
 }
 debitDataShowAPI();
 
+
+
+
 // debit table insertation
 $("#debit-submit").on("click", function (event) {
   event.preventDefault();
@@ -306,6 +309,107 @@ $("#debit-submit").on("click", function (event) {
 });
 
 
+function  showCreditData(creditData) {
+  
+  var row = "<tr class ='credit-tr'>";
+  var creditSL = $(".credit-tr").length;
+  row +=
+    "<td>" +
+    creditData['_id'] +
+    "</td>" +
+    "<td>" +
+    creditData['company'] +
+    "</td>" +
+    "<td>" +
+    creditData['coco'] +
+    "</td>" +
+    "<td>" +
+    creditData['site'] +
+    "</td>" +
+    "<td>" +
+    creditData['person'] +
+    "</td>" +
+    "<td>" +
+    creditData['department'] +
+    "</td>" +
+    "<td>" +
+    creditData['cause'] +
+    "</td>" +
+    "<td>" +
+    creditData['carrier'] +
+    "</td>" +
+    "<td>" +
+    creditData['referBy'] +
+    "</td>" +
+    "<td>" +
+    creditData['amount'] +
+    "</td>" +
+    "<td>" +
+    creditData['otherCost'] +
+    "</td>" +
+    "<td class='credit-total-sum'>" +
+    creditData['total'] +
+    "</td>" +
+    "<td>" +
+    creditData['dena'] +
+    "</td>" +
+    "<td>" +
+    creditData['paona'] +
+    "</td>" +
+    "<td>" +
+    creditData['vara'] +
+    "</td>" +
+    "<td>" +
+    creditData['warning'] +
+    "</td>" +
+    "<td>" +
+    creditData['note'] +
+    "</td>" +
+    "<td>" +
+    creditData['editedBy'] +
+    "</td>" +
+    "<td>" +
+    creditData['file_url'] +
+    "</td>" +
+    "<td>" +
+    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt remove-item-credit' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "</td>";
+  row += "</tr>";
+
+  console.debug(row);
+
+  $(".credit-table .credit-tbody").append(row);
+}
+
+
+
+
+
+function creditDataShowAPI(){
+  var settings = {
+    "url": "/credit/get",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": sessionStorage.getItem('token'),
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+
+    for(var i=0;i<response.length; i++){
+      showCreditData(response[i]);
+      console.log(response[i]);
+    }
+    
+  });
+}
+creditDataShowAPI();
+
+
 
 // credit table insertation
 
@@ -330,91 +434,132 @@ $("#credit-submit").on("click", function (event) {
   var creditEditor = $("#crEdited-By").val();
   var creditFile = $("#credit-file-upload").val();
 
-  var row = "<tr class ='credit-tr'>";
-  var creditSL = $(".credit-tr").length;
-  row +=
-    "<td>" +
-    creditSL +
-    "</td>" +
-    "<td>" +
-    creditCompany +
-    "</td>" +
-    "<td>" +
-    creditCO_CO +
-    "</td>" +
-    "<td>" +
-    creditSite +
-    "</td>" +
-    "<td>" +
-    creditPerson_Car +
-    "</td>" +
-    "<td>" +
-    creditDepartment +
-    "</td>" +
-    "<td>" +
-    creditCause +
-    "</td>" +
-    "<td>" +
-    creditCarrier +
-    "</td>" +
-    "<td>" +
-    creditRefer +
-    "</td>" +
-    "<td>" +
-    creditAmount +
-    "</td>" +
-    "<td>" +
-    creditOtherCost +
-    "</td>" +
-    "<td class='credit-total-sum'>" +
-    creditTotal +
-    "</td>" +
-    "<td>" +
-    creditDena +
-    "</td>" +
-    "<td>" +
-    creditPaona +
-    "</td>" +
-    "<td>" +
-    creditVara +
-    "</td>" +
-    "<td>" +
-    creditWarning +
-    "</td>" +
-    "<td>" +
-    creditNote +
-    "</td>" +
-    "<td>" +
-    creditEditor +
-    "</td>" +
-    "<td>" +
-    creditFile +
-    "</td>" +
-    "<td>" +
-    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt remove-item-credit' style='padding-left: 8px; cursor: pointer;'></i>" +
-    "</td>";
-  row += "</tr>";
 
-  console.debug(row);
 
-  $(".credit-table .credit-tbody").append(row);
+  var settings = {
+    "url": "/credit/add",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": sessionStorage.getItem('token')
+    },
+    "data": JSON.stringify({
+      "company": creditCompany,
+      "coco": creditCO_CO,
+      "site": creditSite,
+      "person": creditPerson_Car,
+      "department": creditDepartment,
+      "cause": creditCause,
+      "carrier": creditCarrier,
+      "referBy": creditRefer,
+      "amount": creditAmount, 
+      "otherCost": creditOtherCost ,
+      "total": creditTotal,
+      "dena": creditDena,
+      "paona": creditPaona,
+      "vara": creditVara,
+      "warning": creditWarning,
+      "note": creditNote,
+      "editedBy": creditEditor,
+      "file_url": "https://avatars3.githubusercontent.com/u/21359492?s=60&v=4",
+      "date": "12/11/2020"
+    }),
+  };
 
-  var creditTotal = 0;
-  var ISAresult = 0;
-  var ISAvalue = parseFloat($(".ISA-value-today").text());
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    creditDataShowAPI();
+  })
+  .fail(function (xhr, textStatus, errorThrown) {
+    console.log(textStatus);
+  });;
 
-  var creditTableSum = $(".credit-total-sum");
-  for (var i = 0; i < creditSL; i++) {
-    creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
-    ISAresult = ISAvalue + parseFloat(creditTableSum[i].innerHTML);
-  }
-  $("#credit-sum").html(creditTotal);
+  // var row = "<tr class ='credit-tr'>";
+  // var creditSL = $(".credit-tr").length;
+  // row +=
+  //   "<td>" +
+  //   creditSL +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditCompany +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditCO_CO +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditSite +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditPerson_Car +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditDepartment +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditCause +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditCarrier +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditRefer +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditAmount +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditOtherCost +
+  //   "</td>" +
+  //   "<td class='credit-total-sum'>" +
+  //   creditTotal +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditDena +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditPaona +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditVara +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditWarning +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditNote +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditEditor +
+  //   "</td>" +
+  //   "<td>" +
+  //   creditFile +
+  //   "</td>" +
+  //   "<td>" +
+  //   "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+  //   "<i class='fas fa-trash-alt remove-item-credit' style='padding-left: 8px; cursor: pointer;'></i>" +
+  //   "</td>";
+  // row += "</tr>";
 
-  console.log(ISAvalue);
-  $(".ISA-value-today").html(ISAresult);
+  // console.debug(row);
 
-  console.log($(".debit-amount-sum"));
+  // $(".credit-table .credit-tbody").append(row);
+
+  // var creditTotal = 0;
+  // var ISAresult = 0;
+  // var ISAvalue = parseFloat($(".ISA-value-today").text());
+
+  // var creditTableSum = $(".credit-total-sum");
+  // for (var i = 0; i < creditSL; i++) {
+  //   creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
+  //   ISAresult = ISAvalue + parseFloat(creditTableSum[i].innerHTML);
+  // }
+  // $("#credit-sum").html(creditTotal);
+
+  // console.log(ISAvalue);
+  // $(".ISA-value-today").html(ISAresult);
+
+  // console.log($(".debit-amount-sum"));
 });
 
 $("#create-account-button").on("click", function (event) {

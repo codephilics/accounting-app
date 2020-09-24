@@ -61,13 +61,22 @@ const creditSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    due: {
+    dena: {
         type: Number,
         required: true,
     },
-    invest: {
+    paona: {
         type: Number,
         required: true,
+    },
+    vara: {
+        type: Number,
+        required: true,
+    },
+    warning: {
+        type: String,
+        min:1,
+        max:1024
     },
     note: {
         type: String,
