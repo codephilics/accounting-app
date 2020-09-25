@@ -192,21 +192,23 @@ function  showDebitData(debitData) {
 
 function debitDataShowAPI(){
   var settings = {
-    "url": "/debit/get",
+    "url": "/entry/get",
     "method": "GET",
     "timeout": 0,
     "headers": {
       "Content-Type": "application/json",
       "Authorization": sessionStorage.getItem('token'),
     },
+    "data": {
+      "type": "Debit"
+    },
   };
   
   $.ajax(settings).done(function (response) {
     console.log(response);
-
+    $("tr").remove(".debit-tr");
     for(var i=0;i<response.length; i++){
       showDebitData(response[i]);
-      console.log(response[i]);
     }
     
   });
@@ -240,7 +242,7 @@ $("#debit-submit").on("click", function (event) {
   var date = "12/11/2020";
   
   var settings = {
-    "url": "/debit/add",
+    "url": "/entry/add",
     "method": "POST",
     "timeout": 0,
     "headers": {
@@ -248,6 +250,7 @@ $("#debit-submit").on("click", function (event) {
       "Authorization": sessionStorage.getItem('token')
     },
     "data": JSON.stringify({
+      "type": "Debit",
       "company": debitCompany,
       "coco": debitCO_CO,
       "site": debitSite,
@@ -265,8 +268,8 @@ $("#debit-submit").on("click", function (event) {
       "warning": debitWarning,
       "note": debitNote,
       "editedBy": debitEditor,
-      "file_url": "https://avatars3.githubusercontent.com/u/21359492?s=60&v=4",
-      "date": "12/11/2020"
+      "file_url": debitFile,
+      "date": date
     }),
   };
   
@@ -388,21 +391,23 @@ function  showCreditData(creditData) {
 
 function creditDataShowAPI(){
   var settings = {
-    "url": "/credit/get",
+    "url": "/entry/get",
     "method": "GET",
     "timeout": 0,
     "headers": {
       "Content-Type": "application/json",
       "Authorization": sessionStorage.getItem('token'),
     },
+    "data": {
+      "type": "Credit"
+    },
   };
   
   $.ajax(settings).done(function (response) {
     console.log(response);
-
+    $("tr").remove(".credit-tr");
     for(var i=0;i<response.length; i++){
       showCreditData(response[i]);
-      console.log(response[i]);
     }
     
   });
@@ -437,7 +442,7 @@ $("#credit-submit").on("click", function (event) {
 
 
   var settings = {
-    "url": "/credit/add",
+    "url": "/entry/add",
     "method": "POST",
     "timeout": 0,
     "headers": {
@@ -445,6 +450,7 @@ $("#credit-submit").on("click", function (event) {
       "Authorization": sessionStorage.getItem('token')
     },
     "data": JSON.stringify({
+      "type": "Credit",
       "company": creditCompany,
       "coco": creditCO_CO,
       "site": creditSite,
@@ -462,7 +468,7 @@ $("#credit-submit").on("click", function (event) {
       "warning": creditWarning,
       "note": creditNote,
       "editedBy": creditEditor,
-      "file_url": "https://avatars3.githubusercontent.com/u/21359492?s=60&v=4",
+      "file_url": creditFile,
       "date": "12/11/2020"
     }),
   };
@@ -473,77 +479,9 @@ $("#credit-submit").on("click", function (event) {
   })
   .fail(function (xhr, textStatus, errorThrown) {
     console.log(textStatus);
-  });;
+  });
 
-  // var row = "<tr class ='credit-tr'>";
-  // var creditSL = $(".credit-tr").length;
-  // row +=
-  //   "<td>" +
-  //   creditSL +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditCompany +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditCO_CO +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditSite +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditPerson_Car +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditDepartment +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditCause +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditCarrier +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditRefer +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditAmount +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditOtherCost +
-  //   "</td>" +
-  //   "<td class='credit-total-sum'>" +
-  //   creditTotal +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditDena +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditPaona +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditVara +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditWarning +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditNote +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditEditor +
-  //   "</td>" +
-  //   "<td>" +
-  //   creditFile +
-  //   "</td>" +
-  //   "<td>" +
-  //   "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-  //   "<i class='fas fa-trash-alt remove-item-credit' style='padding-left: 8px; cursor: pointer;'></i>" +
-  //   "</td>";
-  // row += "</tr>";
-
-  // console.debug(row);
-
-  // $(".credit-table .credit-tbody").append(row);
+  
 
   // var creditTotal = 0;
   // var ISAresult = 0;
@@ -562,6 +500,87 @@ $("#credit-submit").on("click", function (event) {
   // console.log($(".debit-amount-sum"));
 });
 
+function  showAccountData(accountData) {
+  var row = "<tr class ='add-account-tr'>";
+  var accountSL = $(".add-account-tr").length;
+  row +=
+  
+    "<td>" +
+    accountSL +
+    "</td>" +
+    "<td>" +
+    accountData['full_name'] +
+    "</td>" +
+    "<td>" +
+    accountData['id'] +
+    "</td>" +
+    "<td>" +
+    accountData['nid'] +
+    "</td>" +
+    "<td>" +
+    accountData['blood_group'] +
+    "</td>" +
+    "<td>" +
+    accountData['father_name'] +
+    "</td>" +
+    "<td>" +
+    accountData['mother_name'] +
+    "</td>" +
+    "<td>" +
+    accountData['parmanent_address'] +
+    "</td>" +
+    "<td>" +
+    accountData['present_address'] +
+    "</td>" +
+    "<td>" +
+    accountData['opening_date'] +
+    "</td>" +
+    "<td>" +
+    accountData['closing_date'] +
+    "</td>" +
+    "<td>" +
+    accountData['note'] +
+    "</td>" +
+    "<td>" +
+    accountData['picture_url'] +
+    "</td>" +
+    "<td>" +
+    accountData['created_by'] +
+    "</td>" +
+    "<td>" +
+    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt remove-item-account' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "</td>";
+  row += "</tr>";
+
+  console.debug(row);
+
+  $(".add-account-table .add-account-tbody").append(row);
+}
+
+accountDataShowAPI();
+
+function accountDataShowAPI(){
+  var settings = {
+    "url": "/account/get",
+    "method": "GET",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": sessionStorage.getItem('token'),
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    $("tr").remove(".add-account-tr");
+    for(var i=0;i<response.length; i++){
+      showAccountData(response[i]);
+    }
+    
+  });
+}
+
 $("#create-account-button").on("click", function (event) {
   event.preventDefault();
   var accountFullname = $("#acFull-Name").val();
@@ -578,63 +597,142 @@ $("#create-account-button").on("click", function (event) {
   var accountPicture = $("#imagePreview").val();
   var accountCreator = $("#acCreated-By").val();
 
+  console.log("Full name: "+accountFullname);
 
+  var settings = {
+    "url": "/account/add",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Content-Type": "application/json",
+      "Authorization": sessionStorage.getItem("token"),
+    },
+    "data": JSON.stringify({
+        "full_name": accountFullname,
+        "id": accountID,
+        "nid": accountNID,
+        "blood_group": accountBloodGroup,
+        "father_name": accountFatersName,
+        "mother_name": accountMothersName,
+        "parmanent_address": accountPermanentAddress,
+        "present_address": accountPresentAddress,
+        "opening_date": accountOpeningDate,
+        "closing_date": accountClosingDate,
+        "note": accountNote,
+        "picture_url": accountPicture,
+        "created_by": accountCreator,
+        "date": "12/11/2020"
+    }),
+  };
   
-
-
-
-  // var row = "<tr class ='add-account-tr'>";
-  // var accountSL = $(".add-account-tr").length;
-  // row +=
-  //   "<td>" +
-  //   accountSL +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountFullname +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountID +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountNID +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountBloodGroup +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountFatersName +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountMothersName +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountPermanentAddress +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountPresentAddress +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountOpeningDate +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountClosingDate +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountNote +
-  //   "</td>" +
-  //   "<td>" +
-  //   "<img class='profileCellImage' width='100%' height='50%' src='http://dummyimage.com/68x68/000/fff' />" +
-  //   "</td>" +
-  //   "<td>" +
-  //   accountCreator +
-  //   "</td>" +
-  //   "<td>" +
-  //   "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-  //   "<i class='fas fa-trash-alt remove-item-account' style='padding-left: 8px; cursor: pointer;'></i>" +
-  //   "</td>";
-  // row += "</tr>";
-
-  // console.debug(row);
-
-  // $(".add-account-table .add-account-tbody").append(row);
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    accountDataShowAPI();
+  })
+  .fail(function (xhr, textStatus, errorThrown) {
+    console.log(textStatus);
+  });
 });
+
+
+
+//Search API
+
+function showSearchData(searchData) {
+  var row = "<tr class ='search-data-tr'>";
+  var searchSL = $(".search-data-tr").length;
+  row +=
+  
+    "<td>" +
+    searchSL +
+    "</td>" +
+    "<td>" +
+    searchData['type'] +
+    "</td>" +
+    "<td>" +
+    searchData['company'] +
+    "</td>" +
+    "<td>" +
+    searchData['coco'] +
+    "</td>" +
+    "<td>" +
+    searchData['site'] +
+    "</td>" +
+    "<td>" +
+    searchData['person'] +
+    "</td>" +
+    "<td>" +
+    searchData['department'] +
+    "</td>" +
+    "<td>" +
+    searchData['cause'] +
+    "</td>" +
+    "<td>" +
+    searchData['carrier'] +
+    "</td>" +
+    "<td>" +
+    searchData['referBy'] +
+    "</td>" +
+    "<td>" +
+    searchData['amount'] +
+    "</td>" +
+    "<td>" +
+    searchData['otherCost'] +
+    "</td>" +
+    "<td class='credit-total-sum'>" +
+    searchData['total'] +
+    "</td>" +
+    "<td>" +
+    searchData['dena'] +
+    "</td>" +
+    "<td>" +
+    searchData['paona'] +
+    "</td>" +
+    "<td>" +
+    searchData['vara'] +
+    "</td>" +
+    "<td>" +
+    searchData['vara'] + 
+    "</td>" +
+    "<td>" +
+    searchData['warning'] +
+    "</td>" +
+    "<td>" +
+    searchData['note'] +
+    "</td>" +
+    "<td>" +
+    searchData['file_url'] +
+    "</td>" +
+    "<td>" +
+    searchData['editedBy'] +
+    "</td>";
+  row += "</tr>";
+
+  console.debug(row);
+
+  $(".search-data-table .search-data-tbody").append(row);
+}
+
+
+function showSearchDataAPI() {
+  
+var settings = {
+  "url": "/entry/getall",
+  "method": "GET",
+  "timeout": 0,
+  "headers": {
+    "Content-Type": "application/json",
+    "Authorization": sessionStorage.getItem("token"),
+  },
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+  $("tr").remove(".search-data-tr");
+    for(var i=0;i<response.length; i++){
+      showSearchData(response[i]);
+    }
+});
+}
+
+showSearchDataAPI();

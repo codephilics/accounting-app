@@ -1,7 +1,9 @@
 const Joi = require('@hapi/joi');
 
 // register validation
-const debitFormValidation = Joi.object({
+const entryFormValidation = Joi.object({
+    _id: Joi.optional(),
+    type: Joi.string().valid("Debit","Credit").required(),
     company: Joi.string().min(1).required(),
     coco: Joi.string().min(1).required(),
     site: Joi.string().min(1).required(),
@@ -23,4 +25,4 @@ const debitFormValidation = Joi.object({
     date: Joi.date()
 });
 
-module.exports.debitFormValidation = debitFormValidation;
+module.exports.entryFormValidation = entryFormValidation;

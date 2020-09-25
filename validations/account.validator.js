@@ -2,6 +2,7 @@ const Joi = require('@hapi/joi');
 
 // register validation
 const accountFormValidation = Joi.object({
+    _id: Joi.optional(),
     full_name: Joi.string().min(1).required(),
     id: Joi.string().min(1).required(),
     nid: Joi.string().min(1).required(),

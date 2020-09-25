@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 
-const creditSchema = new mongoose.Schema({
+const entrySchema = new mongoose.Schema({
+    
+    type: {
+        type: String,
+        required: true,
+        min:1,
+        max: 255
+    },
     company: {
         type: String,
         required: true,
@@ -98,6 +105,7 @@ const creditSchema = new mongoose.Schema({
         type: Date,
         default: Date.now 
     }
+
 });
 
-module.exports = mongoose.model('credit', creditSchema);
+module.exports = mongoose.model('Entry', entrySchema);

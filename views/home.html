@@ -316,7 +316,7 @@
                                               </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button type="button" id="debit-submit" class="btn btn-info btn-lg"
+                                            <button data-dismiss="modal" type="button" id="debit-submit" class="btn btn-info btn-lg"
                                                 name='debit-append' style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
@@ -450,7 +450,7 @@
                                               </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button type="button" id="credit-submit" class="btn btn-info btn-lg"
+                                            <button data-dismiss="modal" type="button" id="credit-submit" class="btn btn-info btn-lg"
                                                 style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
@@ -562,7 +562,7 @@
                             </select>
                         </div>
                         <div>
-                            <input class="select select-fancy" style="width: 120px; height: 31px; padding-left: 8px; font-size: 12px;" type="text" id="acFull-Name" class="input-field" placeholder="Amount">
+                            <input class="select select-fancy" style="width: 120px; height: 31px; padding-left: 8px; font-size: 12px;" type="text" class="input-field" placeholder="Amount">
                         </div>
                         <div>
                             <button class="search-portal-search-button">Search</button>
@@ -570,7 +570,7 @@
                     </div>
 
                     <div class="row" style="background-color: white; height: 420px; margin: 15px; overflow-x: scroll;">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover search-data-table">
                         <thead>
                             <tr>
                                 <th class="th-sm">SL
@@ -617,17 +617,14 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="add-account-tbody">
-                            <tr class="add-account-tr">
+                        <tbody class="search-data-tbody">
+                            <tr class="search-data-tr">
                             </tr>
                         </tbody>
                     </table>
                     </div>
                 </div>
-
             </div>
-
-
 
 
             <div class="panel" id="three-panel">
@@ -774,7 +771,7 @@
                                             </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top: 10px;">
-                                            <button id="create-account-button" type="button"
+                                            <button data-dismiss="modal" id="create-account-button" type="button"
                                                 class="btn btn-info btn-lg">
                                                 <b>Create Account</b>
                                             </button>
