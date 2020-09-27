@@ -124,7 +124,7 @@
 
                     <table class="table table-bordered table-hover credit-table">
                         <thead>
-                            
+
                             <tr>
                                 <th class="th-sm">SL
                                 </th>
@@ -191,7 +191,7 @@
                                 <th colspan='11' class='text-right'>Sum</th>
                                 <th id="credit-sum">-</th>
                                 <th>&nbsp;</th>
-                            </tr>    
+                            </tr>
                         </tfoot>
                     </table>
                 </div>
@@ -311,13 +311,15 @@
                                         </div>
                                         <div id="login-form">
                                             <form method="post" enctype="multipart/form-data" action="">
-                                                <span id="debit-filename" style="color: rgb(131, 130, 130);">Select your file</span>
-                                                  <label for="debit-file-upload">Browse<input type="file" id="debit-file-upload"></label>
-                                              </form>
+                                                <span id="debit-filename" style="color: rgb(131, 130, 130);">Select your
+                                                    file</span>
+                                                <label for="debit-file-upload">Browse<input type="file"
+                                                        id="debit-file-upload"></label>
+                                            </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button data-dismiss="modal" type="button" id="debit-submit" class="btn btn-info btn-lg"
-                                                name='debit-append' style="margin: .5%;">
+                                            <button data-dismiss="modal" type="button" id="debit-submit"
+                                                class="btn btn-info btn-lg" name='debit-append' style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
                                         </div>
@@ -413,14 +415,12 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crPaona" class="input-field"
-                                                    placeholder="Paona">
+                                                <input type="text" id="crPaona" class="input-field" placeholder="Paona">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crVara" class="input-field"
-                                                    placeholder="Vara">
+                                                <input type="text" id="crVara" class="input-field" placeholder="Vara">
                                             </form>
                                         </div>
                                     </div>
@@ -445,13 +445,15 @@
                                         </div>
                                         <div id="login-form">
                                             <form method="post" enctype="multipart/form-data" action="">
-                                                <span id="credit-filename" style="color: rgb(131, 130, 130);">Select your file</span>
-                                                  <label for="credit-file-upload">Browse<input type="file" id="credit-file-upload"></label>
-                                              </form>
+                                                <span id="credit-filename" style="color: rgb(131, 130, 130);">Select
+                                                    your file</span>
+                                                <label for="credit-file-upload">Browse<input type="file"
+                                                        id="credit-file-upload"></label>
+                                            </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button data-dismiss="modal" type="button" id="credit-submit" class="btn btn-info btn-lg"
-                                                style="margin: .5%;">
+                                            <button data-dismiss="modal" type="button" id="credit-submit"
+                                                class="btn btn-info btn-lg" style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
                                         </div>
@@ -471,8 +473,9 @@
                     <div class="row" style="padding-bottom: 15px; display: flex; justify-content: center;">
                         <div>
                             <form>
-                                <input style="margin-top: 15px; margin-bottom: 15px; padding-left: 10px;" type="password" name="password"
-                                    class="input-field password-input" placeholder="Password" />
+                                <input style="margin-top: 15px; margin-bottom: 15px; padding-left: 10px;"
+                                    type="password" name="password" class="input-field password-input"
+                                    placeholder="Password" />
                             </form>
                         </div>
                     </div>
@@ -506,63 +509,65 @@
                     </div>
                     <div class="row" style="width: 100%; margin-top: 15px; margin-left: 15px;">
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="type-filter" class="form-control">
                                 <option style="display:none">Type</option>
                                 <option>Debit</option>
                                 <option>Credit</option>
                             </select>
                         </div>
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="site-filter" class="form-control">
                                 <option style="display:none">Site</option>
-                                <option>Gudam</option>
-                                <option>STC</option>
+                                <option>Sad</option>
+                                <option>sa</option>
                             </select>
                         </div>
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="person-car-filter" class="form-control">
                                 <option style="display:none">Person/Car Who will Get</option>
-                                <option>Gudam</option>
-                                <option>STC</option>
+                                <option>Sad</option>
+                                <option>sa</option>
                             </select>
                         </div>
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="department-filter" class="form-control">
                                 <option style="display:none">Department</option>
-                                <option>Gudam</option>
-                                <option>STC</option>
+                                <option>Sad</option>
+                                <option>sada</option>
                             </select>
                         </div>
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="cause-filter" class="form-control">
                                 <option style="display:none">Cause</option>
-                                <option>Gudam</option>
-                                <option>STC</option>
+                                <option>Sad</option>
+                                <option>sdasd</option>
                             </select>
                         </div>
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="carrier-driver-filter" class="form-control">
                                 <option style="display:none">Carrier/Driver</option>
-                                <option>Gudam</option>
-                                <option>STC</option>
+                                <option>Sad</option>
+                                <option>dfgd</option>
                             </select>
                         </div>
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="refer-filter" class="form-control">
                                 <option style="display:none">Refer By</option>
-                                <option>Gudam</option>
-                                <option>STC</option>
+                                <option>Sad</option>
+                                <option>asd</option>
                             </select>
                         </div>
                         <div class="select select-fancy select-fancy-noimage">
-                            <select>
+                            <select id="edited-filter" class="form-control">
                                 <option style="display:none">Edited By</option>
-                                <option>Gudam</option>
-                                <option>STC</option>
+                                <option>Sad</option>
+                                <option>fdg</option>
                             </select>
                         </div>
                         <div>
-                            <input class="select select-fancy" style="width: 120px; height: 31px; padding-left: 8px; font-size: 12px;" type="text" class="input-field" placeholder="Amount">
+                            <input id="amount-filter" class="select select-fancy" 
+                                style="width: 120px; height: 31px; padding-left: 8px; font-size: 12px;" type="text"
+                                class="input-field" placeholder="Amount">
                         </div>
                         <div>
                             <button class="search-portal-search-button">Search</button>
@@ -571,57 +576,57 @@
 
                     <div class="row" style="background-color: white; height: 420px; margin: 15px; overflow-x: scroll;">
                         <table class="table table-bordered table-hover search-data-table">
-                        <thead>
-                            <tr>
-                                <th class="th-sm">SL
-                                </th>
-                                <th class="th-sm">Type
-                                </th>
-                                <th class="th-sm">Company
-                                </th>
-                                <th class="th-sm">CO_CO
-                                </th>
-                                <th class="th-sm">Site
-                                </th>
-                                <th class="th-sm">Person/Car_Who_will_Get
-                                </th>
-                                <th class="th-sm">Department
-                                </th>
-                                <th class="th-sm">Cause
-                                </th>
-                                <th class="th-sm">Carrier/Driver
-                                </th>
-                                <th class="th-sm">Refer_By
-                                </th>
-                                <th class="th-sm">Amount
-                                </th>
-                                <th class="th-sm">Other_Cost
-                                </th>
-                                <th class="th-sm">Total
-                                </th>
-                                <th class="th-sm">Dena
-                                </th>
-                                <th class="th-sm">Paona
-                                </th>
-                                <th class="th-sm">Vara
-                                </th>
-                                <th class="th-sm">Balance
-                                </th>
-                                <th class="th-sm">Warning
-                                </th>
-                                <th class="th-sm">Note
-                                </th>
-                                <th class="th-sm">File
-                                </th>
-                                <th class="th-sm">Edited_By
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="search-data-tbody">
-                            <tr class="search-data-tr">
-                            </tr>
-                        </tbody>
-                    </table>
+                            <thead>
+                                <tr>
+                                    <th class="th-sm">SL
+                                    </th>
+                                    <th class="th-sm">Type
+                                    </th>
+                                    <th class="th-sm">Company
+                                    </th>
+                                    <th class="th-sm">CO_CO
+                                    </th>
+                                    <th class="th-sm">Site
+                                    </th>
+                                    <th class="th-sm">Person/Car_Who_will_Get
+                                    </th>
+                                    <th class="th-sm">Department
+                                    </th>
+                                    <th class="th-sm">Cause
+                                    </th>
+                                    <th class="th-sm">Carrier/Driver
+                                    </th>
+                                    <th class="th-sm">Refer_By
+                                    </th>
+                                    <th class="th-sm">Amount
+                                    </th>
+                                    <th class="th-sm">Other_Cost
+                                    </th>
+                                    <th class="th-sm">Total
+                                    </th>
+                                    <th class="th-sm">Dena
+                                    </th>
+                                    <th class="th-sm">Paona
+                                    </th>
+                                    <th class="th-sm">Vara
+                                    </th>
+                                    <th class="th-sm">Balance
+                                    </th>
+                                    <th class="th-sm">Warning
+                                    </th>
+                                    <th class="th-sm">Note
+                                    </th>
+                                    <th class="th-sm">File
+                                    </th>
+                                    <th class="th-sm">Edited_By
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="search-data-tbody">
+                                <tr class="search-data-tr">
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
