@@ -115,15 +115,10 @@ function  showDebitData(debitData) {
   
   var row = "<tr class ='debit-tr'>";
 
-  var debitSL = $(".debit-tr").length;
-  function updateDebitSL(currentDebitSL) {
-    currentDebitSL = debitSL;
-
-    return currentDebitSL;
-  }
+  var debitSL = $(".debit-tr").length+1;
   row +=
     "<td>" +
-    updateDebitSL(debitSL) +
+    debitSL +
     "</td>" +
     "<td>" +
     debitData['company'] +
@@ -181,7 +176,7 @@ function  showDebitData(debitData) {
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt remove-item-debit' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\""+debitData['_id']+"\")' style='padding-left: 8px; cursor: pointer;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -279,7 +274,7 @@ $("#debit-submit").on("click", function (event) {
   })
   .fail(function (xhr, textStatus, errorThrown) {
     console.log(textStatus);
-  });;
+  });
 
   
 
@@ -312,13 +307,50 @@ $("#debit-submit").on("click", function (event) {
 });
 
 
+function deleteEntryApi(id){
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      var settings = {
+        "url": "/entry/remove",
+        "method": "DELETE",
+        "timeout": 0,
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": sessionStorage.getItem('token')
+        },
+        "data": JSON.stringify({"id":id}),
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        console.log("Deleted Entry");
+        debitDataShowAPI();
+        creditDataShowAPI();
+      });
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
+  })
+}
+
 function  showCreditData(creditData) {
   
   var row = "<tr class ='credit-tr'>";
-  var creditSL = $(".credit-tr").length;
+  var creditSL = $(".credit-tr").length+1;
   row +=
     "<td>" +
-    creditData['_id'] +
+    creditSL +
     "</td>" +
     "<td>" +
     creditData['company'] +
@@ -376,7 +408,7 @@ function  showCreditData(creditData) {
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt remove-item-credit' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\""+creditData['_id']+"\")' style='padding-left: 8px; cursor: pointer;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -502,7 +534,7 @@ $("#credit-submit").on("click", function (event) {
 
 function  showAccountData(accountData) {
   var row = "<tr class ='add-account-tr'>";
-  var accountSL = $(".add-account-tr").length;
+  var accountSL = $(".add-account-tr").length+1;
   row +=
   
     "<td>" +
@@ -549,7 +581,7 @@ function  showAccountData(accountData) {
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt remove-item-account' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt' onClick = 'deleteAccountAPI(\""+accountData['_id']+"\")' style='padding-left: 8px; cursor: pointer;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -579,6 +611,42 @@ function accountDataShowAPI(){
     }
     
   });
+}
+
+function deleteAccountAPI(id) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      var settings = {
+        "url": "/account/remove",
+        "method": "DELETE",
+        "timeout": 0,
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": sessionStorage.getItem('token'),
+        },
+        "data": JSON.stringify({"id":id}),
+      };
+      
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        accountDataShowAPI();
+      });
+      Swal.fire(
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
+  })
+  
 }
 
 $("#create-account-button").on("click", function (event) {
@@ -638,9 +706,10 @@ $("#create-account-button").on("click", function (event) {
 
 //Search API
 
+
 function showSearchData(searchData) {
   var row = "<tr class ='search-data-tr'>";
-  var searchSL = $(".search-data-tr").length;
+  var searchSL = $(".search-data-tr").length+1;
   row +=
   
     "<td>" +
@@ -736,3 +805,6 @@ $.ajax(settings).done(function (response) {
 }
 
 showSearchDataAPI();
+
+
+
