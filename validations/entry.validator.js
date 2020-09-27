@@ -18,10 +18,9 @@ const entryFormValidation = Joi.object({
     dena: Joi.number().required(),
     paona: Joi.number().required(),
     vara: Joi.number().required(),
-    warning: Joi.optional(),
+    warning: Joi.number().required(),
     note: Joi.optional(),
     editedBy: Joi.string().min(1).required(),
-    file_url: Joi.optional(),
     date: Joi.date()
 });
 

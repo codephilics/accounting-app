@@ -72,12 +72,6 @@ const accountSchema = new mongoose.Schema({
         min:2,
         max:1024
     },
-    
-    picture_url: {
-        type: String,
-        min:2,
-        max:1024
-    },
 
     created_by: {
         type: String,

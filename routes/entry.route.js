@@ -44,8 +44,15 @@ router.post("/add",verify, async (req, res) => {
 
 router.get("/get",verify, async (req, res) => {
     try{
-        const entryList = await Entry.find({type: req.query.type});
-        res.send(entryList);
+        console.log(req.query.date);
+        if(!req.query.date){
+            const entryList = await Entry.find({type: req.query.type});
+            res.send(entryList);
+        }else{
+            let qDate = req.query.date;
+            const entryList = await Entry.find({type: req.query.type, date: new Date(qDate)});
+            res.send(entryList);
+        }
    }catch(err){
         console.log(err);
         res.status(400).send(err);

@@ -14,6 +14,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
 
+    <!-- Calender style-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -36,11 +42,18 @@
             <div class="panel" id="one-panel">
                 <h6 class="debitHeadline">Debit Portion</h6>
 
-                <div class="c-input-wrapper">
+                <!--<div class="c-input-wrapper">
                     <div class="o-input o-input--cut-right">
                         <input id="start_date" type="date" class="o-input__input">
                     </div>
+                </div> -->
+
+                <div class="wrapper">
+                    <label for="datepicker"><b>Date</b>
+                        <input class="entryDate" type="text" id="datepicker" placeholder="DD/MM/YYYY"  autocomplete="off" >
+                    </label>	
                 </div>
+
                 <div class="row debitPortionCell">
                     <table class="table table-bordered table-hover debit-table">
                         <thead>
@@ -506,6 +519,7 @@
                                 <input id="end_date" type="date" class="o-input__input">
                             </div>
                         </div>
+                        
                     </div>
                     <div class="row" style="width: 100%; margin-top: 15px; margin-left: 15px;">
                         <div class="select select-fancy select-fancy-noimage">
@@ -802,6 +816,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js"></script>
+    
+    <!-- Calender script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
     <!-- <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@5.3.3/jtsage-datebox.min.js"></script> -->
 
 </body>

@@ -81,7 +81,7 @@ const entrySchema = new mongoose.Schema({
         required: true,
     },
     warning: {
-        type: String,
+        type: Number,
         min:1,
         max:1024
     },
@@ -93,11 +93,6 @@ const entrySchema = new mongoose.Schema({
     editedBy: {
         type: String,
         required: true,
-        min:1,
-        max:1024
-    },
-    file_url: {
-        type: String,
         min:1,
         max:1024
     },
