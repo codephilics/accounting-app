@@ -1,6 +1,7 @@
 # Requirement
 * Nodejs14.9.0
 
+# Installation
 * Clone Project
 ```bash
 $ git clone git@gitlab.com:ibrahimnsu15/accounting-api-and-ui.git
