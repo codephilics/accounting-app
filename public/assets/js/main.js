@@ -1,203 +1,149 @@
 $(function () {
-  $('input,textarea').focus(function () {
-      $(this).data('placeholder', $(this).attr('placeholder'))
-             .attr('placeholder', '');
-  }).blur(function () {
-      $(this).attr('placeholder', $(this).data('placeholder'));
-  });
+  $("input,textarea")
+    .focus(function () {
+      $(this)
+        .data("placeholder", $(this).attr("placeholder"))
+        .attr("placeholder", "");
+    })
+    .blur(function () {
+      $(this).attr("placeholder", $(this).data("placeholder"));
+    });
 });
 
-function readURL(input) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      $("#imagePreview").css(
-        "background-image",
-        "url(" + e.target.result + ")"
-      );
-      $("#imagePreview").hide();
-      $("#imagePreview").fadeIn(650);
-    };
-    reader.readAsDataURL(input.files[0]);
+
+$("#serach-access-button").on("click", function () {
+  var pass = $(".password-input").val();
+
+  if (pass == "123") {
+    $(".searchPortal").css("display", "block");
+    $(".search-password").css("display", "none");
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Access Denied",
+      text: "Wrong Password",
+      showConfirmButton: false,
+      timer: 3000,
+    });
   }
-}
-$("#imageUpload").change(function () {
-  readURL(this);
 });
 
-  $('#serach-access-button').on("click", function (){
-    var pass = $('.password-input').val();
+$("#signin").click(function () {
+  console.log("Sign in clicked");
 
-    if(pass == "123"){
-      $('.searchPortal').css("display","block");
-      $('.search-password').css("display","none");
-
-    }else{
-      Swal.fire({
-        icon: "error",
-        title: "Access Denied",
-        text: "Wrong Password",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-    }
-  });
-
-
-$("#signin").click( function (){
-    console.log("Sign in clicked");
-
-    var settings = {
-      url: "/auth/login",
-      method: "POST",
-      timeout: 0,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: JSON.stringify({
-        username: $("#user-name").val(),
-        password: $("#password").val(),
-      }),
-    };
-  
-    $.ajax(settings)
-      .done(function (response) {
-        console.log(response);
-        sessionStorage.setItem('token',response);
-        window.location.replace("/home");
-      })
-      .fail(function (xhr, textStatus, errorThrown) {
-        console.log(textStatus);
-      });
-});
-
-if (window.location.pathname == "/home"){
-  isNotAuthenticate();  
-}else if(window.location.pathname == "/"){
-  isAuthenticate();  
-}
-
-
-function isNotAuthenticate() {
   var settings = {
-    "url": "/auth/info",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Authorization": sessionStorage.getItem('token')
+    url: "/auth/login",
+    method: "POST",
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/json",
     },
+    data: JSON.stringify({
+      username: $("#user-name").val(),
+      password: $("#password").val(),
+    }),
   };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-  })
-  .fail(function (xhr, textStatus, errorThrown) {
-    console.log(textStatus);
-    window.location.replace("/");
-  });
+
+  $.ajax(settings)
+    .done(function (response) {
+      console.log(response);
+      sessionStorage.setItem("token", response);
+      window.location.replace("/home");
+    })
+    .fail(function (xhr, textStatus, errorThrown) {
+      console.log(textStatus);
+    });
+});
+
+if (window.location.pathname == "/home") {
+  isAuthenticate();
 }
 
 function isAuthenticate() {
   var settings = {
-    "url": "/auth/info",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Authorization": sessionStorage.getItem('token')
+    url: "/auth/info",
+    method: "POST",
+    timeout: 0,
+    headers: {
+      Authorization: sessionStorage.getItem("token"),
     },
   };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    window.location.replace("/home");
-  })
-  .fail(function (xhr, textStatus, errorThrown) {
-    console.log(textStatus);
-  });
+
+  $.ajax(settings)
+    .done(function (response) {
+      console.log(response);
+    })
+    .fail(function (xhr, textStatus, errorThrown) {
+      console.log(textStatus);
+      window.location.replace("/");
+    });
 }
 
-
-$("#debit-file-upload").change(function () {
-  var filepath = this.value;
-  var m = filepath.match(/([^\/\\]+)$/);
-  var filename = m[1];
-  $("#debit-filename").html(filename);
-});
-
-$("#credit-file-upload").change(function () {
-  var filepath = this.value;
-  var m = filepath.match(/([^\/\\]+)$/);
-  var filename = m[1];
-  $("#credit-filename").html(filename);
-});
-
 // Show debit data
-function  showDebitData(debitData) {
-  
+function showDebitData(debitData) {
   var row = "<tr class ='debit-tr'>";
 
-  var debitSL = $(".debit-tr").length+1;
+  var debitSL = $(".debit-tr").length + 1;
   row +=
     "<td>" +
     debitSL +
     "</td>" +
     "<td>" +
-    debitData['company'] +
+    debitData["company"] +
     "</td>" +
     "<td>" +
-    debitData['coco'] +
+    debitData["coco"] +
     "</td>" +
     "<td>" +
-    debitData['site'] +
+    debitData["site"] +
     "</td>" +
     "<td>" +
-    debitData['person'] +
+    debitData["person"] +
     "</td>" +
     "<td>" +
-    debitData['department'] +
+    debitData["department"] +
     "</td>" +
     "<td>" +
-    debitData['cause'] +
+    debitData["cause"] +
     "</td>" +
     "<td>" +
-    debitData['carrier'] +
+    debitData["carrier"] +
     "</td>" +
     "<td>" +
-    debitData['referBy'] +
+    debitData["referBy"] +
     "</td>" +
     "<td>" +
-    debitData['amount'] +
+    debitData["amount"] +
     "</td>" +
     "<td>" +
-    debitData['otherCost'] +
+    debitData["otherCost"] +
     "</td>" +
     "<td class='debit-total-sum'>" +
-    debitData['total'] +
+    debitData["total"] +
     "</td>" +
     "<td>" +
-    debitData['dena'] +
+    debitData["dena"] +
     "</td>" +
     "<td>" +
-    debitData['paona'] +
+    debitData["paona"] +
     "</td>" +
     "<td>" +
-    debitData['vara'] +
+    debitData["vara"] +
     "</td>" +
     "<td>" +
-    debitData['warning'] +
+    debitData["warning"] +
     "</td>" +
     "<td>" +
-    debitData['note'] +
+    debitData["note"] +
     "</td>" +
     "<td>" +
-    debitData['editedBy'] +
-    "</td>" +
-    "<td>" +
-    debitData['file_url'] +
+    debitData["editedBy"] +
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\""+debitData['_id']+"\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
+    debitData["_id"] +
+    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -206,34 +152,29 @@ function  showDebitData(debitData) {
   $(".debit-table .debit-tbody").append(row);
 }
 
-function debitDataShowAPI(){
+function debitDataShowAPI() {
   var settings = {
-    "url": "/entry/get",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
+    url: "/entry/get",
+    method: "GET",
+    timeout: 0,
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": sessionStorage.getItem('token'),
+      Authorization: sessionStorage.getItem("token"),
     },
-    "data": {
-      "type": "Debit",
-      // "date": $('.entryDate').val()
+    data: {
+      type: "Debit",
     },
   };
-  
+
   $.ajax(settings).done(function (response) {
     console.log(response);
     $("tr").remove(".debit-tr");
-    for(var i=0;i<response.length; i++){
+    for (var i = 0; i < response.length; i++) {
       showDebitData(response[i]);
     }
-    
   });
 }
 debitDataShowAPI();
-
-
-
 
 // debit table insertation
 $("#debit-submit").on("click", function (event) {
@@ -255,49 +196,47 @@ $("#debit-submit").on("click", function (event) {
   var debitWarning = $("#dWarning").val();
   var debitNote = $("#dNote").val();
   var debitEditor = $("#dEdited-By").val();
-  var date = $(".entryDate").val();
-  
+  var date = "12/11/2020";
+
   var settings = {
-    "url": "/entry/add",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
+    url: "/entry/add",
+    method: "POST",
+    timeout: 0,
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": sessionStorage.getItem('token')
+      Authorization: sessionStorage.getItem("token"),
     },
-    "data": JSON.stringify({
-      "type": "Debit",
-      "company": debitCompany,
-      "coco": debitCO_CO,
-      "site": debitSite,
-      "person": debitPerson_Car,
-      "department": debitDepartment,
-      "cause": debitCause,
-      "carrier": debitCarrier,
-      "referBy": debitRefer,
-      "amount": debitAmount, 
-      "otherCost": debitOtherCost ,
-      "total": debitTotal,
-      "dena": debitDena,
-      "paona": debitPaona,
-      "vara": debitVara,
-      "warning": debitWarning,
-      "note": debitNote,
-      "editedBy": debitEditor,
-      "date": date
+    data: JSON.stringify({
+      type: "Debit",
+      company: debitCompany,
+      coco: debitCO_CO,
+      site: debitSite,
+      person: debitPerson_Car,
+      department: debitDepartment,
+      cause: debitCause,
+      carrier: debitCarrier,
+      referBy: debitRefer,
+      amount: debitAmount,
+      otherCost: debitOtherCost,
+      total: debitTotal,
+      dena: debitDena,
+      paona: debitPaona,
+      vara: debitVara,
+      warning: debitWarning,
+      note: debitNote,
+      editedBy: debitEditor,
+      date: date,
     }),
   };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    debitDataShowAPI();
-    showSearchDataAPI();
-  })
-  .fail(function (xhr, textStatus, errorThrown) {
-    console.log(textStatus);
-  });
 
-  
+  $.ajax(settings)
+    .done(function (response) {
+      console.log(response);
+      debitDataShowAPI();
+    })
+    .fail(function (xhr, textStatus, errorThrown) {
+      console.log(textStatus);
+    });
 
   // var total = 0;
   // var ISAresult = 0;
@@ -323,113 +262,104 @@ $("#debit-submit").on("click", function (event) {
   //   console.log(debitSL);
   //   updateDebitSL(debitSL);
   // });
-
-
 });
 
-
-function deleteEntryApi(id){
+function deleteEntryApi(id) {
   Swal.fire({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: "You won't be able to revert this!",
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, delete it!'
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
       var settings = {
-        "url": "/entry/remove",
-        "method": "DELETE",
-        "timeout": 0,
-        "headers": {
+        url: "/entry/remove",
+        method: "DELETE",
+        timeout: 0,
+        headers: {
           "Content-Type": "application/json",
-          "Authorization": sessionStorage.getItem('token')
+          Authorization: sessionStorage.getItem("token"),
         },
-        "data": JSON.stringify({"id":id}),
+        data: JSON.stringify({ id: id }),
       };
-      
+
       $.ajax(settings).done(function (response) {
         console.log(response);
         console.log("Deleted Entry");
         debitDataShowAPI();
         creditDataShowAPI();
       });
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
     }
-  })
+  });
 }
 
-function  showCreditData(creditData) {
-  
+function showCreditData(creditData) {
   var row = "<tr class ='credit-tr'>";
-  var creditSL = $(".credit-tr").length+1;
+  var creditSL = $(".credit-tr").length + 1;
   row +=
     "<td>" +
     creditSL +
     "</td>" +
     "<td>" +
-    creditData['company'] +
+    creditData["company"] +
     "</td>" +
     "<td>" +
-    creditData['coco'] +
+    creditData["coco"] +
     "</td>" +
     "<td>" +
-    creditData['site'] +
+    creditData["site"] +
     "</td>" +
     "<td>" +
-    creditData['person'] +
+    creditData["person"] +
     "</td>" +
     "<td>" +
-    creditData['department'] +
+    creditData["department"] +
     "</td>" +
     "<td>" +
-    creditData['cause'] +
+    creditData["cause"] +
     "</td>" +
     "<td>" +
-    creditData['carrier'] +
+    creditData["carrier"] +
     "</td>" +
     "<td>" +
-    creditData['referBy'] +
+    creditData["referBy"] +
     "</td>" +
     "<td>" +
-    creditData['amount'] +
+    creditData["amount"] +
     "</td>" +
     "<td>" +
-    creditData['otherCost'] +
+    creditData["otherCost"] +
     "</td>" +
     "<td class='credit-total-sum'>" +
-    creditData['total'] +
+    creditData["total"] +
     "</td>" +
     "<td>" +
-    creditData['dena'] +
+    creditData["dena"] +
     "</td>" +
     "<td>" +
-    creditData['paona'] +
+    creditData["paona"] +
     "</td>" +
     "<td>" +
-    creditData['vara'] +
+    creditData["vara"] +
     "</td>" +
     "<td>" +
-    creditData['warning'] +
+    creditData["warning"] +
     "</td>" +
     "<td>" +
-    creditData['note'] +
+    creditData["note"] +
     "</td>" +
     "<td>" +
-    creditData['editedBy'] +
-    "</td>" +
-    "<td>" +
-    creditData['file_url'] +
+    creditData["editedBy"] +
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\""+creditData['_id']+"\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
+    creditData["_id"] +
+    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -438,37 +368,29 @@ function  showCreditData(creditData) {
   $(".credit-table .credit-tbody").append(row);
 }
 
-
-
-
-
-function creditDataShowAPI(){
+function creditDataShowAPI() {
   var settings = {
-    "url": "/entry/get",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
+    url: "/entry/get",
+    method: "GET",
+    timeout: 0,
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": sessionStorage.getItem('token'),
+      Authorization: sessionStorage.getItem("token"),
     },
-    "data": {
-      "type": "Credit",
-      // "date": $('.entryDate').val()
+    data: {
+      type: "Credit",
     },
   };
-  
+
   $.ajax(settings).done(function (response) {
     console.log(response);
     $("tr").remove(".credit-tr");
-    for(var i=0;i<response.length; i++){
+    for (var i = 0; i < response.length; i++) {
       showCreditData(response[i]);
     }
-    
   });
 }
 creditDataShowAPI();
-
-
 
 // credit table insertation
 
@@ -491,50 +413,46 @@ $("#credit-submit").on("click", function (event) {
   var creditWarning = $("#crWarning").val();
   var creditNote = $("#crNote").val();
   var creditEditor = $("#crEdited-By").val();
-  var date = $(".entryDate").val();
-
 
   var settings = {
-    "url": "/entry/add",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
+    url: "/entry/add",
+    method: "POST",
+    timeout: 0,
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": sessionStorage.getItem('token')
+      Authorization: sessionStorage.getItem("token"),
     },
-    "data": JSON.stringify({
-      "type": "Credit",
-      "company": creditCompany,
-      "coco": creditCO_CO,
-      "site": creditSite,
-      "person": creditPerson_Car,
-      "department": creditDepartment,
-      "cause": creditCause,
-      "carrier": creditCarrier,
-      "referBy": creditRefer,
-      "amount": creditAmount, 
-      "otherCost": creditOtherCost ,
-      "total": creditTotal,
-      "dena": creditDena,
-      "paona": creditPaona,
-      "vara": creditVara,
-      "warning": creditWarning,
-      "note": creditNote,
-      "editedBy": creditEditor,
-      "date": date,
+    data: JSON.stringify({
+      type: "Credit",
+      company: creditCompany,
+      coco: creditCO_CO,
+      site: creditSite,
+      person: creditPerson_Car,
+      department: creditDepartment,
+      cause: creditCause,
+      carrier: creditCarrier,
+      referBy: creditRefer,
+      amount: creditAmount,
+      otherCost: creditOtherCost,
+      total: creditTotal,
+      dena: creditDena,
+      paona: creditPaona,
+      vara: creditVara,
+      warning: creditWarning,
+      note: creditNote,
+      editedBy: creditEditor,
+      date: "12/11/2020",
     }),
   };
 
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    creditDataShowAPI();
-    showSearchDataAPI();
-  })
-  .fail(function (xhr, textStatus, errorThrown) {
-    console.log(textStatus);
-  });
-
-  
+  $.ajax(settings)
+    .done(function (response) {
+      console.log(response);
+      creditDataShowAPI();
+    })
+    .fail(function (xhr, textStatus, errorThrown) {
+      console.log(textStatus);
+    });
 
   // var creditTotal = 0;
   // var ISAresult = 0;
@@ -553,56 +471,54 @@ $("#credit-submit").on("click", function (event) {
   // console.log($(".debit-amount-sum"));
 });
 
-function  showAccountData(accountData) {
+function showAccountData(accountData) {
   var row = "<tr class ='add-account-tr'>";
-  var accountSL = $(".add-account-tr").length+1;
+  var accountSL = $(".add-account-tr").length + 1;
   row +=
-  
     "<td>" +
     accountSL +
     "</td>" +
     "<td>" +
-    accountData['full_name'] +
+    accountData["full_name"] +
     "</td>" +
     "<td>" +
-    accountData['id'] +
+    accountData["id"] +
     "</td>" +
     "<td>" +
-    accountData['nid'] +
+    accountData["nid"] +
     "</td>" +
     "<td>" +
-    accountData['blood_group'] +
+    accountData["blood_group"] +
     "</td>" +
     "<td>" +
-    accountData['father_name'] +
+    accountData["father_name"] +
     "</td>" +
     "<td>" +
-    accountData['mother_name'] +
+    accountData["mother_name"] +
     "</td>" +
     "<td>" +
-    accountData['parmanent_address'] +
+    accountData["parmanent_address"] +
     "</td>" +
     "<td>" +
-    accountData['present_address'] +
+    accountData["present_address"] +
     "</td>" +
     "<td>" +
-    accountData['opening_date'] +
+    accountData["opening_date"] +
     "</td>" +
     "<td>" +
-    accountData['closing_date'] +
+    accountData["closing_date"] +
     "</td>" +
     "<td>" +
-    accountData['note'] +
+    accountData["note"] +
     "</td>" +
     "<td>" +
-    accountData['picture_url'] +
-    "</td>" +
-    "<td>" +
-    accountData['created_by'] +
+    accountData["created_by"] +
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
-    "<i class='fas fa-trash-alt' onClick = 'deleteAccountAPI(\""+accountData['_id']+"\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "<i class='fas fa-trash-alt' onClick = 'deleteAccountAPI(\"" +
+    accountData["_id"] +
+    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -613,61 +529,55 @@ function  showAccountData(accountData) {
 
 accountDataShowAPI();
 
-function accountDataShowAPI(){
+function accountDataShowAPI() {
   var settings = {
-    "url": "/account/get",
-    "method": "GET",
-    "timeout": 0,
-    "headers": {
+    url: "/account/get",
+    method: "GET",
+    timeout: 0,
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": sessionStorage.getItem('token'),
+      Authorization: sessionStorage.getItem("token"),
     },
   };
-  
+
   $.ajax(settings).done(function (response) {
     console.log(response);
     $("tr").remove(".add-account-tr");
-    for(var i=0;i<response.length; i++){
+    for (var i = 0; i < response.length; i++) {
       showAccountData(response[i]);
     }
-    
   });
 }
 
 function deleteAccountAPI(id) {
   Swal.fire({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: "You won't be able to revert this!",
-    icon: 'warning',
+    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, delete it!'
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
       var settings = {
-        "url": "/account/remove",
-        "method": "DELETE",
-        "timeout": 0,
-        "headers": {
+        url: "/account/remove",
+        method: "DELETE",
+        timeout: 0,
+        headers: {
           "Content-Type": "application/json",
-          "Authorization": sessionStorage.getItem('token'),
+          Authorization: sessionStorage.getItem("token"),
         },
-        "data": JSON.stringify({"id":id}),
+        data: JSON.stringify({ id: id }),
       };
-      
+
       $.ajax(settings).done(function (response) {
         console.log(response);
         accountDataShowAPI();
       });
-      Swal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
     }
-  })
-  
+  });
 }
 
 $("#create-account-button").on("click", function (event) {
@@ -685,113 +595,127 @@ $("#create-account-button").on("click", function (event) {
   var accountNote = $("#acNote").val();
   var accountCreator = $("#acCreated-By").val();
 
+  console.log("Full name: " + accountFullname);
 
   var settings = {
-    "url": "/account/add",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
+    url: "/account/add",
+    method: "POST",
+    timeout: 0,
+    headers: {
       "Content-Type": "application/json",
-      "Authorization": sessionStorage.getItem("token"),
+      Authorization: sessionStorage.getItem("token"),
     },
-    "data": JSON.stringify({
-        "full_name": accountFullname,
-        "id": accountID,
-        "nid": accountNID,
-        "blood_group": accountBloodGroup,
-        "father_name": accountFatersName,
-        "mother_name": accountMothersName,
-        "parmanent_address": accountPermanentAddress,
-        "present_address": accountPresentAddress,
-        "opening_date": accountOpeningDate,
-        "closing_date": accountClosingDate,
-        "note": accountNote,
-        "created_by": accountCreator,
-        "date": "12/11/2020"
+    data: JSON.stringify({
+      full_name: accountFullname,
+      id: accountID,
+      nid: accountNID,
+      blood_group: accountBloodGroup,
+      father_name: accountFatersName,
+      mother_name: accountMothersName,
+      parmanent_address: accountPermanentAddress,
+      present_address: accountPresentAddress,
+      opening_date: accountOpeningDate,
+      closing_date: accountClosingDate,
+      note: accountNote,
+      created_by: accountCreator,
+      date: "12/11/2020",
     }),
   };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    accountDataShowAPI();
-  })
-  .fail(function (xhr, textStatus, errorThrown) {
-    console.log(textStatus);
-  });
+
+  $.ajax(settings)
+    .done(function (response) {
+      console.log(response);
+      accountDataShowAPI();
+    })
+    .fail(function (xhr, textStatus, errorThrown) {
+      console.log(textStatus);
+    });
 });
-
-
 
 //Search API
 
-
 function showSearchData(searchData) {
-  var row = "<tr class ='search-data-tr'>";
-  var searchSL = $(".search-data-tr").length+1;
+  var row =
+    "<tr class ='search-data-tr' data-type='" +
+    searchData["type"] +
+    "' data-site='" +
+    searchData["site"] +
+    "' data-person='" +
+    searchData["person"] +
+    "' data-department='" +
+    searchData["department"] +
+    "' data-cause='" +
+    searchData["cause"] +
+    "' data-carrier='" +
+    searchData["carrier"] +
+    "' data-refer='" +
+    searchData["referBy"] +
+    "' data-edited='" +
+    searchData["editedBy"] +
+    "' data-search_amount='" +
+    searchData["amount"] +
+    "'>";
+  var searchSL = $(".search-data-tr").length + 1;
   row +=
-  
     "<td>" +
     searchSL +
     "</td>" +
     "<td>" +
-    searchData['type'] +
+    searchData["type"] +
     "</td>" +
     "<td>" +
-    searchData['company'] +
+    searchData["company"] +
     "</td>" +
     "<td>" +
-    searchData['coco'] +
+    searchData["coco"] +
     "</td>" +
     "<td>" +
-    searchData['site'] +
+    searchData["site"] +
     "</td>" +
     "<td>" +
-    searchData['person'] +
+    searchData["person"] +
     "</td>" +
     "<td>" +
-    searchData['department'] +
+    searchData["department"] +
     "</td>" +
     "<td>" +
-    searchData['cause'] +
+    searchData["cause"] +
     "</td>" +
     "<td>" +
-    searchData['carrier'] +
+    searchData["carrier"] +
     "</td>" +
     "<td>" +
-    searchData['referBy'] +
+    searchData["referBy"] +
     "</td>" +
     "<td>" +
-    searchData['amount'] +
+    searchData["amount"] +
     "</td>" +
     "<td>" +
-    searchData['otherCost'] +
+    searchData["otherCost"] +
     "</td>" +
     "<td class='credit-total-sum'>" +
-    searchData['total'] +
+    searchData["total"] +
     "</td>" +
     "<td>" +
-    searchData['dena'] +
+    searchData["dena"] +
     "</td>" +
     "<td>" +
-    searchData['paona'] +
+    searchData["paona"] +
     "</td>" +
     "<td>" +
-    searchData['vara'] +
+    searchData["vara"] +
     "</td>" +
     "<td>" +
-    searchData['vara'] + 
+    searchData["vara"] +
     "</td>" +
     "<td>" +
-    searchData['warning'] +
+    searchData["warning"] +
     "</td>" +
     "<td>" +
-    searchData['note'] +
+    searchData["note"] +
     "</td>" +
     "<td>" +
-    searchData['file_url'] +
-    "</td>" +
-    "<td>" +
-    searchData['editedBy'] +
+    searchData["editedBy"] +
     "</td>";
   row += "</tr>";
 
@@ -800,46 +724,111 @@ function showSearchData(searchData) {
   $(".search-data-table .search-data-tbody").append(row);
 }
 
-
 function showSearchDataAPI() {
-  
-var settings = {
-  "url": "/entry/getall",
-  "method": "GET",
-  "timeout": 0,
-  "headers": {
-    "Content-Type": "application/json",
-    "Authorization": sessionStorage.getItem("token"),
-  },
-};
+  var settings = {
+    url: "/entry/getall",
+    method: "GET",
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: sessionStorage.getItem("token"),
+    },
+  };
 
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  $("tr").remove(".search-data-tr");
-    for(var i=0;i<response.length; i++){
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    $("tr").remove(".search-data-tr");
+    for (var i = 0; i < response.length; i++) {
       showSearchData(response[i]);
     }
-});
+  });
 }
 
 showSearchDataAPI();
 
+var filters = {
+  type: null,
+  site: null,
+  person: null,
+  department: null,
+  cause: null,
+  carrier: null,
+  refer: null,
+  edited: null,
+  search_amount: null,
+};
 
-// Calender
-$(function () {
-  // if(!sessionStorage.getItem('date')){
-  //   sessionStorage.setItem('date', new Date());
-  // }
-  $("#datepicker").datepicker({
-    dateFormat: "dd/mm/yy",
-    duration: "fast",
-    onSelect: function () {
-      sessionStorage.setItem('date', $(".entryDate").val());
-      console.log("Date picked");
-      creditDataShowAPI();
-      debitDataShowAPI();
-    }
-  }).datepicker("setDate",sessionStorage.getItem('date'));
-  var dailyStatisticsDate = $("#datepicker").val();
-  console.log(dailyStatisticsDate);
+function updateFilters() {
+  $(".search-data-tr")
+    .hide()
+    .filter(function () {
+      var self = $(this),
+        result = true; // not guilty until proven guilty
+
+      Object.keys(filters).forEach(function (filter) {
+        if (
+          filters[filter] &&
+          filters[filter] != "None" &&
+          filters[filter] != "Any"
+        ) {
+          result = result && filters[filter] === self.data(filter);
+        }
+      });
+
+      return result;
+    })
+    .show();
+}
+
+function changeFilter(filterName) {
+  filters[filterName] = this.value;
+  updateFilters();
+}
+
+$("#type-filter").on("change", function () {
+  changeFilter.call(this, "type");
+});
+
+$("#site-filter").on("change", function () {
+  changeFilter.call(this, "site");
+});
+
+$("#person-car-filter").on("change", function () {
+  changeFilter.call(this, "person");
+});
+
+$("#department-filter").on("change", function () {
+  changeFilter.call(this, "department");
+});
+
+$("#cause-filter").on("change", function () {
+  changeFilter.call(this, "cause");
+});
+
+$("#carrier-driver-filter").on("change", function () {
+  changeFilter.call(this, "carrier");
+});
+
+$("#refer-filter").on("change", function () {
+  changeFilter.call(this, "refer");
+});
+
+$("#edited-filter").on("change", function () {
+  changeFilter.call(this, "edited");
+});
+
+$("#amount-filter").on("change", function () {
+  changeFilter.call(this, "search_amount");
+});
+
+// future use for a text input filter
+// $('.search-portal-search-button').on('click', function() {
+//     $('.search-data-tr').hide().filter(function() {
+//         return $(this).data('search_amount') == $('#amount-filter').val().trim();
+//     }).show();
+// });
+
+
+$('#print-button').on('click', function() {
+  $.print(".search-results");
 });
