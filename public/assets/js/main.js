@@ -55,11 +55,14 @@ $("#signin").click(function () {
     });
 });
 
-if (window.location.pathname == "/home") {
-  isAuthenticate();
+if (window.location.pathname == "/home"){
+  isNotAuthenticate();  
+}else if(window.location.pathname == "/"){
+  isAuthenticate();  
 }
 
-function isAuthenticate() {
+
+function isNotAuthenticate() {
   var settings = {
     url: "/auth/info",
     method: "POST",
@@ -78,6 +81,26 @@ function isAuthenticate() {
       window.location.replace("/");
     });
 }
+
+function isAuthenticate() {
+  var settings = {
+    "url": "/auth/info",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": sessionStorage.getItem('token')
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    window.location.replace("/home");
+  })
+  .fail(function (xhr, textStatus, errorThrown) {
+    console.log(textStatus);
+  });
+}
+
 
 // Show debit data
 function showDebitData(debitData) {
@@ -196,7 +219,7 @@ $("#debit-submit").on("click", function (event) {
   var debitWarning = $("#dWarning").val();
   var debitNote = $("#dNote").val();
   var debitEditor = $("#dEdited-By").val();
-  var date = "12/11/2020";
+  var date = $(".entryDate").val();
 
   var settings = {
     url: "/entry/add",
@@ -233,6 +256,7 @@ $("#debit-submit").on("click", function (event) {
     .done(function (response) {
       console.log(response);
       debitDataShowAPI();
+      showSearchDataAPI();
     })
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
@@ -291,6 +315,7 @@ function deleteEntryApi(id) {
         console.log("Deleted Entry");
         debitDataShowAPI();
         creditDataShowAPI();
+        showSearchDataAPI();
       });
       Swal.fire("Deleted!", "Your file has been deleted.", "success");
     }
@@ -387,6 +412,7 @@ function creditDataShowAPI() {
     $("tr").remove(".credit-tr");
     for (var i = 0; i < response.length; i++) {
       showCreditData(response[i]);
+      showSearchDataAPI();
     }
   });
 }
@@ -413,6 +439,7 @@ $("#credit-submit").on("click", function (event) {
   var creditWarning = $("#crWarning").val();
   var creditNote = $("#crNote").val();
   var creditEditor = $("#crEdited-By").val();
+  var date = $(".entryDate").val();
 
   var settings = {
     url: "/entry/add",
@@ -441,7 +468,7 @@ $("#credit-submit").on("click", function (event) {
       warning: creditWarning,
       note: creditNote,
       editedBy: creditEditor,
-      date: "12/11/2020",
+      date: date,
     }),
   };
 
@@ -618,7 +645,7 @@ $("#create-account-button").on("click", function (event) {
       closing_date: accountClosingDate,
       note: accountNote,
       created_by: accountCreator,
-      date: "12/11/2020",
+      date: $(".entryDate").val(),
     }),
   };
 
@@ -831,4 +858,23 @@ $("#amount-filter").on("change", function () {
 
 $('#print-button').on('click', function() {
   $.print(".search-results");
+});
+
+// Calender
+$(function () {
+  // if(!sessionStorage.getItem('date')){
+  //   sessionStorage.setItem('date', new Date());
+  // }
+  $("#datepicker").datepicker({
+    dateFormat: "dd/mm/yy",
+    duration: "fast",
+    onSelect: function () {
+      sessionStorage.setItem('date', $(".entryDate").val());
+      console.log("Date picked");
+      creditDataShowAPI();
+      debitDataShowAPI();
+    }
+  }).datepicker("setDate",sessionStorage.getItem('date'));
+  var dailyStatisticsDate = $("#datepicker").val();
+  console.log(dailyStatisticsDate);
 });
