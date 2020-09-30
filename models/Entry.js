@@ -82,8 +82,6 @@ const entrySchema = new mongoose.Schema({
     },
     warning: {
         type: Number,
-        min:1,
-        max:1024
     },
     note: {
         type: String,
@@ -97,8 +95,7 @@ const entrySchema = new mongoose.Schema({
         max:1024
     },
     date: {
-        type: Date,
-        default: Date.now 
+        type: String,
     }
 
 });

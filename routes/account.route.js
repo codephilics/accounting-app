@@ -22,7 +22,6 @@ router.post("/add",verify,async (req, res) => {
             opening_date: req.body.opening_date,
             closing_date: req.body.closing_date,
             note: req.body.note,
-            picture_url: req.body.picture_url,
             created_by: req.body.created_by,
             date: req.body.date 
         });
@@ -62,7 +61,6 @@ router.put("/update",verify, async (req, res) => {
                     opening_date: req.body.opening_date,
                     closing_date: req.body.closing_date,
                     note: req.body.note,
-                    picture_url: req.body.picture_url,
                     created_by: req.body.created_by,
                     date: req.body.date 
                 }

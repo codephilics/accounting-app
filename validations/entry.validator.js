@@ -21,7 +21,7 @@ const entryFormValidation = Joi.object({
     warning: Joi.number().required(),
     note: Joi.optional(),
     editedBy: Joi.string().min(1).required(),
-    date: Joi.date()
+    date: Joi.string(),
 });
 
 module.exports.entryFormValidation = entryFormValidation;
