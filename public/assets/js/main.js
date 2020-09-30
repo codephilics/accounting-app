@@ -11,22 +11,33 @@ $(function () {
 });
 
 
-$("#serach-access-button").on("click", function () {
-  var pass = $(".password-input").val();
+$(function () {
+  $("#serach-access-button").on("click", function () {
+    var pass = $(".password-input").val();
+    if (pass == "123") {
+      $(".searchPortal").css("display", "block");
+      $(".search-password").css("display", "none");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Wrong Password",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+  });
 
-  if (pass == "123") {
-    $(".searchPortal").css("display", "block");
-    $(".search-password").css("display", "none");
-  } else {
-    Swal.fire({
-      icon: "error",
-      title: "Access Denied",
-      text: "Wrong Password",
-      showConfirmButton: false,
-      timer: 3000,
-    });
-  }
+  $(".password-input").keypress(function (e) {
+    var key = e.which;
+    if (key == 13) {
+      $("#serach-access-button").click();
+      return false;
+    }
+  });
 });
+
+
 
 $("#signin").click(function () {
   console.log("Sign in clicked");
@@ -140,10 +151,10 @@ function showDebitData(debitData) {
     debitData["editedBy"] +
     "</td>" +
     "<td>" +
-    "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
+    "<i class='fas fa-pen' id='debit-edit-button' onClick = 'debitEditButton()' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
     debitData["_id"] +
-    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -177,6 +188,14 @@ function debitDataShowAPI() {
 debitDataShowAPI();
 
 // debit table insertation
+$("#dEdited-By").keypress(function (e) {
+  var key = e.which;
+  if (key == 13) {
+    $("#debit-submit").click();
+    return false;
+  }
+});
+
 $("#debit-submit").on("click", function (event) {
   event.preventDefault();
   var debitCompany = $("#dCompany").val();
@@ -356,10 +375,10 @@ function showCreditData(creditData) {
     creditData["editedBy"] +
     "</td>" +
     "<td>" +
-    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+    "<i class='fas fa-pen' id='credit-edit-button' data-toggle='modal' data-target='#credit-edit-modal' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
     creditData["_id"] +
-    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -393,6 +412,14 @@ function creditDataShowAPI() {
 creditDataShowAPI();
 
 // credit table insertation
+
+$("#crEdited-By").keypress(function (e) {
+  var key = e.which;
+  if (key == 13) {
+    $("#credit-submit").click();
+    return false;
+  }
+});
 
 $("#credit-submit").on("click", function (event) {
   event.preventDefault();
@@ -515,10 +542,10 @@ function showAccountData(accountData) {
     accountData["created_by"] +
     "</td>" +
     "<td>" +
-    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+    "<i class='fas fa-pen' id='account-edit-button' data-toggle='modal' data-target='#account-edit-modal' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteAccountAPI(\"" +
     accountData["_id"] +
-    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -579,6 +606,16 @@ function deleteAccountAPI(id) {
     }
   });
 }
+
+// add account table insertation
+
+$("#acCreated-By").keypress(function (e) {
+  var key = e.which;
+  if (key == 13) {
+    $("#create-account-button").click();
+    return false;
+  }
+});
 
 $("#create-account-button").on("click", function (event) {
   event.preventDefault();
@@ -652,7 +689,7 @@ function showSearchData(searchData) {
     searchData["referBy"] +
     "' data-edited='" +
     searchData["editedBy"] +
-    "' data-search_amount='" +
+    "' data-searchAmount='" +
     searchData["amount"] +
     "'>";
   var searchSL = $(".search-data-tr").length + 1;
@@ -755,7 +792,7 @@ var filters = {
   carrier: null,
   refer: null,
   edited: null,
-  search_amount: null,
+  searchAmount: null,
 };
 
 function updateFilters() {
@@ -818,7 +855,7 @@ $("#edited-filter").on("change", function () {
 });
 
 $("#amount-filter").on("change", function () {
-  changeFilter.call(this, "search_amount");
+  changeFilter.call(this, "searchAmount");
 });
 
 // future use for a text input filter
@@ -828,7 +865,199 @@ $("#amount-filter").on("change", function () {
 //     }).show();
 // });
 
-
-$('#print-button').on('click', function() {
+$("#print-button").on("click", function () {
   $.print(".search-results");
 });
+
+var column = $("#debit-edit-button");
+console.log(column);
+
+function debitEditButton() {
+  console.log("Hello");
+
+  var columnValues = $(".debit-tbody")
+    .parent()
+    .siblings()
+    .map(function () {
+      return $(this).text();
+    })
+    .get();
+  console.log(columnValues);
+
+  // var row = '<div class="row" style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">'
+
+  // row +=
+  // '<div class="col-lg-4 col-md-4" style="padding-left: 30px;">'+
+  //                       '<div id="login-form">'+
+  //                           '<form>'+
+  //                               '<input type="text" id="d-edit-Company" class="input-field" placeholder="Company">'+
+  //                           '</form>'+
+  //                       '</div>'+
+  //                       '<div id="login-form">'+
+  //                           '<form>'+
+  //                               '<input type="text" id="d-edit-CO_CO" class="input-field" placeholder="CO-CO">'+
+  //                           '</form>'+
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Site" class="input-field" placeholder="Site">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Person-Car-Who-will-Get" class="input-field"
+  //                                   placeholder="Person/Car Who will Get">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Department" class="input-field"
+  //                                   placeholder="Department">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Cause" class="input-field" placeholder="Cause">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Carrier-Driver" class="input-field"
+  //                                   placeholder="Carrier/Driver">
+  //                           </form>
+  //                       </div>
+  //                   </div>
+  //                   <div class="col-lg-4 col-md-4">
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Refer-By" class="input-field"
+  //                                   placeholder="Refer By">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Amount" class="input-field"
+  //                                   placeholder="Amount">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Other-Cost" class="input-field"
+  //                                   placeholder="Other Cost">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Total" class="input-field" placeholder="Total">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Dena" class="input-field" placeholder="Dena">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Paona" class="input-field" placeholder="Paona">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Vara" class="input-field" placeholder="Vara">
+  //                           </form>
+  //                       </div>
+  //                   </div>
+  //                   <div class="col-lg-4 col-md-4">
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Warning" class="input-field"
+  //                                   placeholder="Warning">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Note" class="input-field note"
+  //                                   placeholder="Note">
+  //                           </form>
+  //                       </div>
+  //                       <div id="login-form">
+  //                           <form>
+  //                               <input type="text" id="d-edit-Edited-By" class="input-field"
+  //                                   placeholder="Edited By">
+  //                           </form>
+  //                       </div>
+  //                       <div style="display: flex; justify-content: center; margin-top:0.6em;">
+  //                           <button data-dismiss="modal" type="button" id="debit-edit-update"
+  //                               class="btn btn-info btn-lg" style="margin: .5%; margin-right: 20px; background-color: teal; border: 1px solid teal;">
+  //                               <b>Update</b>
+  //                           </button>
+  //                           <button data-dismiss="modal" type="button" id="debit-edit-cancel"
+  //                               class="btn btn-info btn-lg" style="margin: .5%; background-color: coral; border: 1px solid coral;">
+  //                               <b>Cancel</b>
+  //                           </button>
+  //                       </div>
+  //                   </div>
+
+  $("#d-edit-Company").val(columnValues[1]);
+  $("#d-edit-CO_CO").val(columnValues[2]);
+  $("#d-edit-Site").val(columnValues[3]);
+  $("#d-edit-Person-Car-Who-will-Get").val(columnValues[4]);
+  $("#d-edit-Department").val(columnValues[5]);
+  $("#d-edit-Cause").val(columnValues[6]);
+  $("#d-edit-Carrier-Driver").val(columnValues[7]);
+  $("#d-edit-Refer-By").val(columnValues[8]);
+  $("#d-edit-Amount").val(columnValues[9]);
+  $("#d-edit-Other-Cost").val(columnValues[10]);
+  $("#d-edit-Total").val(columnValues[11]);
+  $("#d-edit-Dena").val(columnValues[12]);
+  $("#d-edit-Paona").val(columnValues[13]);
+  $("#d-edit-Vara").val(columnValues[14]);
+  $("#d-edit-Warning").val(columnValues[15]);
+  $("#d-edit-Note").val(columnValues[16]);
+  $("#d-edit-Edited-By").val(columnValues[17]);
+}
+
+// $("#debit-edit-button").click(function () {
+//   var columnHeadings = $("thead th")
+//     .map(function () {
+//       return $(this).text();
+//     })
+//     .get();
+//   columnHeadings.pop();
+
+//   var columnValues = $(this)
+//     .parent()
+//     .siblings()
+//     .map(function () {
+//       return $(this).text();
+//     })
+//     .get();
+//     console.log(columnValues);
+//   var modalBody = $('<div id="modalContent"></div>');
+//   var modalForm = $(
+//     '<form role="form" name="modalForm" action="putYourPHPActionHere.php" method="post"></form>'
+//   );
+//   $.each(columnHeadings, function (i, columnHeader) {
+//     var formGroup = $('<div class="form-group"></div>');
+//     formGroup.append(
+//       '<label for="' + columnHeader + '">' + columnHeader + "</label>"
+//     );
+//     formGroup.append(
+//       '<input class="form-control" name="' +
+//         columnHeader +
+//         i +
+//         '" id="' +
+//         columnHeader +
+//         i +
+//         '" value="' +
+//         columnValues[i] +
+//         '" />'
+//     );
+//     modalForm.append(formGroup);
+//   });
+//   modalBody.append(modalForm);
+//   $(".modal-body").html(modalBody);
+// });
+// $(".modal-footer .btn-primary").click(function () {
+//   $('form[name="modalForm"]').submit();
+// });
