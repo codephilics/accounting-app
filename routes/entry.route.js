@@ -8,7 +8,6 @@ router.post("/add",verify, async (req, res) => {
     
     const {error} = entryFormValidation.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
-    
     try{
         const entry = new Entry({
             type: req.body.type,
@@ -29,7 +28,6 @@ router.post("/add",verify, async (req, res) => {
             warning: req.body.warning,
             note: req.body.note,
             editedBy: req.body.editedBy,
-            file_url: req.body.file_url,
             date: req.body.date
         });
         const saveEntryForm = await entry.save();
@@ -44,15 +42,8 @@ router.post("/add",verify, async (req, res) => {
 
 router.get("/get",verify, async (req, res) => {
     try{
-        console.log(req.query.date);
-        if(!req.query.date){
-            const entryList = await Entry.find({type: req.query.type});
-            res.send(entryList);
-        }else{
-            let qDate = req.query.date;
-            const entryList = await Entry.find({type: req.query.type, date: new Date(qDate)});
-            res.send(entryList);
-        }
+        const entryList = await Entry.find({});
+        res.send(entryList);
    }catch(err){
         console.log(err);
         res.status(400).send(err);
@@ -95,7 +86,6 @@ router.put("/update",verify, async (req, res) => {
                     warning: req.body.warning,
                     note: req.body.note,
                     editedBy: req.body.editedBy,
-                    file_url: req.body.file_url,
                     date: req.body.date
                 }
             });

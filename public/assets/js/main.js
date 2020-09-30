@@ -55,11 +55,14 @@ $("#signin").click(function () {
     });
 });
 
-if (window.location.pathname == "/home") {
-  isAuthenticate();
+if (window.location.pathname == "/home"){
+  isNotAuthenticate();  
+}else if(window.location.pathname == "/"){
+  isAuthenticate();  
 }
 
-function isAuthenticate() {
+
+function isNotAuthenticate() {
   var settings = {
     url: "/auth/info",
     method: "POST",
@@ -72,12 +75,35 @@ function isAuthenticate() {
   $.ajax(settings)
     .done(function (response) {
       console.log(response);
+      entryDataShowAPI();
+      showSearchDataAPI();
+      accountDataShowAPI();
     })
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
       window.location.replace("/");
     });
 }
+
+function isAuthenticate() {
+  var settings = {
+    "url": "/auth/info",
+    "method": "POST",
+    "timeout": 0,
+    "headers": {
+      "Authorization": sessionStorage.getItem('token')
+    },
+  };
+  
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    window.location.replace("/home");
+  })
+  .fail(function (xhr, textStatus, errorThrown) {
+    console.log(textStatus);
+  });
+}
+
 
 // Show debit data
 function showDebitData(debitData) {
@@ -152,7 +178,9 @@ function showDebitData(debitData) {
   $(".debit-table .debit-tbody").append(row);
 }
 
-function debitDataShowAPI() {
+var entryData = {};
+
+function entryDataShowAPI() {
   var settings = {
     url: "/entry/get",
     method: "GET",
@@ -160,21 +188,42 @@ function debitDataShowAPI() {
     headers: {
       "Content-Type": "application/json",
       Authorization: sessionStorage.getItem("token"),
-    },
-    data: {
-      type: "Debit",
-    },
+    }
   };
 
   $.ajax(settings).done(function (response) {
     console.log(response);
+    entryData = response;
     $("tr").remove(".debit-tr");
+    $("tr").remove(".credit-tr");
     for (var i = 0; i < response.length; i++) {
-      showDebitData(response[i]);
+      date = $(".entryDate").val();
+      if(date.length != 0 && date == response[i]['date']){
+        if(response[i]["type"]=="Debit"){
+          showDebitData(response[i]);
+        }else {
+          showCreditData(response[i]);
+        } 
+      }
     }
   });
+};
+
+function dateFilterEntryData() {
+  $("tr").remove(".debit-tr");
+  $("tr").remove(".credit-tr");
+  for (var i = 0; i < entryData.length; i++) {
+    date = $(".entryDate").val();
+    if(date.length != 0 && date == entryData[i]['date']){
+      if(entryData[i]["type"]=="Debit"){
+        showDebitData(entryData[i]);
+      }else {
+        showCreditData(entryData[i]);
+      } 
+    }
+  }
 }
-debitDataShowAPI();
+
 
 // debit table insertation
 $("#debit-submit").on("click", function (event) {
@@ -196,7 +245,7 @@ $("#debit-submit").on("click", function (event) {
   var debitWarning = $("#dWarning").val();
   var debitNote = $("#dNote").val();
   var debitEditor = $("#dEdited-By").val();
-  var date = "12/11/2020";
+  var date = $(".entryDate").val();
 
   var settings = {
     url: "/entry/add",
@@ -232,7 +281,8 @@ $("#debit-submit").on("click", function (event) {
   $.ajax(settings)
     .done(function (response) {
       console.log(response);
-      debitDataShowAPI();
+      entryDataShowAPI();
+      showSearchDataAPI();
     })
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
@@ -289,8 +339,8 @@ function deleteEntryApi(id) {
       $.ajax(settings).done(function (response) {
         console.log(response);
         console.log("Deleted Entry");
-        debitDataShowAPI();
-        creditDataShowAPI();
+        entryDataShowAPI();
+        showSearchDataAPI();
       });
       Swal.fire("Deleted!", "Your file has been deleted.", "success");
     }
@@ -368,30 +418,6 @@ function showCreditData(creditData) {
   $(".credit-table .credit-tbody").append(row);
 }
 
-function creditDataShowAPI() {
-  var settings = {
-    url: "/entry/get",
-    method: "GET",
-    timeout: 0,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: sessionStorage.getItem("token"),
-    },
-    data: {
-      type: "Credit",
-    },
-  };
-
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    $("tr").remove(".credit-tr");
-    for (var i = 0; i < response.length; i++) {
-      showCreditData(response[i]);
-    }
-  });
-}
-creditDataShowAPI();
-
 // credit table insertation
 
 $("#credit-submit").on("click", function (event) {
@@ -413,6 +439,7 @@ $("#credit-submit").on("click", function (event) {
   var creditWarning = $("#crWarning").val();
   var creditNote = $("#crNote").val();
   var creditEditor = $("#crEdited-By").val();
+  var date = $(".entryDate").val();
 
   var settings = {
     url: "/entry/add",
@@ -441,14 +468,15 @@ $("#credit-submit").on("click", function (event) {
       warning: creditWarning,
       note: creditNote,
       editedBy: creditEditor,
-      date: "12/11/2020",
+      date: date,
     }),
   };
 
   $.ajax(settings)
     .done(function (response) {
       console.log(response);
-      creditDataShowAPI();
+      entryDataShowAPI();
+      showSearchDataAPI();
     })
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
@@ -527,7 +555,6 @@ function showAccountData(accountData) {
   $(".add-account-table .add-account-tbody").append(row);
 }
 
-accountDataShowAPI();
 
 function accountDataShowAPI() {
   var settings = {
@@ -617,8 +644,7 @@ $("#create-account-button").on("click", function (event) {
       opening_date: accountOpeningDate,
       closing_date: accountClosingDate,
       note: accountNote,
-      created_by: accountCreator,
-      date: "12/11/2020",
+      created_by: accountCreator
     }),
   };
 
@@ -744,7 +770,6 @@ function showSearchDataAPI() {
   });
 }
 
-showSearchDataAPI();
 
 var filters = {
   type: null,
@@ -831,4 +856,20 @@ $("#amount-filter").on("change", function () {
 
 $('#print-button').on('click', function() {
   $.print(".search-results");
+});
+
+// Calender
+$(function () {
+  if(!sessionStorage.getItem('date')){
+    sessionStorage.setItem('date', new Date());
+  }
+  $("#datepicker").datepicker({
+    dateFormat: "dd-mm-yy",
+    duration: "fast",
+    onSelect: function () {
+      sessionStorage.setItem('date', $(".entryDate").val());
+      dateFilterEntryData();
+    }
+  }).datepicker("setDate",sessionStorage.getItem('date'));
+  
 });

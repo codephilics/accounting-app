@@ -15,7 +15,7 @@ const accountFormValidation = Joi.object({
     closing_date: Joi.date(),
     note: Joi.optional(),
     created_by: Joi.string().min(1).required(),
-    date: Joi.date()
+    date: Joi.string(),
 });
 
 module.exports.accountFormValidation = accountFormValidation;
