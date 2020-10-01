@@ -900,7 +900,7 @@ $("#print-button").on("click", function () {
   $.print(".search-results");
 });
 
-console.log($(".debit-table").length);
+
 
 function debitEditButton(company, coco, site, person, department, cause, carrier, referBy, amount, otherCost, total, dena, paona, vara, warning, note, editedBy) {
 
@@ -921,5 +921,5 @@ function debitEditButton(company, coco, site, person, department, cause, carrier
   $("#d-edit-Warning").val(warning);
   $("#d-edit-Note").val(note);
   $("#d-edit-Edited-By").val(editedBy);
-  
+
 }
