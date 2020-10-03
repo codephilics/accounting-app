@@ -41,11 +41,11 @@
             <div class="panel" id="one-panel">
                 <h6 class="debitHeadline">Debit Portion</h6>
 
+                
                 <div class="wrapper">
-                    <label for="datepicker"><b>Date</b>
-                        <input class="entryDate" type="text" id="datepicker" placeholder="DD-MM-YYYY"  autocomplete="off" >
-                    </label>	
+                    <input class="entryDate" type="text" id="datepicker" placeholder="DD-MM-YYYY" autocomplete="off">
                 </div>
+                <h6 style="float: right; padding-top: 11px; padding-right: 8px; font-weight: bold;">Date:</h6>
 
 
                 <div class="row debitPortionCell">
@@ -118,8 +118,8 @@
 
                 <h6 class="creditHeadline">Credit Portion</h6>
                 <div class="row  creditPortionCell2">
-                    <span style="padding-left: 10px;">ISA from Last Day is <span class="ISA-value-last-day"
-                            style="padding-left: 5px; padding-right: 5px; font-weight: bolder;">0</span> taka</span>
+                    <span style="padding-left: 10px;">ISA from Last Day is <span class="ISA-value-last-day-headline"
+                            style="padding-left: 5px; padding-right: 5px; font-weight: bolder;"></span> taka</span>
                     <span style="margin-left: auto; padding-right: 10px;">ISA for Today is <span class="ISA-value-today"
                             style="padding-left: 5px; padding-right: 5px; font-weight: bolder;">0</span> taka</span>
                     <!-- ISA means total credit of a day - total debit of that day -->
@@ -181,8 +181,8 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th></th>
-                                <th><span class="ISA-value-last-day">0</span></th>
+                                <th><b>Last_Day_ISA</b></th>
+                                <th><span class="ISA-value-last-day">100</span></th>
                             </tr>
                         </thead>
                         <tbody class="credit-tbody">
@@ -481,9 +481,9 @@
                         <!-- <button class="print-pdf-excel-button" id="pdf-button" title="PDF">
                             <i class="far fa-file-pdf"></i>
                         </button> -->
-                        <button class="print-pdf-excel-button" title="Excel">
+                        <!-- <button class="print-pdf-excel-button" title="Excel">
                             <i class="far fa-file-excel"></i>
-                        </button>
+                        </button> -->
                         <div class="c-input-wrapper">
                             <div class="o-input o-input--cut-right">
                                 <input id="start_date" type="date" class="o-input__input">
@@ -494,73 +494,94 @@
                         </div>
                     </div>
                     <div class="row" style="width: 100%; margin-top: 15px; margin-left: 15px;">
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="type-filter" class="form-control">
                                 <option style="display:none">Type</option>
+                                <option selected disabled>Type</option>
+                                <option>None</option>
                                 <option>Debit</option>
                                 <option>Credit</option>
                             </select>
                         </div>
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="site-filter" class="form-control">
                                 <option style="display:none">Site</option>
+                                <option selected disabled>Site</option>
+                                <option>None</option>
                                 <option>Sad</option>
                                 <option>sa</option>
                             </select>
                         </div>
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="person-car-filter" class="form-control">
                                 <option style="display:none">Person/Car Who will Get</option>
+                                <option selected disabled>Person/Car Who will Get</option>
+                                <option>None</option>
                                 <option>Sad</option>
                                 <option>sa</option>
                             </select>
                         </div>
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="department-filter" class="form-control">
                                 <option style="display:none">Department</option>
+                                <option selected disabled>Department</option>
+                                <option>None</option>
                                 <option>Sad</option>
                                 <option>sada</option>
                             </select>
                         </div>
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="cause-filter" class="form-control">
                                 <option style="display:none">Cause</option>
+                                <option selected disabled>Cause</option>
+                                <option>None</option>
                                 <option>Sad</option>
                                 <option>sdasd</option>
                             </select>
                         </div>
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="carrier-filter" class="form-control">
                                 <option style="display:none">Carrier/Driver</option>
+                                <option selected disabled>Carrier/Driver</option>
+                                <option>None</option>
                                 <option>Sad</option>
                                 <option>dfgd</option>
                             </select>
                         </div>
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="refer-filter" class="form-control">
                                 <option style="display:none">Refer By</option>
+                                <option selected disabled>Refer By</option>
+                                <option>None</option>
                                 <option>Sad</option>
                                 <option>asd</option>
                             </select>
                         </div>
-                        <div class="select select-fancy select-fancy-noimage">
+                        <div class="select">
                             <select id="edited-filter" class="form-control">
                                 <option style="display:none">Edited By</option>
-                                <option>Sad</option>
+                                <option selected disabled>Edited By</option>
+                                <option>None</option>
+                                <option>sad</option>
                                 <option>fdg</option>
                             </select>
                         </div>
-                        <div>
-                            <input id="amount-filter" class="select select-fancy form-control" 
-                                style="width: 120px; height: 31px; padding-left: 8px; font-size: 12px;" type="text"
-                                class="input-field" placeholder="Amount">
+                        <div class="select">
+                            <select id="amount-filter" class="form-control">
+                                <option style="display:none">Amount</option>
+                                <option selected disabled>Amount</option>
+                                <option>None</option>
+                                <option>500</option>
+                                <option>50</option>
+                            </select>
                         </div>
                         <!-- <div>
                             <button class="search-portal-search-button">Search</button>
                         </div> -->
                     </div>
 
-                    <div class="row search-results" style="background-color: white; height: 420px; margin: 15px; overflow-x: scroll;">
+                    <div class="row search-results"
+                        style="background-color: white; height: 420px; margin: 15px; overflow-x: scroll;">
                         <table class="table table-bordered table-hover search-data-table">
                             <thead>
                                 <tr>
@@ -766,6 +787,259 @@
         </div>
     </div>
 
+    <div class="modal fade" id="debit-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: unset; border: none;">
+
+                <div class="form-modal">
+                    <button data-dismiss="modal" type="button" class="btn close"
+                        style=" color: red; font-weight: bolder;">✕</button>
+                    <h4 class="debitFormHeadline">Debit Record Edit Form
+                    </h4>
+
+                    <div class="row"
+                        style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
+                        <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Company" class="input-field" placeholder="Company">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-CO_CO" class="input-field" placeholder="CO-CO">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Site" class="input-field" placeholder="Site">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Person-Car-Who-will-Get" class="input-field"
+                                        placeholder="Person/Car Who will Get">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Department" class="input-field"
+                                        placeholder="Department">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Cause" class="input-field" placeholder="Cause">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Carrier-Driver" class="input-field"
+                                        placeholder="Carrier/Driver">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Refer-By" class="input-field" placeholder="Refer By">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Amount" class="input-field" placeholder="Amount">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Other-Cost" class="input-field"
+                                        placeholder="Other Cost">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Total" class="input-field" placeholder="Total">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Dena" class="input-field" placeholder="Dena">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Paona" class="input-field" placeholder="Paona">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Vara" class="input-field" placeholder="Vara">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Warning" class="input-field" placeholder="Warning">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Note" class="input-field note" placeholder="Note">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="d-edit-Edited-By" class="input-field"
+                                        placeholder="Edited By">
+                                </form>
+                            </div>
+                            <div style="display: flex; justify-content: center; margin-top:0.6em;">
+                                <button data-dismiss="modal" type="button" id="debit-edit-update"
+                                    class="btn btn-info btn-lg"
+                                    style="margin: .5%; margin-right: 20px; background-color: teal; border: 1px solid teal;">
+                                    <b>Update</b>
+                                </button>
+                                <button data-dismiss="modal" type="button" id="debit-edit-cancel"
+                                    class="btn btn-info btn-lg"
+                                    style="margin: .5%; background-color: coral; border: 1px solid coral;">
+                                    <b>Cancel</b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="credit-edit-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: unset; border: none;">
+
+                <div class="form-modal">
+                    <button data-dismiss="modal" type="button" class="btn close"
+                        style=" color: red; font-weight: bolder;">✕</button>
+                    <h4 class="debitFormHeadline">Credit Record Edit Form
+                    </h4>
+
+                    <div class="row"
+                        style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
+                        <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Company" class="input-field" placeholder="Company">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-CO_CO" class="input-field" placeholder="CO-CO">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Site" class="input-field" placeholder="Site">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Person-Car-Who-will-Get" class="input-field"
+                                        placeholder="Person/Car Who will Get">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Department" class="input-field"
+                                        placeholder="Department">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Cause" class="input-field" placeholder="Cause">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Carrier-Driver" class="input-field"
+                                        placeholder="Carrier/Driver">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Refer-By" class="input-field" placeholder="Refer By">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Amount" class="input-field" placeholder="Amount">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Other-Cost" class="input-field"
+                                        placeholder="Other Cost">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Total" class="input-field" placeholder="Total">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Dena" class="input-field" placeholder="Dena">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Paona" class="input-field" placeholder="Paona">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Vara" class="input-field" placeholder="Vara">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Warning" class="input-field" placeholder="Warning">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Note" class="input-field note" placeholder="Note">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="c-edit-Edited-By" class="input-field"
+                                        placeholder="Edited By">
+                                </form>
+                            </div>
+                            <div style="display: flex; justify-content: center; margin-top:0.6em;">
+                                <button data-dismiss="modal" type="button" id="credit-edit-update"
+                                    class="btn btn-info btn-lg"
+                                    style="margin: .5%; margin-right: 20px; background-color: teal; border: 1px solid teal;">
+                                    <b>Update</b>
+                                </button>
+                                <button data-dismiss="modal" type="button" id="credit-edit-cancel"
+                                    class="btn btn-info btn-lg"
+                                    style="margin: .5%; background-color: coral; border: 1px solid coral;">
+                                    <b>Cancel</b>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="assets/js/vendor/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -775,8 +1049,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/jtsage-datebox-bootstrap4@5.3.3/jtsage-datebox.min.js"></script> -->
 
-     <!-- Calender script-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>    
+    <!-- Calender script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 

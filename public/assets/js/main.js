@@ -10,22 +10,30 @@ $(function () {
     });
 });
 
+$(function () {
+  $("#serach-access-button").on("click", function () {
+    var pass = $(".password-input").val();
+    if (pass == "123") {
+      $(".searchPortal").css("display", "block");
+      $(".search-password").css("display", "none");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Wrong Password",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+  });
 
-$("#serach-access-button").on("click", function () {
-  var pass = $(".password-input").val();
-
-  if (pass == "123") {
-    $(".searchPortal").css("display", "block");
-    $(".search-password").css("display", "none");
-  } else {
-    Swal.fire({
-      icon: "error",
-      title: "Access Denied",
-      text: "Wrong Password",
-      showConfirmButton: false,
-      timer: 3000,
-    });
-  }
+  $(".password-input").keypress(function (e) {
+    var key = e.which;
+    if (key == 13) {
+      $("#serach-access-button").click();
+      return false;
+    }
+  });
 });
 
 $("#signin").click(function () {
@@ -55,12 +63,11 @@ $("#signin").click(function () {
     });
 });
 
-if (window.location.pathname == "/home"){
-  isNotAuthenticate();  
-}else if(window.location.pathname == "/"){
-  isAuthenticate();  
+if (window.location.pathname == "/home") {
+  isNotAuthenticate();
+} else if (window.location.pathname == "/") {
+  isAuthenticate();
 }
-
 
 function isNotAuthenticate() {
   var settings = {
@@ -87,23 +94,23 @@ function isNotAuthenticate() {
 
 function isAuthenticate() {
   var settings = {
-    "url": "/auth/info",
-    "method": "POST",
-    "timeout": 0,
-    "headers": {
-      "Authorization": sessionStorage.getItem('token')
+    url: "/auth/info",
+    method: "POST",
+    timeout: 0,
+    headers: {
+      Authorization: sessionStorage.getItem("token"),
     },
   };
-  
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    window.location.replace("/home");
-  })
-  .fail(function (xhr, textStatus, errorThrown) {
-    console.log(textStatus);
-  });
-}
 
+  $.ajax(settings)
+    .done(function (response) {
+      console.log(response);
+      window.location.replace("/home");
+    })
+    .fail(function (xhr, textStatus, errorThrown) {
+      console.log(textStatus);
+    });
+}
 
 // Show debit data
 function showDebitData(debitData) {
@@ -166,10 +173,44 @@ function showDebitData(debitData) {
     debitData["editedBy"] +
     "</td>" +
     "<td>" +
-    "<i class='fas fa-pen edit-item-debit' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer;'></i>" +
+    " <i class='fas fa-pen' id='debit-edit-button' onClick = 'debitEditButton(\"" +
+    debitData["company"] +
+    '", "' +
+    debitData["coco"] +
+    '", "' +
+    debitData["site"] +
+    '", "' +
+    debitData["person"] +
+    '", "' +
+    debitData["department"] +
+    '", "' +
+    debitData["cause"] +
+    '", "' +
+    debitData["carrier"] +
+    '", "' +
+    debitData["referBy"] +
+    '", "' +
+    debitData["amount"] +
+    '", "' +
+    debitData["otherCost"] +
+    '", "' +
+    debitData["total"] +
+    '", "' +
+    debitData["dena"] +
+    '", "' +
+    debitData["paona"] +
+    '", "' +
+    debitData["vara"] +
+    '", "' +
+    debitData["warning"] +
+    '", "' +
+    debitData["note"] +
+    '", "' +
+    debitData["editedBy"] +
+    "\")' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
     debitData["_id"] +
-    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -188,7 +229,7 @@ function entryDataShowAPI() {
     headers: {
       "Content-Type": "application/json",
       Authorization: sessionStorage.getItem("token"),
-    }
+    },
   };
 
   $.ajax(settings).done(function (response) {
@@ -198,34 +239,74 @@ function entryDataShowAPI() {
     $("tr").remove(".credit-tr");
     for (var i = 0; i < response.length; i++) {
       date = $(".entryDate").val();
-      if(date.length != 0 && date == response[i]['date']){
-        if(response[i]["type"]=="Debit"){
+      if (date.length != 0 && date == response[i]["date"]) {
+        if (response[i]["type"] == "Debit") {
           showDebitData(response[i]);
-        }else {
+        } else {
           showCreditData(response[i]);
-        } 
+        }
       }
     }
+
+    var debitSL = $(".debit-tr").length;
+    var creditSL = $(".credit-tr").length;
+    var total = 0;
+    var creditTotal = 0;
+    var ISAresult = 0;
+    var ISAvalue = parseFloat($(".ISA-value-today").text());
+
+    var debitTableSum = $(".debit-total-sum");
+    for (var i = 0; i < debitSL; i++) {
+      total = total + parseFloat(debitTableSum[i].innerHTML);
+    }
+    $("#debit-sum").html(total);
+
+    ISAresult = ISAvalue - total;
+    $(".ISA-value-today").html(ISAresult);
+
+    var ISAresult2 = 0;
+    var ISAvalue2 = parseFloat($(".ISA-value-today").text());
+    var lastISAValue = parseFloat($(".ISA-value-last-day").text());
+    $(".ISA-value-last-day-headline").html(lastISAValue);
+
+    console.log(lastISAValue);
+
+    var creditTableSum = $(".credit-total-sum");
+    for (var i = 0; i < creditSL; i++) {
+      creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
+    }
+    creditTotal = creditTotal + lastISAValue;
+    $("#credit-sum").html(creditTotal);
+
+    ISAresult2 = ISAvalue2 + creditTotal;
+    $(".ISA-value-today").html(ISAresult2);
   });
-};
+}
 
 function dateFilterEntryData() {
   $("tr").remove(".debit-tr");
   $("tr").remove(".credit-tr");
   for (var i = 0; i < entryData.length; i++) {
     date = $(".entryDate").val();
-    if(date.length != 0 && date == entryData[i]['date']){
-      if(entryData[i]["type"]=="Debit"){
+    if (date.length != 0 && date == entryData[i]["date"]) {
+      if (entryData[i]["type"] == "Debit") {
         showDebitData(entryData[i]);
-      }else {
+      } else {
         showCreditData(entryData[i]);
-      } 
+      }
     }
   }
 }
 
-
 // debit table insertation
+$("#dEdited-By").keypress(function (e) {
+  var key = e.which;
+  if (key == 13) {
+    $("#debit-submit").click();
+    return false;
+  }
+});
+
 $("#debit-submit").on("click", function (event) {
   event.preventDefault();
   var debitCompany = $("#dCompany").val();
@@ -287,31 +368,6 @@ $("#debit-submit").on("click", function (event) {
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
     });
-
-  // var total = 0;
-  // var ISAresult = 0;
-  // var ISAvalue = parseFloat($(".ISA-value-today").text());
-
-  // var debitTableSum = $(".debit-total-sum");
-  // for (var i = 0; i < debitSL; i++) {
-  //   total = total + parseFloat(debitTableSum[i].innerHTML);
-  //   ISAresult = ISAvalue - parseFloat(debitTableSum[i].innerHTML);
-  // }
-  // $("#debit-sum").html(total);
-
-  // console.log(ISAvalue);
-  // $(".ISA-value-today").html(ISAresult);
-  // console.log($(".debit-amount-sum"));
-
-  // console.log($(".debit-tr"));
-
-  // $(".debit-tr").on("click", ".remove-item-debit", function () {
-  //   console.log("hello");
-  //   $(this).closest("tr").remove();
-  //   debitSL--;
-  //   console.log(debitSL);
-  //   updateDebitSL(debitSL);
-  // });
 });
 
 function deleteEntryApi(id) {
@@ -406,10 +462,44 @@ function showCreditData(creditData) {
     creditData["editedBy"] +
     "</td>" +
     "<td>" +
-    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+    " <i class='fas fa-pen' id='credit-edit-button' onClick = 'creditEditButton(\"" +
+    creditData["company"] +
+    '", "' +
+    creditData["coco"] +
+    '", "' +
+    creditData["site"] +
+    '", "' +
+    creditData["person"] +
+    '", "' +
+    creditData["department"] +
+    '", "' +
+    creditData["cause"] +
+    '", "' +
+    creditData["carrier"] +
+    '", "' +
+    creditData["referBy"] +
+    '", "' +
+    creditData["amount"] +
+    '", "' +
+    creditData["otherCost"] +
+    '", "' +
+    creditData["total"] +
+    '", "' +
+    creditData["dena"] +
+    '", "' +
+    creditData["paona"] +
+    '", "' +
+    creditData["vara"] +
+    '", "' +
+    creditData["warning"] +
+    '", "' +
+    creditData["note"] +
+    '", "' +
+    creditData["editedBy"] +
+    "\")' data-toggle='modal' data-target='#credit-edit-modal' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
     creditData["_id"] +
-    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -419,6 +509,14 @@ function showCreditData(creditData) {
 }
 
 // credit table insertation
+
+$("#crEdited-By").keypress(function (e) {
+  var key = e.which;
+  if (key == 13) {
+    $("#credit-submit").click();
+    return false;
+  }
+});
 
 $("#credit-submit").on("click", function (event) {
   event.preventDefault();
@@ -481,22 +579,6 @@ $("#credit-submit").on("click", function (event) {
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
     });
-
-  // var creditTotal = 0;
-  // var ISAresult = 0;
-  // var ISAvalue = parseFloat($(".ISA-value-today").text());
-
-  // var creditTableSum = $(".credit-total-sum");
-  // for (var i = 0; i < creditSL; i++) {
-  //   creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
-  //   ISAresult = ISAvalue + parseFloat(creditTableSum[i].innerHTML);
-  // }
-  // $("#credit-sum").html(creditTotal);
-
-  // console.log(ISAvalue);
-  // $(".ISA-value-today").html(ISAresult);
-
-  // console.log($(".debit-amount-sum"));
 });
 
 function showAccountData(accountData) {
@@ -543,10 +625,10 @@ function showAccountData(accountData) {
     accountData["created_by"] +
     "</td>" +
     "<td>" +
-    "<i class='fas fa-pen' style='cursor: pointer;'></i>" +
+    "<i class='fas fa-pen' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteAccountAPI(\"" +
     accountData["_id"] +
-    "\")' style='padding-left: 8px; cursor: pointer;'></i>" +
+    "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
 
@@ -554,7 +636,6 @@ function showAccountData(accountData) {
 
   $(".add-account-table .add-account-tbody").append(row);
 }
-
 
 function accountDataShowAPI() {
   var settings = {
@@ -607,6 +688,16 @@ function deleteAccountAPI(id) {
   });
 }
 
+// add account table insertation
+
+$("#acCreated-By").keypress(function (e) {
+  var key = e.which;
+  if (key == 13) {
+    $("#create-account-button").click();
+    return false;
+  }
+});
+
 $("#create-account-button").on("click", function (event) {
   event.preventDefault();
   var accountFullname = $("#acFull-Name").val();
@@ -644,7 +735,7 @@ $("#create-account-button").on("click", function (event) {
       opening_date: accountOpeningDate,
       closing_date: accountClosingDate,
       note: accountNote,
-      created_by: accountCreator
+      created_by: accountCreator,
     }),
   };
 
@@ -770,7 +861,6 @@ function showSearchDataAPI() {
   });
 }
 
-
 var filters = {
   type: null,
   site: null,
@@ -853,23 +943,99 @@ $("#amount-filter").on("change", function () {
 //     }).show();
 // });
 
-
-$('#print-button').on('click', function() {
+$("#print-button").on("click", function () {
   $.print(".search-results");
 });
 
 // Calender
 $(function () {
-  if(!sessionStorage.getItem('date')){
-    sessionStorage.setItem('date', new Date());
+  if (!sessionStorage.getItem("date")) {
+    sessionStorage.setItem("date", new Date());
   }
-  $("#datepicker").datepicker({
-    dateFormat: "dd-mm-yy",
-    duration: "fast",
-    onSelect: function () {
-      sessionStorage.setItem('date', $(".entryDate").val());
-      dateFilterEntryData();
-    }
-  }).datepicker("setDate",sessionStorage.getItem('date'));
-  
+  $("#datepicker")
+    .datepicker({
+      dateFormat: "dd-mm-yy",
+      duration: "fast",
+      onSelect: function () {
+        sessionStorage.setItem("date", $(".entryDate").val());
+        dateFilterEntryData();
+      },
+    })
+    .datepicker("setDate", sessionStorage.getItem("date"));
 });
+
+function debitEditButton(
+  company,
+  coco,
+  site,
+  person,
+  department,
+  cause,
+  carrier,
+  referBy,
+  amount,
+  otherCost,
+  total,
+  dena,
+  paona,
+  vara,
+  warning,
+  note,
+  editedBy
+) {
+  $("#d-edit-Company").val(company);
+  $("#d-edit-CO_CO").val(coco);
+  $("#d-edit-Site").val(site);
+  $("#d-edit-Person-Car-Who-will-Get").val(person);
+  $("#d-edit-Department").val(department);
+  $("#d-edit-Cause").val(cause);
+  $("#d-edit-Carrier-Driver").val(carrier);
+  $("#d-edit-Refer-By").val(referBy);
+  $("#d-edit-Amount").val(amount);
+  $("#d-edit-Other-Cost").val(otherCost);
+  $("#d-edit-Total").val(total);
+  $("#d-edit-Dena").val(dena);
+  $("#d-edit-Paona").val(paona);
+  $("#d-edit-Vara").val(vara);
+  $("#d-edit-Warning").val(warning);
+  $("#d-edit-Note").val(note);
+  $("#d-edit-Edited-By").val(editedBy);
+}
+
+function creditEditButton(
+  company,
+  coco,
+  site,
+  person,
+  department,
+  cause,
+  carrier,
+  referBy,
+  amount,
+  otherCost,
+  total,
+  dena,
+  paona,
+  vara,
+  warning,
+  note,
+  editedBy
+) {
+  $("#c-edit-Company").val(company);
+  $("#c-edit-CO_CO").val(coco);
+  $("#c-edit-Site").val(site);
+  $("#c-edit-Person-Car-Who-will-Get").val(person);
+  $("#c-edit-Department").val(department);
+  $("#c-edit-Cause").val(cause);
+  $("#c-edit-Carrier-Driver").val(carrier);
+  $("#c-edit-Refer-By").val(referBy);
+  $("#c-edit-Amount").val(amount);
+  $("#c-edit-Other-Cost").val(otherCost);
+  $("#c-edit-Total").val(total);
+  $("#c-edit-Dena").val(dena);
+  $("#c-edit-Paona").val(paona);
+  $("#c-edit-Vara").val(vara);
+  $("#c-edit-Warning").val(warning);
+  $("#c-edit-Note").val(note);
+  $("#c-edit-Edited-By").val(editedBy);
+}
