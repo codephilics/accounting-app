@@ -625,7 +625,31 @@ function showAccountData(accountData) {
     accountData["created_by"] +
     "</td>" +
     "<td>" +
-    "<i class='fas fa-pen' style='cursor: pointer; color: #43a2d9;'></i>" +
+    "<i class='fas fa-pen' id='account-edit-button' onClick = 'accountEditButton(\"" +
+    accountData["full_name"] +
+    '", "' +
+    accountData["id"] +
+    '", "' +
+    accountData["nid"] +
+    '", "' +
+    accountData["blood_group"] +
+    '", "' +
+    accountData["father_name"] +
+    '", "' +
+    accountData["mother_name"] +
+    '", "' +
+    accountData["parmanent_address"] +
+    '", "' +
+    accountData["present_address"] +
+    '", "' +
+    accountData["opening_date"] +
+    '", "' +
+    accountData["closing_date"] +
+    '", "' +
+    accountData["note"] +
+    '", "' +
+    accountData["created_by"] +
+    "\")' data-toggle='modal' data-target='#edit-AccountForm' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteAccountAPI(\"" +
     accountData["_id"] +
     "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
@@ -774,17 +798,10 @@ function showSearchData(searchData) {
     "'>";
   var searchSL = $(".search-data-tr").length + 1;
 
-  var searchAmount = parseFloat($("#search-amount").text());
-  var searchTotal = parseFloat($("#search-total").text());
-  var searchDena = parseFloat($("#search-dena").text());
-  var searchPaona = parseFloat($("#search-paona").text());
-
-  var searchBalance = searchAmount + searchDena - (searchTotal + searchPaona);
-  // console.log(searchBalance);
-  // console.log(searchAmount);
-  // console.log(searchTotal);
-  // console.log(searchDena);
-  // console.log(searchPaona);
+  var searchBalance =
+    searchData["amount"] +
+    searchData["dena"] -
+    (searchData["total"] + searchData["paona"]);
 
   row +=
     "<td>" +
@@ -958,18 +975,14 @@ $("#amount-filter").on("change", function () {
 
 // print Button
 
-document.getElementById("print-button").addEventListener("click", function () {
-  var printContents = document.getElementsByClassName("search-results")
-    .innerHTML;
-  var originalContents = document.body.innerHTML;
-  document.body.innerHTML = printContents;
-  window.print();
-  document.body.innerHTML = originalContents;
-});
-
-// $("#print-button").on("click", function () {
-//   $.print(".search-results");
+// $(".search-results").find('#print-button').on('click', function() {
+//   console.log("hello print button");
+// $.print(".search-results");
 // });
+
+$("#print-button").on("click", function () {
+  $(".search-results").printThis();
+});
 
 // Calender
 $(function () {
@@ -1062,6 +1075,36 @@ function creditEditButton(
   $("#c-edit-Warning").val(warning);
   $("#c-edit-Note").val(note);
   $("#c-edit-Edited-By").val(editedBy);
+}
+
+// account edit update
+
+function accountEditButton(
+  fullName,
+  id,
+  nid,
+  bloodGroup,
+  fathersName,
+  mothersName,
+  permanentAddress,
+  presentAddress,
+  openingDate,
+  closingDate,
+  note,
+  createdBy
+) {
+  $("#ac-edit-Full-Name").val(fullName);
+  $("#ac-edit-ID").val(id);
+  $("#ac-edit-NID").val(nid);
+  $("#ac-edit-Blood-Group").val(bloodGroup);
+  $("#ac-edit-Fathers-Name").val(fathersName);
+  $("#ac-edit-Mothers-Name").val(mothersName);
+  $("#ac-edit-Permanent-Address").val(permanentAddress);
+  $("#ac-edit-Present-Address").val(presentAddress);
+  $("#ac-edit-Opening-Date").val(openingDate);
+  $("#ac-edit-Closing-Date").val(closingDate);
+  $("#ac-edit-Note").val(note);
+  $("#ac-edit-Created-By").val(createdBy);
 }
 
 // search calendar
