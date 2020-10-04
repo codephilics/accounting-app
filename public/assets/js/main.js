@@ -773,6 +773,19 @@ function showSearchData(searchData) {
     searchData["amount"] +
     "'>";
   var searchSL = $(".search-data-tr").length + 1;
+
+  var searchAmount = parseFloat($("#search-amount").text());
+  var searchTotal = parseFloat($("#search-total").text());
+  var searchDena = parseFloat($("#search-dena").text());
+  var searchPaona = parseFloat($("#search-paona").text());
+
+  var searchBalance = searchAmount + searchDena - (searchTotal + searchPaona);
+  // console.log(searchBalance);
+  // console.log(searchAmount);
+  // console.log(searchTotal);
+  // console.log(searchDena);
+  // console.log(searchPaona);
+
   row +=
     "<td>" +
     searchSL +
@@ -804,26 +817,26 @@ function showSearchData(searchData) {
     "<td>" +
     searchData["referBy"] +
     "</td>" +
-    "<td>" +
+    "<td id='search-amount'>" +
     searchData["amount"] +
     "</td>" +
     "<td>" +
     searchData["otherCost"] +
     "</td>" +
-    "<td class='credit-total-sum'>" +
+    "<td id='search-total'>" +
     searchData["total"] +
     "</td>" +
-    "<td>" +
+    "<td id='search-dena'>" +
     searchData["dena"] +
     "</td>" +
-    "<td>" +
+    "<td id='search-paona'>" +
     searchData["paona"] +
     "</td>" +
     "<td>" +
     searchData["vara"] +
     "</td>" +
     "<td>" +
-    searchData["vara"] +
+    searchBalance +
     "</td>" +
     "<td>" +
     searchData["warning"] +
@@ -920,7 +933,7 @@ $("#cause-filter").on("change", function () {
   changeFilter.call(this, "cause");
 });
 
-$("#carrier-driver-filter").on("change", function () {
+$("#carrier-filter").on("change", function () {
   changeFilter.call(this, "carrier");
 });
 
@@ -943,9 +956,20 @@ $("#amount-filter").on("change", function () {
 //     }).show();
 // });
 
-$("#print-button").on("click", function () {
-  $.print(".search-results");
+// print Button
+
+document.getElementById("print-button").addEventListener("click", function () {
+  var printContents = document.getElementsByClassName("search-results")
+    .innerHTML;
+  var originalContents = document.body.innerHTML;
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
 });
+
+// $("#print-button").on("click", function () {
+//   $.print(".search-results");
+// });
 
 // Calender
 $(function () {
