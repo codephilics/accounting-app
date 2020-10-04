@@ -18,13 +18,17 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
+
 
 </head>
 
 <body>
     <nav class="navbar navbar-dark" style="background-color: teal;">
         <a class="navbar-brand"><b style="color: floralwhite; font-size: large;">MSB Group</b></a>
-        <button class="btn btn-info" style="float: right; border: 1px solid rgb(10, 67, 85); font-weight: bold;">Logout</button>
+        <button class="btn btn-info"
+            style="float: right; border: 1px solid rgb(10, 67, 85); font-weight: bold;">Logout</button>
     </nav>
 
     <div class="warpper" style="padding-top: 10px;">
@@ -42,7 +46,7 @@
             <div class="panel" id="one-panel">
                 <h6 class="debitHeadline">Debit Portion</h6>
 
-                
+
                 <div class="wrapper">
                     <input class="entryDate" type="text" id="datepicker" placeholder="DD-MM-YYYY" autocomplete="off">
                 </div>
@@ -476,7 +480,7 @@
 
                 <div class="row searchPortal" style="display: none;">
                     <div style="padding-top: 10px; padding-left: 15px;">
-                        <button class="print-pdf-excel-button" id="print-button" title="Print">
+                        <button style=" float: left;" class="print-pdf-excel-button" id="print-button" title="Print">
                             <i class="fas fa-print"></i>
                         </button>
                         <!-- <button class="print-pdf-excel-button" id="pdf-button" title="PDF">
@@ -485,15 +489,20 @@
                         <!-- <button class="print-pdf-excel-button" title="Excel">
                             <i class="far fa-file-excel"></i>
                         </button> -->
-                        <div class="c-input-wrapper">
-                            <div class="o-input o-input--cut-right">
-                                <input id="start_date" type="date" class="o-input__input">
-                            </div>
-                            <div class="o-input o-input--cut-left">
-                                <input id="end_date" type="date" class="o-input__input">
-                            </div>
+                        <div style="float: right; margin-bottom: 8px; margin-right: 20px;">
+                            <form id="form" name="form" class="form-inline">
+                                <div class="form-group">
+                                    <label style="padding-top: 8px; margin-right: 5px; font-weight: bold;" for="startDate">Start Date:</label>
+                                    <input id="startDate" name="startDate" type="text" class="form-control" />
+                                    &nbsp;
+                                    <label style="padding-top: 8px; margin-right: 5px; font-weight: bold;" for="endDate">End Date:</label>
+                                    <input id="endDate" name="endDate" type="text" class="form-control" />
+                                </div>
+                            </form>
+
                         </div>
                     </div>
+
                     <div class="row" style="width: 100%; margin-top: 15px; margin-left: 15px;">
                         <div class="select">
                             <select id="type-filter" class="form-control">
@@ -1053,6 +1062,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
 
 
 </body>
