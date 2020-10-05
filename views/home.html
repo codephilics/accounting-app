@@ -27,8 +27,7 @@
 <body>
     <nav class="navbar navbar-dark" style="background-color: teal;">
         <a class="navbar-brand"><b style="color: floralwhite; font-size: large;">MSB Group</b></a>
-        <button class="btn btn-info"
-            style="float: right; border: 1px solid rgb(10, 67, 85); font-weight: bold;">Logout</button>
+        <button id="logout" class="btn btn-info" style="float: right; border: 1px solid rgb(10, 67, 85); font-weight: bold;">Logout</button>
     </nav>
 
     <div class="warpper" style="padding-top: 10px;">
@@ -48,7 +47,7 @@
 
 
                 <div class="wrapper">
-                    <input class="entryDate" type="text" id="datepicker" placeholder="DD-MM-YYYY" autocomplete="off">
+                    <input class="entryDate" type="text" id="datepicker" placeholder="YYYY/MM/DD" autocomplete="off">
                 </div>
                 <h6 style="float: right; padding-top: 11px; padding-right: 8px; font-weight: bold;">Date:</h6>
 
@@ -267,41 +266,41 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dAmount" class="input-field"
+                                                <input type="number" id="dAmount" class="input-field"
                                                     placeholder="Amount">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dOther-Cost" class="input-field"
+                                                <input type="number" id="dOther-Cost" class="input-field"
                                                     placeholder="Other Cost">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dTotal" class="input-field" placeholder="Total">
+                                                <input type="number" id="dTotal" class="input-field" placeholder="Total">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dDena" class="input-field" placeholder="Dena">
+                                                <input type="number" id="dDena" class="input-field" placeholder="Dena">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dPaona" class="input-field" placeholder="Paona">
+                                                <input type="number" id="dPaona" class="input-field" placeholder="Paona">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dVara" class="input-field" placeholder="Vara">
+                                                <input type="number" id="dVara" class="input-field" placeholder="Vara">
                                             </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dWarning" class="input-field"
+                                                <input type="number" id="dWarning" class="input-field"
                                                     placeholder="Warning">
                                             </form>
                                         </div>
@@ -393,41 +392,41 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crAmount" class="input-field"
+                                                <input type="number" id="crAmount" class="input-field"
                                                     placeholder="Amount">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crOther-Cost" class="input-field"
+                                                <input type="number" id="crOther-Cost" class="input-field"
                                                     placeholder="Other Cost">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crTotal" class="input-field" placeholder="Total">
+                                                <input type="number" id="crTotal" class="input-field" placeholder="Total">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crDena" class="input-field" placeholder="Dena">
+                                                <input type="number" id="crDena" class="input-field" placeholder="Dena">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crPaona" class="input-field" placeholder="Paona">
+                                                <input type="number" id="crPaona" class="input-field" placeholder="Paona">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crVara" class="input-field" placeholder="Vara">
+                                                <input type="number" id="crVara" class="input-field" placeholder="Vara">
                                             </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="crWarning" class="input-field"
+                                                <input type="number" id="crWarning" class="input-field"
                                                     placeholder="Warning">
                                             </form>
                                         </div>
@@ -489,14 +488,14 @@
                         <!-- <button class="print-pdf-excel-button" title="Excel">
                             <i class="far fa-file-excel"></i>
                         </button> -->
-                        <div style="float: right; margin-bottom: 8px; margin-right: 20px;">
+                        <div style="float: right; margin-bottom: 10px;">
                             <form id="form" name="form" class="form-inline">
                                 <div class="form-group">
                                     <label style="padding-top: 8px; margin-right: 5px; font-weight: bold;" for="startDate">Start Date:</label>
-                                    <input id="startDate" name="startDate" type="text" class="form-control" />
+                                    <input style="width: 35%;" id="startDate" name="startDate" type="text" class="form-control" />
                                     &nbsp;
-                                    <label style="padding-top: 8px; margin-right: 5px; font-weight: bold;" for="endDate">End Date:</label>
-                                    <input id="endDate" name="endDate" type="text" class="form-control" />
+                                    <label style="padding-top: 8px; margin-left: 5px; margin-right: 5px; font-weight: bold;" for="endDate">End Date:</label>
+                                    <input style="width: 35%;" id="endDate" name="endDate" type="text" class="form-control" />
                                 </div>
                             </form>
 
@@ -509,17 +508,13 @@
                                 <option style="display:none">Type</option>
                                 <option selected disabled>Type</option>
                                 <option>None</option>
-                                <option>Debit</option>
-                                <option>Credit</option>
                             </select>
                         </div>
                         <div class="select">
-                            <select id="site-filter" class="form-control">
+                            <select id="site-filter" class="form-control site-option">
                                 <option style="display:none">Site</option>
                                 <option selected disabled>Site</option>
-                                <option>None</option>
-                                <option>Sad</option>
-                                <option>sa</option>
+                                <option >None</option>
                             </select>
                         </div>
                         <div class="select">
@@ -527,8 +522,6 @@
                                 <option style="display:none">Person/Car Who will Get</option>
                                 <option selected disabled>Person/Car Who will Get</option>
                                 <option>None</option>
-                                <option>Sad</option>
-                                <option>sa</option>
                             </select>
                         </div>
                         <div class="select">
@@ -536,8 +529,6 @@
                                 <option style="display:none">Department</option>
                                 <option selected disabled>Department</option>
                                 <option>None</option>
-                                <option>Sad</option>
-                                <option>sada</option>
                             </select>
                         </div>
                         <div class="select">
@@ -545,8 +536,6 @@
                                 <option style="display:none">Cause</option>
                                 <option selected disabled>Cause</option>
                                 <option>None</option>
-                                <option>Sad</option>
-                                <option>sdasd</option>
                             </select>
                         </div>
                         <div class="select">
@@ -554,8 +543,6 @@
                                 <option style="display:none">Carrier/Driver</option>
                                 <option selected disabled>Carrier/Driver</option>
                                 <option>None</option>
-                                <option>Sad</option>
-                                <option>dfgd</option>
                             </select>
                         </div>
                         <div class="select">
@@ -563,8 +550,6 @@
                                 <option style="display:none">Refer By</option>
                                 <option selected disabled>Refer By</option>
                                 <option>None</option>
-                                <option>Sad</option>
-                                <option>asd</option>
                             </select>
                         </div>
                         <div class="select">
@@ -572,8 +557,6 @@
                                 <option style="display:none">Edited By</option>
                                 <option selected disabled>Edited By</option>
                                 <option>None</option>
-                                <option>sad</option>
-                                <option>fdg</option>
                             </select>
                         </div>
                         <div class="select">
@@ -581,8 +564,6 @@
                                 <option style="display:none">Amount</option>
                                 <option selected disabled>Amount</option>
                                 <option>None</option>
-                                <option value="500">500</option>
-                                <option>50 </option>
                             </select>
                         </div>
                         <!-- <div>
@@ -710,7 +691,7 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="acID" class="input-field" placeholder="ID">
+                                                <input type="number" id="acID" class="input-field" placeholder="ID">
                                             </form>
                                         </div>
                                         <div id="login-form">
@@ -811,6 +792,11 @@
                     <div class="row"
                         style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
                         <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
+                            <div id="login-form" style="display: none;">
+                                <form>
+                                    <input type="text" id="d-edit-ID" class="input-field" placeholder="Company">
+                                </form>
+                            </div>
                             <div id="login-form">
                                 <form>
                                     <input type="text" id="d-edit-Company" class="input-field" placeholder="Company">
@@ -858,40 +844,40 @@
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="d-edit-Amount" class="input-field" placeholder="Amount">
+                                    <input type="number" id="d-edit-Amount" class="input-field" placeholder="Amount">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="d-edit-Other-Cost" class="input-field"
+                                    <input type="number" id="d-edit-Other-Cost" class="input-field"
                                         placeholder="Other Cost">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="d-edit-Total" class="input-field" placeholder="Total">
+                                    <input type="number" id="d-edit-Total" class="input-field" placeholder="Total">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="d-edit-Dena" class="input-field" placeholder="Dena">
+                                    <input type="number" id="d-edit-Dena" class="input-field" placeholder="Dena">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="d-edit-Paona" class="input-field" placeholder="Paona">
+                                    <input type="number" id="d-edit-Paona" class="input-field" placeholder="Paona">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="d-edit-Vara" class="input-field" placeholder="Vara">
+                                    <input type="number" id="d-edit-Vara" class="input-field" placeholder="Vara">
                                 </form>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="d-edit-Warning" class="input-field" placeholder="Warning">
+                                    <input type="number" id="d-edit-Warning" class="input-field" placeholder="Warning">
                                 </form>
                             </div>
                             <div id="login-form">
@@ -938,6 +924,12 @@
                     <div class="row"
                         style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
                         <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
+                            <div id="login-form" style="display: none;">
+                                <h6>Company</h6>
+                                <form>
+                                    <input type="text" id="c-edit-ID" class="input-field" placeholder="Company">
+                                </form>
+                            </div>
                             <div id="login-form">
                                 <form>
                                     <input type="text" id="c-edit-Company" class="input-field" placeholder="Company">
@@ -985,40 +977,40 @@
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="c-edit-Amount" class="input-field" placeholder="Amount">
+                                    <input type="number" id="c-edit-Amount" class="input-field" placeholder="Amount">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="c-edit-Other-Cost" class="input-field"
+                                    <input type="number" id="c-edit-Other-Cost" class="input-field"
                                         placeholder="Other Cost">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="c-edit-Total" class="input-field" placeholder="Total">
+                                    <input type="number" id="c-edit-Total" class="input-field" placeholder="Total">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="c-edit-Dena" class="input-field" placeholder="Dena">
+                                    <input type="number" id="c-edit-Dena" class="input-field" placeholder="Dena">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="c-edit-Paona" class="input-field" placeholder="Paona">
+                                    <input type="number" id="c-edit-Paona" class="input-field" placeholder="Paona">
                                 </form>
                             </div>
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="c-edit-Vara" class="input-field" placeholder="Vara">
+                                    <input type="number" id="c-edit-Vara" class="input-field" placeholder="Vara">
                                 </form>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div id="login-form">
                                 <form>
-                                    <input type="text" id="c-edit-Warning" class="input-field" placeholder="Warning">
+                                    <input type="number" id="c-edit-Warning" class="input-field" placeholder="Warning">
                                 </form>
                             </div>
                             <div id="login-form">
@@ -1063,6 +1055,11 @@
 
                                 <div class="row" style="padding-bottom: 15px; display: flex; justify-content: center;">
                                     <div class="col-lg-4 col-md-4" style="padding-left: 50px;">
+                                        <div id="login-form" style="display: none;">
+                                            <form>
+                                                <input type="text" id="ac-edit-ID" class="input-field" placeholder="Company">
+                                            </form>
+                                        </div>
                                         <div id="login-form">
                                             <form>
                                                 <input type="text" id="ac-edit-Full-Name" class="input-field"
@@ -1071,7 +1068,7 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="ac-edit-ID" class="input-field" placeholder="ID">
+                                                <input type="number" id="ac-edit-CID" class="input-field" placeholder="ID">
                                             </form>
                                         </div>
                                         <div id="login-form">

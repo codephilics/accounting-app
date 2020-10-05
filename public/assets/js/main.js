@@ -174,6 +174,8 @@ function showDebitData(debitData) {
     "</td>" +
     "<td>" +
     " <i class='fas fa-pen' id='debit-edit-button' onClick = 'debitEditButton(\"" +
+    debitData["_id"] +
+    '", "' +
     debitData["company"] +
     '", "' +
     debitData["coco"] +
@@ -237,8 +239,8 @@ function entryDataShowAPI() {
     entryData = response;
     $("tr").remove(".debit-tr");
     $("tr").remove(".credit-tr");
+    date = $(".entryDate").val();
     for (var i = 0; i < response.length; i++) {
-      date = $(".entryDate").val();
       if (date.length != 0 && date == response[i]["date"]) {
         if (response[i]["type"] == "Debit") {
           showDebitData(response[i]);
@@ -261,13 +263,9 @@ function entryDataShowAPI() {
     }
     $("#debit-sum").html(total);
 
-    ISAresult = ISAvalue - total;
-    $(".ISA-value-today").html(ISAresult);
-
     var ISAresult2 = 0;
-    var ISAvalue2 = parseFloat($(".ISA-value-today").text());
     var lastISAValue = parseFloat($(".ISA-value-last-day").text());
-    $(".ISA-value-last-day-headline").html(lastISAValue);
+    $(".ISA-value-last-day-headline").html(preCreditTotal - preDebitTotal);
 
     console.log(lastISAValue);
 
@@ -278,7 +276,7 @@ function entryDataShowAPI() {
     creditTotal = creditTotal + lastISAValue;
     $("#credit-sum").html(creditTotal);
 
-    ISAresult2 = ISAvalue2 + creditTotal;
+    ISAresult2 = creditTotal - total;
     $(".ISA-value-today").html(ISAresult2);
   });
 }
@@ -463,6 +461,8 @@ function showCreditData(creditData) {
     "</td>" +
     "<td>" +
     " <i class='fas fa-pen' id='credit-edit-button' onClick = 'creditEditButton(\"" +
+    creditData["_id"] +
+    '", "' +
     creditData["company"] +
     '", "' +
     creditData["coco"] +
@@ -626,6 +626,8 @@ function showAccountData(accountData) {
     "</td>" +
     "<td>" +
     "<i class='fas fa-pen' id='account-edit-button' onClick = 'accountEditButton(\"" +
+    accountData["_id"] +
+    '", "' +
     accountData["full_name"] +
     '", "' +
     accountData["id"] +
@@ -778,21 +780,21 @@ $("#create-account-button").on("click", function (event) {
 function showSearchData(searchData) {
   var row =
     "<tr class ='search-data-tr' data-type='" +
-    searchData["type"] +
+    searchData["type"].toLowerCase() +
     "' data-site='" +
-    searchData["site"] +
+    searchData["site"].toLowerCase() +
     "' data-person='" +
-    searchData["person"] +
+    searchData["person"].toLowerCase() +
     "' data-department='" +
-    searchData["department"] +
+    searchData["department"].toLowerCase() +
     "' data-cause='" +
-    searchData["cause"] +
+    searchData["cause"].toLowerCase() +
     "' data-carrier='" +
-    searchData["carrier"] +
+    searchData["carrier"].toLowerCase() +
     "' data-refer='" +
-    searchData["referBy"] +
+    searchData["referBy"].toLowerCase() +
     "' data-edited='" +
-    searchData["editedBy"] +
+    searchData["editedBy"].toLowerCase() +
     "' data-search_amount='" +
     searchData["amount"] +
     "'>";
@@ -816,7 +818,7 @@ function showSearchData(searchData) {
     "<td>" +
     searchData["coco"] +
     "</td>" +
-    "<td>" +
+    "<td id='site-data'>" +
     searchData["site"] +
     "</td>" +
     "<td>" +
@@ -869,7 +871,13 @@ function showSearchData(searchData) {
   console.debug(row);
 
   $(".search-data-table .search-data-tbody").append(row);
+
+  var siteOption = searchData["site"];
+
+  // siteOptionShow(siteOption);
 }
+
+// Filter Options Functions
 
 function showSearchDataAPI() {
   var settings = {
@@ -885,10 +893,76 @@ function showSearchDataAPI() {
   $.ajax(settings).done(function (response) {
     console.log(response);
     $("tr").remove(".search-data-tr");
+    
     for (var i = 0; i < response.length; i++) {
       showSearchData(response[i]);
     }
+    filterDataFormat(response);
   });
+}
+
+// Set
+
+function filterDataFormat(data) {
+  var site = new Set();
+  var personWhoWillGet = new Set();
+  var department = new Set();
+  var cause = new Set();
+  var carrier = new Set();
+  var referBy = new Set();
+  var editBy = new Set();
+  var amount = new Set();
+
+  for (var i = 0; i < data.length; i++) {
+    var row = data[i];
+    site.add(row["site"].toLowerCase());
+    personWhoWillGet.add(row["person"].toLowerCase());
+    department.add(row["department"].toLowerCase());
+    cause.add(row["cause"].toLowerCase());
+    carrier.add(row["carrier"].toLowerCase());
+    referBy.add(row["referBy"].toLowerCase());
+    editBy.add(row["editedBy"].toLowerCase());
+    amount.add(row["amount"]);
+  }
+  for (let value of site) {
+    console.log(value);
+    $("#site-filter").append($("<option>").text(value).val(value));
+  }
+
+  for (let value of personWhoWillGet) {
+    console.log(value);
+    $("#person-car-filter").append($("<option>").text(value).val(value));
+  }
+
+  for (let value of department) {
+    console.log(value);
+    $("#department-filter").append($("<option>").text(value).val(value));
+  }
+
+  for (let value of cause) {
+    console.log(value);
+    $("#cause-filter").append($("<option>").text(value).val(value));
+  }
+
+  for (let value of carrier) {
+    console.log(value);
+    $("#carrier-filter").append($("<option>").text(value).val(value));
+  }
+
+  for (let value of referBy) {
+    console.log(value);
+    $("#refer-filter").append($("<option>").text(value).val(value));
+  }
+
+  for (let value of editBy) {
+    console.log(value);
+    $("#edited-filter").append($("<option>").text(value).val(value));
+  }
+
+  for (let value of amount) {
+    console.log(value);
+    $("#amount-filter").append($("<option>").text(value).val(value));
+  }
 }
 
 var filters = {
@@ -975,11 +1049,6 @@ $("#amount-filter").on("change", function () {
 
 // print Button
 
-// $(".search-results").find('#print-button').on('click', function() {
-//   console.log("hello print button");
-// $.print(".search-results");
-// });
-
 $("#print-button").on("click", function () {
   $(".search-results").printThis();
 });
@@ -1002,6 +1071,7 @@ $(function () {
 });
 
 function debitEditButton(
+  id,
   company,
   coco,
   site,
@@ -1020,6 +1090,8 @@ function debitEditButton(
   note,
   editedBy
 ) {
+  console.log(id);
+  $("#d-edit-ID").val(id);
   $("#d-edit-Company").val(company);
   $("#d-edit-CO_CO").val(coco);
   $("#d-edit-Site").val(site);
@@ -1040,6 +1112,7 @@ function debitEditButton(
 }
 
 function creditEditButton(
+  id,
   company,
   coco,
   site,
@@ -1058,6 +1131,8 @@ function creditEditButton(
   note,
   editedBy
 ) {
+  console.log(id);
+  $("#c-edit-ID").val(id);
   $("#c-edit-Company").val(company);
   $("#c-edit-CO_CO").val(coco);
   $("#c-edit-Site").val(site);
@@ -1080,8 +1155,9 @@ function creditEditButton(
 // account edit update
 
 function accountEditButton(
-  fullName,
   id,
+  fullName,
+  cid,
   nid,
   bloodGroup,
   fathersName,
@@ -1093,8 +1169,10 @@ function accountEditButton(
   note,
   createdBy
 ) {
-  $("#ac-edit-Full-Name").val(fullName);
+  console.log(id);
   $("#ac-edit-ID").val(id);
+  $("#ac-edit-Full-Name").val(fullName);
+  $("#ac-edit-CID").val(cid);
   $("#ac-edit-NID").val(nid);
   $("#ac-edit-Blood-Group").val(bloodGroup);
   $("#ac-edit-Fathers-Name").val(fathersName);
@@ -1193,24 +1271,192 @@ var bindDateRangeValidation = function (f, s, e) {
   hookValidatorEvt();
 };
 
+// logout
+
+$("#logout").on("click", function () {
+  console.log("Logout click");
+  sessionStorage.removeItem("token");
+  window.location.replace("/");
+});
+
 $(function () {
   var sd = new Date(),
     ed = new Date();
 
   $("#startDate").datetimepicker({
     pickTime: false,
-    format: "YYYY/MM/DD",
+    format: "DD/MM/YYYY",
     defaultDate: sd,
     maxDate: ed,
   });
 
   $("#endDate").datetimepicker({
     pickTime: false,
-    format: "YYYY/MM/DD",
+    format: "DD/MM/YYYY",
     defaultDate: ed,
     minDate: sd,
   });
 
   //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
   bindDateRangeValidation($("#form"), "startDate", "endDate");
+});
+
+// Record API Integration
+
+$("#debit-edit-update").on("click", function () {
+  var debitEditID = $("#d-edit-ID").val();
+  var debitEditCompany = $("#d-edit-Company").val();
+  var debitEditCoco = $("#d-edit-CO_CO").val();
+  var debitEditSite = $("#d-edit-Site").val();
+  var debitEditPerson = $("#d-edit-Person-Car-Who-will-Get").val();
+  var debitEditDepartment = $("#d-edit-Department").val();
+  var debitEditCause = $("#d-edit-Cause").val();
+  var debitEditCarrier = $("#d-edit-Carrier-Driver").val();
+  var debitEditReferby = $("#d-edit-Refer-By").val();
+  var debitEditAmount = $("#d-edit-Amount").val();
+  var debitEditOtherCost = $("#d-edit-Other-Cost").val();
+  var debitEditTotal = $("#d-edit-Total").val();
+  var debitEditDena = $("#d-edit-Dena").val();
+  var debitEditPaona = $("#d-edit-Paona").val();
+  var debitEditVara = $("#d-edit-Vara").val();
+  var debitEditWarning = $("#d-edit-Warning").val();
+  var debitEditNote = $("#d-edit-Note").val();
+  var debitEditEditedby = $("#d-edit-Edited-By").val();
+
+  var settings = {
+    url: "/entry/update",
+    method: "PUT",
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: sessionStorage.getItem("token"),
+    },
+    data: JSON.stringify({
+      _id: debitEditID,
+      company: debitEditCompany,
+      coco: debitEditCoco,
+      site: debitEditSite,
+      person: debitEditPerson,
+      department: debitEditDepartment,
+      cause: debitEditCause,
+      carrier: debitEditCarrier,
+      referBy: debitEditReferby,
+      amount: debitEditAmount,
+      otherCost: debitEditOtherCost,
+      total: debitEditTotal,
+      dena: debitEditDena,
+      paona: debitEditPaona,
+      vara: debitEditVara,
+      warning: debitEditWarning,
+      note: debitEditNote,
+      editedBy: debitEditEditedby,
+    }),
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    entryDataShowAPI();
+  });
+});
+
+$("#credit-edit-update").on("click", function () {
+  var creditEditID = $("#c-edit-ID").val();
+  var creditEditCompany = $("#c-edit-Company").val();
+  var creditEditCoco = $("#c-edit-CO_CO").val();
+  var creditEditSite = $("#c-edit-Site").val();
+  var creditEditPerson = $("#c-edit-Person-Car-Who-will-Get").val();
+  var creditEditDepartment = $("#c-edit-Department").val();
+  var creditEditCause = $("#c-edit-Cause").val();
+  var creditEditCarrier = $("#c-edit-Carrier-Driver").val();
+  var creditEditReferby = $("#c-edit-Refer-By").val();
+  var creditEditAmount = $("#c-edit-Amount").val();
+  var creditEditOtherCost = $("#c-edit-Other-Cost").val();
+  var creditEditTotal = $("#c-edit-Total").val();
+  var creditEditDena = $("#c-edit-Dena").val();
+  var creditEditPaona = $("#c-edit-Paona").val();
+  var creditEditVara = $("#c-edit-Vara").val();
+  var creditEditWarning = $("#c-edit-Warning").val();
+  var creditEditNote = $("#c-edit-Note").val();
+  var creditEditEditedby = $("#c-edit-Edited-By").val();
+
+  var settings = {
+    url: "/entry/update",
+    method: "PUT",
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: sessionStorage.getItem("token"),
+    },
+    data: JSON.stringify({
+      _id: creditEditID,
+      company: creditEditCompany,
+      coco: creditEditCoco,
+      site: creditEditSite,
+      person: creditEditPerson,
+      department: creditEditDepartment,
+      cause: creditEditCause,
+      carrier: creditEditCarrier,
+      referBy: creditEditReferby,
+      amount: creditEditAmount,
+      otherCost: creditEditOtherCost,
+      total: creditEditTotal,
+      dena: creditEditDena,
+      paona: creditEditPaona,
+      vara: creditEditVara,
+      warning: creditEditWarning,
+      note: creditEditNote,
+      editedBy: creditEditEditedby,
+    }),
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    entryDataShowAPI();
+  });
+});
+
+$("#account-edit-update").on("click", function () {
+  var accountEditID = $("#ac-edit-ID").val();
+  var accountEditFullName = $("#ac-edit-Full-Name").val();
+  var accountEditCID = $("#ac-edit-CID").val();
+  var accountEditNID = $("#ac-edit-NID").val();
+  var accountEditBloodGroup = $("#ac-edit-Blood-Group").val();
+  var accountEditFathersName = $("#ac-edit-Fathers-Name").val();
+  var accountEditMothersName = $("#ac-edit-Mothers-Name").val();
+  var accounrEditPermanentAddress = $("#ac-edit-Permanent-Address").val();
+  var accountEditPresentAddress = $("#ac-edit-Present-Address").val();
+  var accountEditOpeningDate = $("#ac-edit-Opening-Date").val();
+  var accountEditClosingDate = $("#ac-edit-Closing-Date").val();
+  var accountEditNote = $("#ac-edit-Note").val();
+  var AccountEditCreatedby = $("#ac-edit-Created-By").val();
+
+  var settings = {
+    url: "/account/update",
+    method: "PUT",
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: sessionStorage.getItem("token"),
+    },
+    data: JSON.stringify({
+      _id: accountEditID,
+      full_name: accountEditFullName,
+      id: accountEditCID,
+      nid: accountEditNID,
+      blood_group: accountEditBloodGroup,
+      father_name: accountEditFathersName,
+      mother_name: accountEditMothersName,
+      parmanent_address: accounrEditPermanentAddress,
+      present_address: accountEditPresentAddress,
+      opening_date: accountEditOpeningDate,
+      closing_date: accountEditClosingDate,
+      note: accountEditNote,
+      created_by: AccountEditCreatedby,
+    }),
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    accountDataShowAPI();
+  });
 });
