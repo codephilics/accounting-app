@@ -58,13 +58,15 @@ const accountSchema = new mongoose.Schema({
     },
 
     opening_date: {
-        type: Date,
-        default: Date.now 
+        type: String,
+        min:6,
+        max:255
     },
 
     closing_date: {
-        type: Date,
-        default: Date.now 
+        type: String,
+        min:6,
+        max:255
     },
 
     note: {
