@@ -186,7 +186,7 @@
                                 <th></th>
                                 <th></th>
                                 <th><b>Last_Day_ISA</b></th>
-                                <th><span class="ISA-value-last-day">100</span></th>
+                                <th><span class="ISA-value-last-day"></span></th>
                             </tr>
                         </thead>
                         <tbody class="credit-tbody">
@@ -317,7 +317,7 @@
                                             </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button data-dismiss="modal" type="button" id="debit-submit"
+                                            <button type="button" id="debit-submit"
                                                 class="btn btn-info btn-lg" name='debit-append' style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
@@ -443,7 +443,7 @@
                                             </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button data-dismiss="modal" type="button" id="credit-submit"
+                                            <button type="button" id="credit-submit"
                                                 class="btn btn-info btn-lg" style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
@@ -508,6 +508,8 @@
                                 <option style="display:none">Type</option>
                                 <option selected disabled>Type</option>
                                 <option>None</option>
+                                <option value="debit">Debit</option>
+                                <option value="credit">Credit</option>
                             </select>
                         </div>
                         <div class="select">

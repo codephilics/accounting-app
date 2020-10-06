@@ -57,9 +57,22 @@ $("#signin").click(function () {
       console.log(response);
       sessionStorage.setItem("token", response);
       window.location.replace("/home");
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Login Successful',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    
     })
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: 'Wrong Credentials'
+      });
     });
 });
 
@@ -243,6 +256,8 @@ function entryDataShowAPI() {
     date = reformDateFormat(date);
     previousDay = getPreviousDay(date);
     
+    var pDate = new Date(previousDay);
+
     var preCreditTotal=0, preDebitTotal=0;
     var creditTotal = 0, debitTotal = 0;
     for (var i = 0; i < response.length; i++) {
@@ -254,8 +269,10 @@ function entryDataShowAPI() {
           showCreditData(response[i]);
           creditTotal+=response[i]["total"];
         }
+
       }
-      if(previousDay == response[i]["date"]){
+      var d =  new Date(response[i]["date"]);
+      if(pDate.getTime() >= d.getTime()){
         console.log("Pre : "+response[i]["total"]);
         if (response[i]["type"] == "Debit") {
           preDebitTotal+=response[i]["total"];      
@@ -279,9 +296,10 @@ function entryDataShowAPI() {
     // }
     $("#debit-sum").html(debitTotal);
 
+    var preTotal = preCreditTotal - preDebitTotal;
     // var ISAresult2 = 0;
     // var lastISAValue = parseFloat($(".ISA-value-last-day").text());
-    $(".ISA-value-last-day-headline").html(preCreditTotal - preDebitTotal);
+    $(".ISA-value-last-day-headline").html(preTotal);
 
 
     // var creditTableSum = $(".credit-total-sum");
@@ -289,10 +307,10 @@ function entryDataShowAPI() {
     //   creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
     // }
     // creditTotal = creditTotal + lastISAValue;
-    $("#credit-sum").html(creditTotal);
-
+    $("#credit-sum").html(creditTotal+preTotal);
+    $(".ISA-value-last-day").html(preTotal);
     // ISAresult2 = creditTotal - total;
-    $(".ISA-value-today").html(creditTotal-debitTotal);
+    $(".ISA-value-today").html(creditTotal-debitTotal+preTotal);
   });
 }
 
@@ -378,9 +396,24 @@ $("#debit-submit").on("click", function (event) {
       console.log(response);
       entryDataShowAPI();
       showSearchDataAPI();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Data Successfully Recorded',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      $('#debitForm').modal('hide');
     })
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
+      Swal.fire({
+        icon: "error",
+        title: "Wrong Data Entry",
+        text: "Enter Your Entries Correctly",
+        showConfirmButton: false,
+        timer: 3000,
+      });
     });
 });
 
@@ -591,11 +624,28 @@ $("#credit-submit").on("click", function (event) {
       console.log(response);
       entryDataShowAPI();
       showSearchDataAPI();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Data Successfully Recorded',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      $('#creditForm').modal('hide');
     })
     .fail(function (xhr, textStatus, errorThrown) {
       console.log(textStatus);
+      Swal.fire({
+        icon: "error",
+        title: "Wrong Data Entry",
+        text: "Enter Your Entries Correctly",
+        showConfirmButton: false,
+        timer: 3000,
+      });
+      
     });
 });
+
 
 function showAccountData(accountData) {
   var row = "<tr class ='add-account-tr'>";
@@ -852,7 +902,7 @@ function showSearchData(searchData) {
     "<td>" +
     searchData["referBy"] +
     "</td>" +
-    "<td id='search-amount'>" +
+    "<td id='0'>" +
     searchData["amount"] +
     "</td>" +
     "<td>" +
@@ -909,7 +959,6 @@ function showSearchDataAPI() {
   $.ajax(settings).done(function (response) {
     console.log(response);
     $("tr").remove(".search-data-tr");
-    
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
 
@@ -919,7 +968,10 @@ function showSearchDataAPI() {
     var s = new Date(startDate);
     var e = new Date(endDate);
 
+
+
     for (var i = 0; i < response.length; i++) {
+      // response[i]['amount'] = response[i]['amount'].toString();
       var date = new Date(response[i]["date"]);
       if(date.getTime() >= s.getTime() && date.getTime() <= e.getTime()){
         showSearchData(response[i]);
@@ -994,7 +1046,7 @@ var filters = {
   carrier: null,
   refer: null,
   edited: null,
-  search_amount: null,
+  amount: null,
 };
 
 function updateFilters() {
@@ -1019,7 +1071,7 @@ function updateFilters() {
     .show();
 }
 
-function changeFilter(filterName) {
+function changeFilter(filterName) {  
   filters[filterName] = this.value;
   updateFilters();
 }
@@ -1057,7 +1109,7 @@ $("#edited-filter").on("change", function () {
 });
 
 $("#amount-filter").on("change", function () {
-  changeFilter.call(this, "search_amount");
+  changeFilter.call(this, "amount");
 });
 
 // future use for a text input filter
@@ -1070,7 +1122,7 @@ $("#amount-filter").on("change", function () {
 // print Button
 
 $("#print-button").on("click", function () {
-  $(".search-results").printThis();
+  $(".search-data-table").printThis();
 });
 
 
@@ -1222,55 +1274,54 @@ var bindDateRangeValidation = function (f, s, e) {
     endDateId = e;
 
   var checkDateRange = function (startDate, endDate) {
-    var isValid =
-      startDate != "" && endDate != "" ? startDate <= endDate : true;
+    var isValid = startDate != "" && endDate != "" ? startDate <= endDate : true;
     return isValid;
   };
 
-  var bindValidator = function () {
-    var bstpValidate = jqForm.data("bootstrapValidator");
-    var validateFields = {
-      startDate: {
-        validators: {
-          notEmpty: { message: "This field is required." },
-          callback: {
-            message: "Start Date must less than or equal to End Date.",
-            callback: function (startDate, validator, $field) {
-              return checkDateRange(startDate, $("#" + endDateId).val());
-            },
-          },
-        },
-      },
-      endDate: {
-        validators: {
-          notEmpty: { message: "This field is required." },
-          callback: {
-            message: "End Date must greater than or equal to Start Date.",
-            callback: function (endDate, validator, $field) {
-              return checkDateRange($("#" + startDateId).val(), endDate);
-            },
-          },
-        },
-      },
-      customize: {
-        validators: {
-          customize: { message: "customize." },
-        },
-      },
-    };
-    if (!bstpValidate) {
-      jqForm.bootstrapValidator({
-        excluded: [":disabled"],
-      });
-    }
+  // var bindValidator = function () {
+  //   var bstpValidate = jqForm.data("bootstrapValidator");
+  //   var validateFields = {
+  //     startDate: {
+  //       validators: {
+  //         notEmpty: { message: "This field is required." },
+  //         callback: {
+  //           message: "Start Date must less than or equal to End Date.",
+  //           callback: function (startDate, validator, $field) {
+  //             return checkDateRange(startDate, $("#" + endDateId).val());
+  //           },
+  //         },
+  //       },
+  //     },
+  //     endDate: {
+  //       validators: {
+  //         notEmpty: { message: "This field is required." },
+  //         callback: {
+  //           message: "End Date must greater than or equal to Start Date.",
+  //           callback: function (endDate, validator, $field) {
+  //             return checkDateRange($("#" + startDateId).val(), endDate);
+  //           },
+  //         },
+  //       },
+  //     },
+  //     customize: {
+  //       validators: {
+  //         customize: { message: "customize." },
+  //       },
+  //     },
+  //   };
+  //   if (!bstpValidate) {
+  //     jqForm.bootstrapValidator({
+  //       excluded: [":disabled"],
+  //     });
+  //   }
 
-    jqForm.bootstrapValidator(
-      "addField",
-      startDateId,
-      validateFields.startDate
-    );
-    jqForm.bootstrapValidator("addField", endDateId, validateFields.endDate);
-  };
+  //   jqForm.bootstrapValidator(
+  //     "addField",
+  //     startDateId,
+  //     validateFields.startDate
+  //   );
+  //   jqForm.bootstrapValidator("addField", endDateId, validateFields.endDate);
+  // };
 
   var hookValidatorEvt = function () {
     var dateBlur = function (e, bundleDateId, action) {
@@ -1302,6 +1353,13 @@ $("#logout").on("click", function () {
   console.log("Logout click");
   sessionStorage.removeItem("token");
   window.location.replace("/");
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Logout Successful',
+    showConfirmButton: false,
+    timer: 1500
+  });
 });
 
 function test() {
@@ -1331,7 +1389,7 @@ $(function () {
   });
 
   //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
-  bindDateRangeValidation($("#form"), "startDate", "endDate");
+  // bindDateRangeValidation($("#form"), "startDate", "endDate");
 });
 
 // Record API Integration
@@ -1389,6 +1447,13 @@ $("#debit-edit-update").on("click", function () {
   $.ajax(settings).done(function (response) {
     console.log(response);
     entryDataShowAPI();
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Data Successfully Updated',
+      showConfirmButton: false,
+      timer: 1500
+    });
   });
 });
 
@@ -1445,6 +1510,13 @@ $("#credit-edit-update").on("click", function () {
   $.ajax(settings).done(function (response) {
     console.log(response);
     entryDataShowAPI();
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Data Successfully Updated',
+      showConfirmButton: false,
+      timer: 1500
+    });
   });
 });
 
@@ -1491,6 +1563,13 @@ $("#account-edit-update").on("click", function () {
   $.ajax(settings).done(function (response) {
     console.log(response);
     accountDataShowAPI();
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Data Successfully Updated',
+      showConfirmButton: false,
+      timer: 1500
+    });
   });
 });
 
