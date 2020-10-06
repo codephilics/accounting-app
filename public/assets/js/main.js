@@ -240,44 +240,59 @@ function entryDataShowAPI() {
     $("tr").remove(".debit-tr");
     $("tr").remove(".credit-tr");
     date = $(".entryDate").val();
+    date = reformDateFormat(date);
+    previousDay = getPreviousDay(date);
+    
+    var preCreditTotal=0, preDebitTotal=0;
+    var creditTotal = 0, debitTotal = 0;
     for (var i = 0; i < response.length; i++) {
-      if (date.length != 0 && date == response[i]["date"]) {
+      if (date == response[i]["date"]) {
         if (response[i]["type"] == "Debit") {
           showDebitData(response[i]);
+          debitTotal+=response[i]["total"];
         } else {
           showCreditData(response[i]);
+          creditTotal+=response[i]["total"];
         }
       }
+      if(previousDay == response[i]["date"]){
+        console.log("Pre : "+response[i]["total"]);
+        if (response[i]["type"] == "Debit") {
+          preDebitTotal+=response[i]["total"];      
+        } else {
+          preCreditTotal+=response[i]["total"];
+        }
+      }
+
     }
 
-    var debitSL = $(".debit-tr").length;
-    var creditSL = $(".credit-tr").length;
-    var total = 0;
-    var creditTotal = 0;
-    var ISAresult = 0;
-    var ISAvalue = parseFloat($(".ISA-value-today").text());
+    // var debitSL = $(".debit-tr").length;
+    // var creditSL = $(".credit-tr").length;
+    // var total = 0;
+    // var creditTotal = 0;
+    // var ISAresult = 0;
+    // var ISAvalue = parseFloat($(".ISA-value-today").text());
 
-    var debitTableSum = $(".debit-total-sum");
-    for (var i = 0; i < debitSL; i++) {
-      total = total + parseFloat(debitTableSum[i].innerHTML);
-    }
-    $("#debit-sum").html(total);
+    // var debitTableSum = $(".debit-total-sum");
+    // for (var i = 0; i < debitSL; i++) {
+    //   total = total + parseFloat(debitTableSum[i].innerHTML);
+    // }
+    $("#debit-sum").html(debitTotal);
 
-    var ISAresult2 = 0;
-    var lastISAValue = parseFloat($(".ISA-value-last-day").text());
+    // var ISAresult2 = 0;
+    // var lastISAValue = parseFloat($(".ISA-value-last-day").text());
     $(".ISA-value-last-day-headline").html(preCreditTotal - preDebitTotal);
 
-    console.log(lastISAValue);
 
-    var creditTableSum = $(".credit-total-sum");
-    for (var i = 0; i < creditSL; i++) {
-      creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
-    }
-    creditTotal = creditTotal + lastISAValue;
+    // var creditTableSum = $(".credit-total-sum");
+    // for (var i = 0; i < creditSL; i++) {
+    //   creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
+    // }
+    // creditTotal = creditTotal + lastISAValue;
     $("#credit-sum").html(creditTotal);
 
-    ISAresult2 = creditTotal - total;
-    $(".ISA-value-today").html(ISAresult2);
+    // ISAresult2 = creditTotal - total;
+    $(".ISA-value-today").html(creditTotal-debitTotal);
   });
 }
 
@@ -286,6 +301,7 @@ function dateFilterEntryData() {
   $("tr").remove(".credit-tr");
   for (var i = 0; i < entryData.length; i++) {
     date = $(".entryDate").val();
+    date = reformDateFormat(date);
     if (date.length != 0 && date == entryData[i]["date"]) {
       if (entryData[i]["type"] == "Debit") {
         showDebitData(entryData[i]);
@@ -325,7 +341,7 @@ $("#debit-submit").on("click", function (event) {
   var debitNote = $("#dNote").val();
   var debitEditor = $("#dEdited-By").val();
   var date = $(".entryDate").val();
-
+  date = reformDateFormat(date);
   var settings = {
     url: "/entry/add",
     method: "POST",
@@ -538,7 +554,7 @@ $("#credit-submit").on("click", function (event) {
   var creditNote = $("#crNote").val();
   var creditEditor = $("#crEdited-By").val();
   var date = $(".entryDate").val();
-
+  date = reformDateFormat(date);
   var settings = {
     url: "/entry/add",
     method: "POST",
@@ -894,8 +910,20 @@ function showSearchDataAPI() {
     console.log(response);
     $("tr").remove(".search-data-tr");
     
+    var startDate = $('#startDate').val();
+    var endDate = $('#endDate').val();
+
+    startDate = reformDateFormat(startDate);
+    endDate = reformDateFormat(endDate);
+
+    var s = new Date(startDate);
+    var e = new Date(endDate);
+
     for (var i = 0; i < response.length; i++) {
-      showSearchData(response[i]);
+      var date = new Date(response[i]["date"]);
+      if(date.getTime() >= s.getTime() && date.getTime() <= e.getTime()){
+        showSearchData(response[i]);
+      }
     }
     filterDataFormat(response);
   });
@@ -925,42 +953,34 @@ function filterDataFormat(data) {
     amount.add(row["amount"]);
   }
   for (let value of site) {
-    console.log(value);
     $("#site-filter").append($("<option>").text(value).val(value));
   }
 
   for (let value of personWhoWillGet) {
-    console.log(value);
     $("#person-car-filter").append($("<option>").text(value).val(value));
   }
 
   for (let value of department) {
-    console.log(value);
     $("#department-filter").append($("<option>").text(value).val(value));
   }
 
   for (let value of cause) {
-    console.log(value);
     $("#cause-filter").append($("<option>").text(value).val(value));
   }
 
   for (let value of carrier) {
-    console.log(value);
     $("#carrier-filter").append($("<option>").text(value).val(value));
   }
 
   for (let value of referBy) {
-    console.log(value);
     $("#refer-filter").append($("<option>").text(value).val(value));
   }
 
   for (let value of editBy) {
-    console.log(value);
     $("#edited-filter").append($("<option>").text(value).val(value));
   }
 
   for (let value of amount) {
-    console.log(value);
     $("#amount-filter").append($("<option>").text(value).val(value));
   }
 }
@@ -1053,22 +1073,7 @@ $("#print-button").on("click", function () {
   $(".search-results").printThis();
 });
 
-// Calender
-$(function () {
-  if (!sessionStorage.getItem("date")) {
-    sessionStorage.setItem("date", new Date());
-  }
-  $("#datepicker")
-    .datepicker({
-      dateFormat: "dd-mm-yy",
-      duration: "fast",
-      onSelect: function () {
-        sessionStorage.setItem("date", $(".entryDate").val());
-        dateFilterEntryData();
-      },
-    })
-    .datepicker("setDate", sessionStorage.getItem("date"));
-});
+
 
 function debitEditButton(
   id,
@@ -1185,6 +1190,26 @@ function accountEditButton(
   $("#ac-edit-Created-By").val(createdBy);
 }
 
+
+// Calender
+$(function () {
+  if (!sessionStorage.getItem("date")) {
+    sessionStorage.setItem("date", Date.now());
+    console.log(Date.now());
+  }
+  $("#datepicker")
+    .datepicker({
+      dateFormat: "dd/mm/y",
+      onSelect: function () {
+        sessionStorage.setItem("date", $(".entryDate").val());
+        // dateFilterEntryData();
+        entryDataShowAPI();
+      },
+    })
+    // .datepicker("setDate", 1601971446313);
+    .datepicker("setDate", parseInt(sessionStorage.getItem("date")));
+});
+
 // search calendar
 
 var bindDateRangeValidation = function (f, s, e) {
@@ -1279,22 +1304,30 @@ $("#logout").on("click", function () {
   window.location.replace("/");
 });
 
-$(function () {
-  var sd = new Date(),
-    ed = new Date();
+function test() {
+  console.log("Date picked");
+}
 
+$(function () {
+  var ed = new Date();
+  var sd = new Date(ed.getTime()-432000000);
+  
   $("#startDate").datetimepicker({
     pickTime: false,
-    format: "DD/MM/YYYY",
+    format: "DD/MM/YY",
     defaultDate: sd,
     maxDate: ed,
+  }).on("change", function() {
+    showSearchDataAPI();
   });
 
   $("#endDate").datetimepicker({
     pickTime: false,
-    format: "DD/MM/YYYY",
+    format: "DD/MM/YY",
     defaultDate: ed,
     minDate: sd,
+  }).on("change", function() {
+    showSearchDataAPI();
   });
 
   //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
@@ -1460,3 +1493,45 @@ $("#account-edit-update").on("click", function () {
     accountDataShowAPI();
   });
 });
+
+
+// Custom date format
+
+function reformDateFormat(date){
+  var dd=date.substr(0, 2);
+  var mm = date.substr(3,2);
+  var yy = date.substr(6,3);
+  var fDate = mm+"/"+dd+"/"+yy;
+  return fDate;
+}
+
+function  getPreviousDay(data) {
+  var date = new Date(data);
+  date.setDate(date.getDate() - 1)
+
+  var dd = date.getDate();
+  var mm = date.getMonth()+1;
+  var yy = date.getFullYear();
+  yy = yy-2000;
+  
+  var pDate = "";
+
+  if(mm < 10){
+    pDate += "0"+mm.toString();
+  }else{
+    pDate += mm.toString();
+  }
+
+  if(dd < 10){
+    pDate += "/0"+dd.toString();
+  }else{
+    pDate += "/"+dd.toString();
+  }
+  
+  if(yy < 10){
+    pDate += "/0"+yy.toString();
+  }else{
+    pDate += "/"+yy.toString();
+  }
+  return pDate;
+}
