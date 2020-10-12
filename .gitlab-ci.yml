@@ -19,6 +19,8 @@ before_script:
   # Append keyscan output into known hosts
   - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
+  - npm cache clean --force
+  - rm -rf node_modules package-lock.json
   - npm install
   - npm start
   #npm run build
