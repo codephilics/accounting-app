@@ -20,7 +20,8 @@ before_script:
   - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
   - chmod 644 ~/.ssh/known_hosts
   - npm install
-  - npm run build
+  - npm start
+  #npm run build
 
 deploy:
   stage: deploy
