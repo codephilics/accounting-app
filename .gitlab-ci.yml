@@ -1,36 +1,35 @@
-image: node:12.19.0
-
-cache:
-  paths:
-    - node_modules/
-
 stages:
-  - deploy
+ - test
+ - clone-code
+ - deploy
 
-before_script:
-  # Check for ssh-agent + rsync and install if not present
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y  )'
-  - 'which rsync || ( apt-get update -y && apt-get install rsync -y )'
-  - eval $(ssh-agent -s)
-  # Inject the remote's private key
-  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-  - mkdir -p ~/.ssh
-  - chmod 700 ~/.ssh
-  # Append keyscan output into known hosts
-  - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
-  - chmod 644 ~/.ssh/known_hosts
-  - npm cache clean --force
-  - rm -rf node_modules package-lock.json
-  - npm install
-  - npm start
-  #npm run build
-
-deploy:
+Test:
+  stage: test
+  script:
+    - echo "test will be put here"
+  only:
+    - master
+  tags:
+    - account-ui
+Clone-code:
+  stage: clone-code
+  script:
+    - rm -rf /home/gitlab-runner/account-ui/*
+    - cp -rf * /home/gitlab-runner/account-ui
+  only:
+    - master
+  tags:
+    - account-ui
+Deploy:
   stage: deploy
   script:
-    - rsync -avuz --exclude=".*" $CI_PROJECT_DIR $SERVER_USER@$SERVER_IP:~
-    # Non interactive ssh gracefully reloads server
-    - ssh $SERVER_USER@$SERVER_IP '. /etc/profile; pm2 reload all'
+    - cd ~/account-ui
+    - npm cache clean --force
+    - rm -rf node_modules package-lock.json
+    - npm install
+    - npm start
+
   only:
-    # Trigger deployments only from master branch
     - master
+  tags:
+    - account-ui
