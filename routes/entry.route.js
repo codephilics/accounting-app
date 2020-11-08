@@ -6,8 +6,8 @@ const {entryFormValidation} = require('../validations/entry.validator');
 
 router.post("/add",verify, async (req, res) => {
     
-    const {error} = entryFormValidation.validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+//     const {error} = entryFormValidation.validate(req.body);
+//     if (error) return res.status(400).send(error.details[0].message);
     try{
         const entry = new Entry({
             type: req.body.type,
@@ -19,9 +19,9 @@ router.post("/add",verify, async (req, res) => {
             cause: req.body.cause,
             carrier: req.body.carrier,
             referBy: req.body.referBy,
+            quantity: req.body.quantity,
             amount: req.body.amount, 
             otherCost: req.body.otherCost,
-            total: req.body.total,
             dena: req.body.dena,
             paona: req.body.paona,
             vara: req.body.vara,

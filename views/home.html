@@ -7,7 +7,7 @@
     <title>MSB Group</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/index.css" />
+    <link rel="stylesheet" href="/assets/css/index.css" />
     <script src="https://kit.fontawesome.com/7e2a2d30e8.js" crossorigin="anonymous"></script>
 
     <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -18,8 +18,10 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
 
 
 </head>
@@ -27,7 +29,8 @@
 <body>
     <nav class="navbar navbar-dark" style="background-color: teal;">
         <a class="navbar-brand"><b style="color: floralwhite; font-size: large;">MSB Group</b></a>
-        <button id="logout" class="btn btn-info" style="float: right; border: 1px solid rgb(10, 67, 85); font-weight: bold;">Logout</button>
+        <button id="logout" class="btn btn-info"
+            style="float: right; border: 1px solid rgb(10, 67, 85); font-weight: bold;">Logout</button>
     </nav>
 
     <div class="warpper" style="padding-top: 10px;">
@@ -73,6 +76,8 @@
                                 <th class="th-sm">Carrier/Driver
                                 </th>
                                 <th class="th-sm">Refer_By
+                                </th>
+                                <th class="th-sm">Quantity
                                 </th>
                                 <th class="th-sm ">Amount
                                 </th>
@@ -122,9 +127,9 @@
 
                 <h6 class="creditHeadline">Credit Portion</h6>
                 <div class="row  creditPortionCell2">
-                    <span style="padding-left: 10px;">ISA from Last Day is <span class="ISA-value-last-day-headline"
+                    <span style="padding-left: 10px;">IZA from Last Day is <span class="ISA-value-last-day-headline"
                             style="padding-left: 5px; padding-right: 5px; font-weight: bolder;"></span> taka</span>
-                    <span style="margin-left: auto; padding-right: 10px;">ISA for Today is <span class="ISA-value-today"
+                    <span style="margin-left: auto; padding-right: 10px;">IZA for Today is <span class="ISA-value-today"
                             style="padding-left: 5px; padding-right: 5px; font-weight: bolder;">0</span> taka</span>
                     <!-- ISA means total credit of a day - total debit of that day -->
                     <!-- Last date ISA will show on the top side of next day credit portion -->
@@ -152,6 +157,8 @@
                                 <th class="th-sm">Carrier/Driver
                                 </th>
                                 <th class="th-sm">Refer_By
+                                </th>
+                                <th class="th-sm">Quantity
                                 </th>
                                 <th class="th-sm">Amount
                                 </th>
@@ -185,7 +192,7 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th><b>Last_Day_ISA</b></th>
+                                <th><b>Last_Day_IZA</b></th>
                                 <th><span class="ISA-value-last-day"></span></th>
                             </tr>
                         </thead>
@@ -218,111 +225,137 @@
                                     style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
                                     <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
                                         <div id="login-form">
-                                            <form>
-                                                <input type="text" id="dCompany" class="input-field"
-                                                    placeholder="Company">
-                                            </form>
+                                            <label for=""><b>Company</b> </label>
+                                            <select id="dCompany" class="form-control">
+                                                <option style="display:none">Company</option>
+                                                <option>Sakib</option>
+                                            </select>
                                         </div>
                                         <div id="login-form">
-                                            <form>
-                                                <input type="text" id="dCO_CO" class="input-field" placeholder="CO-CO">
-                                            </form>
+                                            <label for=""><b>CO-CO</b> </label>
+                                            <select id="dCO_CO" class="form-control">
+                                                <option style="display:none">CO-CO</option>
+                                                <option>Sakib</option>
+                                            </select>
                                         </div>
                                         <div id="login-form">
-                                            <form>
-                                                <input type="text" id="dSite" class="input-field" placeholder="Site">
-                                            </form>
+                                            <label for=""><b>Site</b> </label>
+                                            <select id="dSite" class="form-control">
+                                                <option style="display:none">Site</option>
+                                                <option>Sakib</option>
+                                            </select>
                                         </div>
                                         <div id="login-form">
-                                            <form>
-                                                <input type="text" id="dPerson-Car-Who-will-Get" class="input-field"
-                                                    placeholder="Person/Car Who will Get">
-                                            </form>
+                                            <label for=""><b>Person/Car Who Will Get</b> </label>
+                                            <select id="dPerson-Car-Who-will-Get" class="form-control">
+                                                <option style="display:none">Person/Car Who Will Get</option>
+                                                <option>Sakib</option>
+                                            </select>
                                         </div>
                                         <div id="login-form">
-                                            <form>
-                                                <input type="text" id="dDepartment" class="input-field"
-                                                    placeholder="Department">
-                                            </form>
+                                            <label for=""><b>Department</b> </label>
+                                            <select id="dDepartment" class="form-control">
+                                                <option style="display:none">Department</option>
+                                                <option>Sakib</option>
+                                            </select>
                                         </div>
                                         <div id="login-form">
-                                            <form>
-                                                <input type="text" id="dCause" class="input-field" placeholder="Cause">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="dCarrier-Driver" class="input-field"
-                                                    placeholder="Carrier/Driver">
-                                            </form>
+                                            <label for=""><b>Cause</b> </label>
+                                            <select id="dCause" class="form-control">
+                                                <option style="display:none">Cause</option>
+                                                <option>Sakib</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
+                                            <label for=""><b>Carrier/Driver</b> </label>
+                                            <select id="dCarrier-Driver" class="form-control">
+                                                <option style="display:none">Carrier/Driver</option>
+                                                <option>Sakib</option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Refer By</b> </label>
+                                            <select id="dRefer-By" class="form-control">
+                                                <option style="display:none">Refer By</option>
+                                                <option>Sakib</option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
                                             <form>
-                                                <input type="text" id="dRefer-By" class="input-field"
-                                                    placeholder="Refer By">
+                                                <label for=""><b>Quantity</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dQuantity"
+                                                    class="input-field" placeholder="Quantity">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="number" id="dAmount" class="input-field"
-                                                    placeholder="Amount">
+                                                <label for=""><b>Amount</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dAmount"
+                                                    class="input-field" placeholder="Amount">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="number" id="dOther-Cost" class="input-field"
-                                                    placeholder="Other Cost">
+                                                <label for=""><b>Other Cost</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dOther-Cost"
+                                                    class="input-field" placeholder="Other Cost">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="number" id="dTotal" class="input-field" placeholder="Total">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="number" id="dDena" class="input-field" placeholder="Dena">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="number" id="dPaona" class="input-field" placeholder="Paona">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="number" id="dVara" class="input-field" placeholder="Vara">
+                                                <label for=""><b>Dena</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dDena"
+                                                    class="input-field" placeholder="Dena">
                                             </form>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
+                                        
                                         <div id="login-form">
                                             <form>
-                                                <input type="number" id="dWarning" class="input-field"
-                                                    placeholder="Warning">
+                                                <label for=""><b>Paona</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dPaona"
+                                                    class="input-field" placeholder="Paona">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dNote" class="input-field note"
-                                                    placeholder="Note">
+                                                <label for=""><b>Vara</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dVara"
+                                                    class="input-field" placeholder="Vara">
                                             </form>
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="text" id="dEdited-By" class="input-field"
-                                                    placeholder="Edited By">
+                                                <label for=""><b>Warning</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dWarning"
+                                                    class="input-field" placeholder="Warning">
                                             </form>
                                         </div>
-                                        <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button type="button" id="debit-submit"
-                                                class="btn btn-info btn-lg" name='debit-append' style="margin: .5%;">
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Note</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="dNote"
+                                                    class="input-field" placeholder="Note">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Edited By</b> </label>
+                                            <select id="dEdited-By" class="form-control">
+                                                <option style="display:none">Edited By</option>
+                                                <option>Sakib</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: flex; justify-content: center; margin-top: 2rem;">
+                                            <button type="button" id="debit-submit" class="btn btn-info btn-lg"
+                                                name='debit-append' style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -340,7 +373,150 @@
                                 <h4 class="debitFormHeadline">Credit Record
                                     Form</h4>
 
-                                <div class="row"
+                                    <div class="row"
+                                    style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
+                                    <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
+                                        <div id="login-form">
+                                            <label for=""><b>Company</b> </label>
+                                            <select id="crCompany" class="form-control">
+                                                <option style="display:none">Company</option>
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>CO-CO</b> </label>
+                                            <select id="crCO_CO" class="form-control">
+                                                <option style="display:none">CO-CO</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Site</b> </label>
+                                            <select id="crSite" class="form-control">
+                                                <option style="display:none">Site</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Person/Car Who Will Get</b> </label>
+                                            <select id="crPerson-Car-Who-will-Get" class="form-control">
+                                                <option style="display:none">Person/Car Who Will Get</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Department</b> </label>
+                                            <select id="crDepartment" class="form-control">
+                                                <option style="display:none">Department</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Cause</b> </label>
+                                            <select id="crCause" class="form-control">
+                                                <option style="display:none">Cause</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <label for=""><b>Carrier/Driver</b> </label>
+                                            <select id="crCarrier-Driver" class="form-control">
+                                                <option style="display:none">Carrier/Driver</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Refer By</b> </label>
+                                            <select id="crRefer-By" class="form-control">
+                                                <option style="display:none">Refer By</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Quantity</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crQuantity"
+                                                    class="input-field" placeholder="Quantity">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Amount</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crAmount"
+                                                    class="input-field" placeholder="Amount">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Other Cost</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crOther-Cost"
+                                                    class="input-field" placeholder="Other Cost">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Dena</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crDena"
+                                                    class="input-field" placeholder="Dena">
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Paona</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crPaona"
+                                                    class="input-field" placeholder="Paona">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Vara</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crVara"
+                                                    class="input-field" placeholder="Vara">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Warning</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crWarning"
+                                                    class="input-field" placeholder="Warning">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
+                                                <label for=""><b>Note</b> </label>
+                                                <input style="margin-top: 0px;" type="number" id="crNote"
+                                                    class="input-field" placeholder="Note">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <label for=""><b>Edited By</b> </label>
+                                            <select id="crEdited-By" class="form-control">
+                                                <option style="display:none">Edited</option>
+                                                <option>
+                                                <option>
+                                            </select>
+                                        </div>
+                                        <div style="display: flex; justify-content: center; margin-top: 2rem;">
+                                            <button type="button" id="credit-submit" class="btn btn-info btn-lg"
+                                                name='credit-append' style="margin: .5%;">
+                                                <b>Submit</b>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>    
+
+                                <!-- <div class="row"
                                     style="padding-bottom: 15px; display: flex; justify-content: center; padding-right: 15px;">
                                     <div class="col-lg-4 col-md-4" style="padding-left: 30px;">
                                         <div id="login-form">
@@ -392,6 +568,12 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
+                                                <input type="number" id="crQuantity" class="input-field"
+                                                    placeholder="Quantity">
+                                            </form>
+                                        </div>
+                                        <div id="login-form">
+                                            <form>
                                                 <input type="number" id="crAmount" class="input-field"
                                                     placeholder="Amount">
                                             </form>
@@ -404,7 +586,8 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="number" id="crTotal" class="input-field" placeholder="Total">
+                                                <input type="number" id="crTotal" class="input-field"
+                                                    placeholder="Total">
                                             </form>
                                         </div>
                                         <div id="login-form">
@@ -414,16 +597,17 @@
                                         </div>
                                         <div id="login-form">
                                             <form>
-                                                <input type="number" id="crPaona" class="input-field" placeholder="Paona">
+                                                <input type="number" id="crPaona" class="input-field"
+                                                    placeholder="Paona">
                                             </form>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
                                                 <input type="number" id="crVara" class="input-field" placeholder="Vara">
                                             </form>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4">
                                         <div id="login-form">
                                             <form>
                                                 <input type="number" id="crWarning" class="input-field"
@@ -443,13 +627,13 @@
                                             </form>
                                         </div>
                                         <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button type="button" id="credit-submit"
-                                                class="btn btn-info btn-lg" style="margin: .5%;">
+                                            <button type="button" id="credit-submit" class="btn btn-info btn-lg"
+                                                style="margin: .5%;">
                                                 <b>Submit</b>
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -491,11 +675,16 @@
                         <div style="float: right; margin-bottom: 10px;">
                             <form id="form" name="form" class="form-inline">
                                 <div class="form-group">
-                                    <label style="padding-top: 8px; margin-right: 5px; font-weight: bold;" for="startDate">Start Date:</label>
-                                    <input style="width: 35%;" id="startDate" name="startDate" type="text" class="form-control" />
+                                    <label style="padding-top: 8px; margin-right: 5px; font-weight: bold;"
+                                        for="startDate">Start Date:</label>
+                                    <input style="width: 35%;" id="startDate" name="startDate" type="text"
+                                        class="form-control" />
                                     &nbsp;
-                                    <label style="padding-top: 8px; margin-left: 5px; margin-right: 5px; font-weight: bold;" for="endDate">End Date:</label>
-                                    <input style="width: 35%;" id="endDate" name="endDate" type="text" class="form-control" />
+                                    <label
+                                        style="padding-top: 8px; margin-left: 5px; margin-right: 5px; font-weight: bold;"
+                                        for="endDate">End Date:</label>
+                                    <input style="width: 35%;" id="endDate" name="endDate" type="text"
+                                        class="form-control" />
                                 </div>
                             </form>
 
@@ -513,10 +702,24 @@
                             </select>
                         </div>
                         <div class="select">
+                            <select id="company-filter" class="form-control">
+                                <option style="display:none">Company</option>
+                                <option selected disabled>Company</option>
+                                <option>None</option>
+                            </select>
+                        </div>
+                        <div class="select">
+                            <select id="co-co-filter" class="form-control">
+                                <option style="display:none">CO-CO</option>
+                                <option selected disabled>CO-CO</option>
+                                <option>None</option>
+                            </select>
+                        </div>
+                        <div class="select">
                             <select id="site-filter" class="form-control site-option">
                                 <option style="display:none">Site</option>
                                 <option selected disabled>Site</option>
-                                <option >None</option>
+                                <option>None</option>
                             </select>
                         </div>
                         <div class="select">
@@ -551,13 +754,6 @@
                             <select id="refer-filter" class="form-control">
                                 <option style="display:none">Refer By</option>
                                 <option selected disabled>Refer By</option>
-                                <option>None</option>
-                            </select>
-                        </div>
-                        <div class="select">
-                            <select id="edited-filter" class="form-control">
-                                <option style="display:none">Edited By</option>
-                                <option selected disabled>Edited By</option>
                                 <option>None</option>
                             </select>
                         </div>
@@ -598,7 +794,11 @@
                                     </th>
                                     <th class="th-sm">Refer_By
                                     </th>
-                                    <th class="th-sm">Amount
+                                    <th class="th-sm">Quantity
+                                    </th>
+                                    <th class="th-sm">Dr.Amount
+                                    </th>
+                                    <th class="th-sm">Cr.Amount
                                     </th>
                                     <th class="th-sm">Other_Cost
                                     </th>
@@ -615,6 +815,10 @@
                                     <th class="th-sm">Warning
                                     </th>
                                     <th class="th-sm">Note
+                                    </th>
+                                    <th class="th-sm">Date
+                                    </th>
+                                    <th class="th-sm">Time
                                     </th>
                                     <th class="th-sm">Edited_By
                                     </th>
@@ -1045,114 +1249,114 @@
         </div>
     </div>
     <div class="modal fade" id="edit-AccountForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content" style="background-color: unset; border: none;">
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: unset; border: none;">
 
-                            <div class="form-modal">
-                                <button data-dismiss="modal" type="button" class="btn close"
-                                    style=" color: red; font-weight: bolder;">✕</button>
-                                <h4 style="text-align: center; margin-top: 20px; font-weight: bolder;">Edit Account Form
-                                </h4>
+                <div class="form-modal">
+                    <button data-dismiss="modal" type="button" class="btn close"
+                        style=" color: red; font-weight: bolder;">✕</button>
+                    <h4 style="text-align: center; margin-top: 20px; font-weight: bolder;">Edit Account Form
+                    </h4>
 
-                                <div class="row" style="padding-bottom: 15px; display: flex; justify-content: center;">
-                                    <div class="col-lg-4 col-md-4" style="padding-left: 50px;">
-                                        <div id="login-form" style="display: none;">
-                                            <form>
-                                                <input type="text" id="ac-edit-ID" class="input-field" placeholder="Company">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Full-Name" class="input-field"
-                                                    placeholder="Full Name">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="number" id="ac-edit-CID" class="input-field" placeholder="ID">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-NID" class="input-field" placeholder="NID">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Blood-Group" class="input-field"
-                                                    placeholder="Blood Group">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Fathers-Name" class="input-field"
-                                                    placeholder="Father's Name">
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4">
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Mothers-Name" class="input-field"
-                                                    placeholder="Mother's Name">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Permanent-Address" class="input-field"
-                                                    placeholder="Permanent Address">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Present-Address" class="input-field"
-                                                    placeholder="Present Address">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Opening-Date" class="input-field"
-                                                    placeholder="Opening Date">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Closing-Date" class="input-field"
-                                                    placeholder="Closing Date">
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4">
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Note" class="input-field" placeholder="Note">
-                                            </form>
-                                        </div>
-                                        <div id="login-form">
-                                            <form>
-                                                <input type="text" id="ac-edit-Created-By" class="input-field"
-                                                    placeholder="Created By">
-                                            </form>
-                                        </div>
-                                        <div style="display: flex; justify-content: center; margin-top:0.6em;">
-                                            <button data-dismiss="modal" type="button" id="account-edit-update"
-                                                class="btn btn-info btn-lg"
-                                                style="margin: .5%; margin-right: 20px; background-color: teal; border: 1px solid teal;">
-                                                <b>Update</b>
-                                            </button>
-                                            <button data-dismiss="modal" type="button" id="account-edit-cancel"
-                                                class="btn btn-info btn-lg"
-                                                style="margin: .5%; background-color: coral; border: 1px solid coral;">
-                                                <b>Cancel</b>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="row" style="padding-bottom: 15px; display: flex; justify-content: center;">
+                        <div class="col-lg-4 col-md-4" style="padding-left: 50px;">
+                            <div id="login-form" style="display: none;">
+                                <form>
+                                    <input type="text" id="ac-edit-ID" class="input-field" placeholder="Company">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Full-Name" class="input-field"
+                                        placeholder="Full Name">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="number" id="ac-edit-CID" class="input-field" placeholder="ID">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-NID" class="input-field" placeholder="NID">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Blood-Group" class="input-field"
+                                        placeholder="Blood Group">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Fathers-Name" class="input-field"
+                                        placeholder="Father's Name">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Mothers-Name" class="input-field"
+                                        placeholder="Mother's Name">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Permanent-Address" class="input-field"
+                                        placeholder="Permanent Address">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Present-Address" class="input-field"
+                                        placeholder="Present Address">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Opening-Date" class="input-field"
+                                        placeholder="Opening Date">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Closing-Date" class="input-field"
+                                        placeholder="Closing Date">
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Note" class="input-field" placeholder="Note">
+                                </form>
+                            </div>
+                            <div id="login-form">
+                                <form>
+                                    <input type="text" id="ac-edit-Created-By" class="input-field"
+                                        placeholder="Created By">
+                                </form>
+                            </div>
+                            <div style="display: flex; justify-content: center; margin-top:0.6em;">
+                                <button data-dismiss="modal" type="button" id="account-edit-update"
+                                    class="btn btn-info btn-lg"
+                                    style="margin: .5%; margin-right: 20px; background-color: teal; border: 1px solid teal;">
+                                    <b>Update</b>
+                                </button>
+                                <button data-dismiss="modal" type="button" id="account-edit-cancel"
+                                    class="btn btn-info btn-lg"
+                                    style="margin: .5%; background-color: coral; border: 1px solid coral;">
+                                    <b>Cancel</b>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
     <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
     <script src="assets/js/vendor/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -1164,10 +1368,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.1/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
 
 
 </body>
