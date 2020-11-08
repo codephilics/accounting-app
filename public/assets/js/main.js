@@ -125,106 +125,118 @@ function isAuthenticate() {
     });
 }
 
+function isNull(data) {
+  if(data){
+    return data;
+  }else{
+    return "";
+  }
+}
+
 // Show debit data
 function showDebitData(debitData) {
   var row = "<tr class ='debit-tr'>";
 
+  var debitTableTotal = isNull(debitData["amount"]) + isNull(debitData["otherCost"]);
   var debitSL = $(".debit-tr").length + 1;
   row +=
     "<td>" +
     debitSL +
     "</td>" +
     "<td>" +
-    debitData["company"] +
+    isNull(debitData["company"])+
     "</td>" +
     "<td>" +
-    debitData["coco"] +
+    isNull(debitData["coco"])  +
     "</td>" +
     "<td>" +
-    debitData["site"] +
+    isNull(debitData["site"])  +
     "</td>" +
     "<td>" +
-    debitData["person"] +
+    isNull(debitData["person"])  +
     "</td>" +
     "<td>" +
-    debitData["department"] +
+    isNull(debitData["department"])  +
     "</td>" +
     "<td>" +
-    debitData["cause"] +
+    isNull(debitData["cause"])  +
     "</td>" +
     "<td>" +
-    debitData["carrier"] +
+    isNull(debitData["carrier"])  +
     "</td>" +
     "<td>" +
-    debitData["referBy"] +
+    isNull(debitData["referBy"]) +
     "</td>" +
     "<td>" +
-    debitData["amount"] +
+    isNull(debitData["quantity"]) +
     "</td>" +
     "<td>" +
-    debitData["otherCost"] +
+    isNull(debitData["amount"]) +
+    "</td>" +
+    "<td>" +
+    isNull(debitData["otherCost"]) +
     "</td>" +
     "<td class='debit-total-sum'>" +
-    debitData["total"] +
+    debitTableTotal +
     "</td>" +
     "<td>" +
-    debitData["dena"] +
+    isNull(debitData["dena"]) +
     "</td>" +
     "<td>" +
-    debitData["paona"] +
+    isNull(debitData["paona"]) +
     "</td>" +
     "<td>" +
-    debitData["vara"] +
+    isNull(debitData["vara"]) +
     "</td>" +
     "<td>" +
-    debitData["warning"] +
+    isNull(debitData["warning"]) +
     "</td>" +
     "<td>" +
-    debitData["note"] +
+    isNull(debitData["note"]) +
     "</td>" +
     "<td>" +
-    debitData["editedBy"] +
+    isNull(debitData["editedBy"]) +
     "</td>" +
     "<td>" +
     " <i class='fas fa-pen' id='debit-edit-button' onClick = 'debitEditButton(\"" +
-    debitData["_id"] +
+    isNull(debitData["_id"]) +
     '", "' +
-    debitData["company"] +
+    isNull(debitData["company"]) +
     '", "' +
-    debitData["coco"] +
+    isNull(debitData["coco"]) +
     '", "' +
-    debitData["site"] +
+    isNull(debitData["site"]) +
     '", "' +
-    debitData["person"] +
+    isNull(debitData["person"]) +
     '", "' +
-    debitData["department"] +
+    isNull(debitData["department"]) +
     '", "' +
-    debitData["cause"] +
+    isNull(debitData["cause"]) +
     '", "' +
-    debitData["carrier"] +
+    isNull(debitData["carrier"]) +
     '", "' +
-    debitData["referBy"] +
+    isNull(debitData["referBy"]) +
     '", "' +
-    debitData["amount"] +
+    isNull(debitData["amount"]) +
     '", "' +
-    debitData["otherCost"] +
+    isNull(debitData["otherCost"]) +
     '", "' +
-    debitData["total"] +
+    isNull(debitData["total"]) +
     '", "' +
-    debitData["dena"] +
+    isNull(debitData["dena"]) +
     '", "' +
-    debitData["paona"] +
+    isNull(debitData["paona"]) +
     '", "' +
-    debitData["vara"] +
+    isNull(debitData["vara"]) +
     '", "' +
-    debitData["warning"] +
+    isNull(debitData["warning"]) +
     '", "' +
-    debitData["note"] +
+    isNull(debitData["note"]) +
     '", "' +
-    debitData["editedBy"] +
+    isNull(debitData["editedBy"]) +
     "\")' data-toggle='modal' data-target='#debit-edit-modal' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
-    debitData["_id"] +
+    isNull(debitData["_id"]) +
     "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
@@ -283,33 +295,14 @@ function entryDataShowAPI() {
 
     }
 
-    // var debitSL = $(".debit-tr").length;
-    // var creditSL = $(".credit-tr").length;
-    // var total = 0;
-    // var creditTotal = 0;
-    // var ISAresult = 0;
-    // var ISAvalue = parseFloat($(".ISA-value-today").text());
-
-    // var debitTableSum = $(".debit-total-sum");
-    // for (var i = 0; i < debitSL; i++) {
-    //   total = total + parseFloat(debitTableSum[i].innerHTML);
-    // }
     $("#debit-sum").html(debitTotal);
 
     var preTotal = preCreditTotal - preDebitTotal;
-    // var ISAresult2 = 0;
-    // var lastISAValue = parseFloat($(".ISA-value-last-day").text());
     $(".ISA-value-last-day-headline").html(preTotal);
 
 
-    // var creditTableSum = $(".credit-total-sum");
-    // for (var i = 0; i < creditSL; i++) {
-    //   creditTotal = creditTotal + parseFloat(creditTableSum[i].innerHTML);
-    // }
-    // creditTotal = creditTotal + lastISAValue;
     $("#credit-sum").html(creditTotal+preTotal);
     $(".ISA-value-last-day").html(preTotal);
-    // ISAresult2 = creditTotal - total;
     $(".ISA-value-today").html(creditTotal-debitTotal+preTotal);
   });
 }
@@ -349,9 +342,9 @@ $("#debit-submit").on("click", function (event) {
   var debitCause = $("#dCause").val();
   var debitCarrier = $("#dCarrier-Driver").val();
   var debitRefer = $("#dRefer-By").val();
+  var debitQuantity = $("#dQuantity").val();
   var debitAmount = $("#dAmount").val();
   var debitOtherCost = $("#dOther-Cost").val();
-  var debitTotal = $("#dTotal").val();
   var debitDena = $("#dDena").val();
   var debitPaona = $("#dPaona").val();
   var debitVara = $("#dVara").val();
@@ -378,9 +371,9 @@ $("#debit-submit").on("click", function (event) {
       cause: debitCause,
       carrier: debitCarrier,
       referBy: debitRefer,
+      quantity : debitQuantity,
       amount: debitAmount,
       otherCost: debitOtherCost,
-      total: debitTotal,
       dena: debitDena,
       paona: debitPaona,
       vara: debitVara,
@@ -453,101 +446,106 @@ function deleteEntryApi(id) {
 function showCreditData(creditData) {
   var row = "<tr class ='credit-tr'>";
   var creditSL = $(".credit-tr").length + 1;
+  var creditTableTotal = isNull(creditData["amount"]) + isNull(creditData["otherCost"]);
+
   row +=
     "<td>" +
     creditSL +
     "</td>" +
     "<td>" +
-    creditData["company"] +
+    isNull(creditData["company"]) +
     "</td>" +
     "<td>" +
-    creditData["coco"] +
+    isNull(creditData["coco"]) +
     "</td>" +
     "<td>" +
-    creditData["site"] +
+    isNull(creditData["site"]) +
     "</td>" +
     "<td>" +
-    creditData["person"] +
+    isNull(creditData["person"]) +
     "</td>" +
     "<td>" +
-    creditData["department"] +
+    isNull(creditData["department"]) +
     "</td>" +
     "<td>" +
-    creditData["cause"] +
+    isNull(creditData["cause"]) +
     "</td>" +
     "<td>" +
-    creditData["carrier"] +
+    isNull(creditData["carrier"]) +
     "</td>" +
     "<td>" +
-    creditData["referBy"] +
+    isNull(creditData["referBy"]) +
     "</td>" +
     "<td>" +
-    creditData["amount"] +
+    isNull(creditData["quantity"]) +
     "</td>" +
     "<td>" +
-    creditData["otherCost"] +
+    isNull(creditData["amount"]) +
+    "</td>" +
+    "<td>" +
+    isNull(creditData["otherCost"]) +
     "</td>" +
     "<td class='credit-total-sum'>" +
-    creditData["total"] +
+    creditTableTotal +
     "</td>" +
     "<td>" +
-    creditData["dena"] +
+    isNull(creditData["dena"]) +
     "</td>" +
     "<td>" +
-    creditData["paona"] +
+    isNull(creditData["paona"]) +
     "</td>" +
     "<td>" +
-    creditData["vara"] +
+    isNull(creditData["vara"]) +
     "</td>" +
     "<td>" +
-    creditData["warning"] +
+    isNull(creditData["warning"]) +
     "</td>" +
     "<td>" +
-    creditData["note"] +
+    isNull(creditData["note"]) +
     "</td>" +
     "<td>" +
-    creditData["editedBy"] +
+    isNull(creditData["editedBy"]) +
     "</td>" +
     "<td>" +
     " <i class='fas fa-pen' id='credit-edit-button' onClick = 'creditEditButton(\"" +
-    creditData["_id"] +
+    isNull(creditData["_id"]) +
     '", "' +
-    creditData["company"] +
+    isNull(creditData["company"]) +
     '", "' +
-    creditData["coco"] +
+    isNull(creditData["coco"]) +
     '", "' +
-    creditData["site"] +
+    isNull(creditData["site"]) +
     '", "' +
-    creditData["person"] +
+    isNull(creditData["person"]) +
     '", "' +
-    creditData["department"] +
+    isNull(creditData["department"]) +
     '", "' +
-    creditData["cause"] +
+    isNull(creditData["cause"]) +
     '", "' +
-    creditData["carrier"] +
+    isNull(creditData["carrier"]) +
     '", "' +
-    creditData["referBy"] +
+    isNull(creditData["referBy"]) +
     '", "' +
-    creditData["amount"] +
+    isNull(creditData["amount"]) +
     '", "' +
-    creditData["otherCost"] +
+    isNull(creditData["otherCost"]) +
     '", "' +
-    creditData["total"] +
+    isNull(creditData["total"]) +
     '", "' +
-    creditData["dena"] +
+    isNull(creditData["dena"]) +
     '", "' +
-    creditData["paona"] +
+    isNull(creditData["paona"]) +
     '", "' +
-    creditData["vara"] +
+    isNull(creditData["vara"]) +
     '", "' +
-    creditData["warning"] +
+    isNull(creditData["warning"]) +
     '", "' +
-    creditData["note"] +
+    isNull(creditData["note"]) +
     '", "' +
-    creditData["editedBy"] +
+    isNull(creditData["editedBy"]) +
     "\")' data-toggle='modal' data-target='#credit-edit-modal' style='cursor: pointer; color: #43a2d9;'></i>" +
     "<i class='fas fa-trash-alt' onClick = 'deleteEntryApi(\"" +
-    creditData["_id"] +
+    isNull(creditData["_id"]) +
     "\")' style='padding-left: 8px; cursor: pointer; color: red;'></i>" +
     "</td>";
   row += "</tr>";
@@ -577,9 +575,9 @@ $("#credit-submit").on("click", function (event) {
   var creditCause = $("#crCause").val();
   var creditCarrier = $("#crCarrier-Driver").val();
   var creditRefer = $("#crRefer-By").val();
+  var creditQuantity = $("#crQuantity").val();
   var creditAmount = $("#crAmount").val();
   var creditOtherCost = $("#crOther-Cost").val();
-  var creditTotal = $("#crTotal").val();
   var creditDena = $("#crDena").val();
   var creditPaona = $("#crPaona").val();
   var creditVara = $("#crVara").val();
@@ -606,9 +604,9 @@ $("#credit-submit").on("click", function (event) {
       cause: creditCause,
       carrier: creditCarrier,
       referBy: creditRefer,
+      quantity: creditQuantity,
       amount: creditAmount,
       otherCost: creditOtherCost,
-      total: creditTotal,
       dena: creditDena,
       paona: creditPaona,
       vara: creditVara,
@@ -866,71 +864,98 @@ function showSearchData(searchData) {
     "'>";
   var searchSL = $(".search-data-tr").length + 1;
 
+  
+
+  
+  var drAmount = isNull(searchData["amount"]);
+  var crAmount = isNull(searchData["amount"]);
+  if(searchData["type"]=='Debit'){
+    crAmount = 0;
+  }else{
+    drAmount = 0;
+  }
+
+  
+
   var searchBalance =
-    searchData["amount"] +
-    searchData["dena"] -
-    (searchData["total"] + searchData["paona"]);
+  crAmount +
+  isNull(searchData["dena"]) -
+  (isNull(searchData["total"]) + isNull(searchData["paona"]));
+
+  var searchTableTotal = drAmount + crAmount + isNull(searchData["otherCost"]);
 
   row +=
     "<td>" +
     searchSL +
     "</td>" +
     "<td>" +
-    searchData["type"] +
+    isNull(searchData["type"]) +
     "</td>" +
     "<td>" +
-    searchData["company"] +
+    isNull(searchData["company"]) +
     "</td>" +
     "<td>" +
-    searchData["coco"] +
+    isNull(searchData["coco"]) +
     "</td>" +
     "<td id='site-data'>" +
-    searchData["site"] +
+    isNull(searchData["site"]) +
     "</td>" +
     "<td>" +
-    searchData["person"] +
+    isNull(searchData["person"]) +
     "</td>" +
     "<td>" +
-    searchData["department"] +
+    isNull(searchData["department"]) +
     "</td>" +
     "<td>" +
-    searchData["cause"] +
+    isNull(searchData["cause"]) +
     "</td>" +
     "<td>" +
-    searchData["carrier"] +
+    isNull(searchData["carrier"]) +
     "</td>" +
     "<td>" +
-    searchData["referBy"] +
+    isNull(searchData["referBy"]) +
+    "</td>" +
+    "<td>" +
+    isNull(searchData["quantity"]) +
     "</td>" +
     "<td id='0'>" +
-    searchData["amount"] +
+    drAmount +
+    "</td>" +
+    "<td id='0'>" +
+    crAmount +
     "</td>" +
     "<td>" +
-    searchData["otherCost"] +
+    isNull(searchData["otherCost"]) +
     "</td>" +
     "<td id='search-total'>" +
-    searchData["total"] +
+    searchTableTotal +
     "</td>" +
     "<td id='search-dena'>" +
-    searchData["dena"] +
+    isNull(searchData["dena"]) +
     "</td>" +
     "<td id='search-paona'>" +
-    searchData["paona"] +
+    isNull(searchData["paona"]) +
     "</td>" +
     "<td>" +
-    searchData["vara"] +
+    isNull(searchData["vara"]) +
     "</td>" +
     "<td>" +
     searchBalance +
     "</td>" +
     "<td>" +
-    searchData["warning"] +
+    isNull(searchData["warning"]) +
     "</td>" +
     "<td>" +
-    searchData["note"] +
+    isNull(searchData["note"]) +
     "</td>" +
     "<td>" +
-    searchData["editedBy"] +
+    isNull(searchData["date"]) +
+    "</td>" +
+    "<td>" +
+    isNull(searchData["note"]) +
+    "</td>" +
+    "<td>" +
+    isNull(searchData["editedBy"]) +
     "</td>";
   row += "</tr>";
 

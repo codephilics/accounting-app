@@ -4,98 +4,101 @@ const entrySchema = new mongoose.Schema({
     
     type: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max: 255
     },
     company: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     coco: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     site: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     person: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     department: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     cause: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     carrier: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     referBy: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:255
     },
     amount: {
         type: Number,
-        required: true,
+        require: false,
     },
     otherCost: {
         type: Number,
-        required: true,
-    },
-    total: {
-        type: Number,
-        required: true,
+        require: false,
     },
     dena: {
         type: Number,
-        required: true,
+        require: false,
     },
     paona: {
         type: Number,
-        required: true,
+        require: false,
     },
     vara: {
         type: Number,
-        required: true,
+        require: false,
+    },
+    quantity: {
+        type: Number,
+        require: false,
     },
     warning: {
         type: Number,
+        require: false,
     },
     note: {
         type: String,
+        require: false,
         min:1,
         max:1024
     },
     editedBy: {
         type: String,
-        required: true,
+        require: false,
         min:1,
         max:1024
     },
     date: {
         type: String,
+        require: false,
     }
 
 });

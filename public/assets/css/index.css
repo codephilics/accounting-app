@@ -8,6 +8,10 @@ body {
   background: linear-gradient(#141e30, #243b55);
 }
 
+#login-form{
+  padding-top: 4%;
+}
+
 .modal-dialog {
   max-width: 600px;
 }
@@ -48,13 +52,14 @@ body {
 .form-modal input {
   position: relative;
   width: 100%;
-  font-size: 15px;
-  padding: 1em 1.5em 1em 1.5em;
-  margin-top: 0.6em;
-  margin-bottom: 0.6em;
-  border-radius: 10px;
-  border: none;
-  background: #ebebeb;
+  height: calc(1.5em + .75rem + 2px);
+  font-size: 1rem;
+  padding: .375rem .75rem;
+  /* margin-top: 0.6em;
+  margin-bottom: 0.6em; */
+  border-radius: .25rem;
+  border: 1px solid #ced4da;
+  background: white;
   outline: none;
   transition: 0.4s;
 }
