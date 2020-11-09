@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const accountSchema = new mongoose.Schema({
     full_name: {
         type: String,
+        require: true,
+        unique: true,
         min:3,
         max:255
     },
@@ -74,8 +76,7 @@ const accountSchema = new mongoose.Schema({
     },
     date: {
         type: String
-    }
-
+    },
 });
 
 module.exports = mongoose.model('Account', accountSchema);

@@ -95,8 +95,6 @@ function isNotAuthenticate() {
   $.ajax(settings)
     .done(function (response) {
       console.log(response);
-      entryDataShowAPI();
-      showSearchDataAPI();
       accountDataShowAPI();
     })
     .fail(function (xhr, textStatus, errorThrown) {
@@ -351,7 +349,7 @@ $("#debit-submit").on("click", function (event) {
   var debitWarning = $("#dWarning").val();
   var debitNote = $("#dNote").val();
   var debitEditor = $("#dEdited-By").val();
-  var date = $(".entryDate").val();
+  var date = $(".entryDate").val(); 
   date = reformDateFormat(date);
   var settings = {
     url: "/entry/add",
@@ -381,6 +379,7 @@ $("#debit-submit").on("click", function (event) {
       note: debitNote,
       editedBy: debitEditor,
       date: date,
+      time: new Date().toLocaleTimeString()
     }),
   };
 
@@ -614,6 +613,7 @@ $("#credit-submit").on("click", function (event) {
       note: creditNote,
       editedBy: creditEditor,
       date: date,
+      time: new Date().toLocaleTimeString()
     }),
   };
 
@@ -723,10 +723,29 @@ function showAccountData(accountData) {
   row += "</tr>";
 
   console.debug(row);
-
   $(".add-account-table .add-account-tbody").append(row);
-}
+  
+  $("#dCompany").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dCO_CO").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dSite").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dPerson-Car-Who-will-Get").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dDepartment").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dCause").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dCarrier-Driver").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dRefer-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#dEdited-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
 
+  $("#crCompany").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crCO_CO").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crSite").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crPerson-Car-Who-will-Get").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crDepartment").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crCause").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crCarrier-Driver").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crRefer-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#crEdited-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+}
+var accountData = [];
 function accountDataShowAPI() {
   var settings = {
     url: "/account/get",
@@ -740,10 +759,14 @@ function accountDataShowAPI() {
 
   $.ajax(settings).done(function (response) {
     console.log(response);
+    accountData = response;
     $("tr").remove(".add-account-tr");
     for (var i = 0; i < response.length; i++) {
       showAccountData(response[i]);
     }
+    
+    entryDataShowAPI();
+    showSearchDataAPI();
   });
 }
 
@@ -952,7 +975,7 @@ function showSearchData(searchData) {
     isNull(searchData["date"]) +
     "</td>" +
     "<td>" +
-    isNull(searchData["note"]) +
+    isNull(searchData["time"]) +
     "</td>" +
     "<td>" +
     isNull(searchData["editedBy"]) +

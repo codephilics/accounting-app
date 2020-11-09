@@ -28,7 +28,8 @@ router.post("/add",verify, async (req, res) => {
             warning: req.body.warning,
             note: req.body.note,
             editedBy: req.body.editedBy,
-            date: req.body.date
+            date: req.body.date,
+            time: req.body.time
         });
         const saveEntryForm = await entry.save();
         res.send(saveEntryForm);

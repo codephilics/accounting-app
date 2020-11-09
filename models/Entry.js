@@ -99,7 +99,11 @@ const entrySchema = new mongoose.Schema({
     date: {
         type: String,
         require: false,
+    },
+    time:{
+        type: String
     }
+
 
 });
 
