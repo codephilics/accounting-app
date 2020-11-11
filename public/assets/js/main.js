@@ -283,7 +283,7 @@ function entryDataShowAPI() {
       }
       var d =  new Date(response[i]["date"]);
       if(pDate.getTime() >= d.getTime()){
-        console.log("Pre : "+response[i]["total"]);
+        console.log("Pre : "+response[i]["amount"]+response[i]["otherCost"]);
         if (response[i]["type"] == "Debit") {
           preDebitTotal=preDebitTotal+response[i]["amount"]+response[i]["otherCost"];      
         } else {
@@ -887,22 +887,26 @@ $("#create-account-button").on("click", function (event) {
 function showSearchData(searchData) {
   var row =
     "<tr class ='search-data-tr' data-type='" +
-    searchData["type"].toLowerCase() +
+    searchData["type"] +
     "' data-site='" +
-    searchData["site"].toLowerCase() +
+    searchData["site"] +
+    "' data-company='" +
+    searchData["company"] +
+    "' data-coco='" +
+    searchData["coco"] +
     "' data-person='" +
-    searchData["person"].toLowerCase() +
+    searchData["person"] +
     "' data-department='" +
-    searchData["department"].toLowerCase() +
+    searchData["department"] +
     "' data-cause='" +
-    searchData["cause"].toLowerCase() +
+    searchData["cause"] +
     "' data-carrier='" +
-    searchData["carrier"].toLowerCase() +
+    searchData["carrier"] +
     "' data-refer='" +
-    searchData["referBy"].toLowerCase() +
+    searchData["referBy"] +
     "' data-edited='" +
-    searchData["editedBy"].toLowerCase() +
-    "' data-search_amount='" +
+    searchData["editedBy"] +
+    "' data-amount='" +
     searchData["amount"] +
     "'>";
   var searchSL = $(".search-data-tr").length + 1;
@@ -920,17 +924,18 @@ function showSearchData(searchData) {
 
   
 
+  var searchTableTotal = parseFloat(drAmount + crAmount + isNull(searchData["otherCost"]));
   var searchBalance =
   crAmount +
   isNull(searchData["dena"]) -
-  (isNull(searchData["total"]) + isNull(searchData["paona"]));
+  (searchTableTotal + isNull(searchData["paona"]));
 
-  var searchTableTotal = drAmount + crAmount + isNull(searchData["otherCost"]);
+  
 
   row +=
-    "<td>" +
-    searchSL +
-    "</td>" +
+    // "<td>" +
+    // searchSL +
+    // "</td>" +
     "<td>" +
     isNull(searchData["type"]) +
     "</td>" +
@@ -961,11 +966,11 @@ function showSearchData(searchData) {
     "<td>" +
     isNull(searchData["quantity"]) +
     "</td>" +
-    "<td id='0'>" +
-    drAmount +
+    "<td>" +
+    drAmount  +
     "</td>" +
-    "<td id='0'>" +
-    crAmount +
+    "<td>" +
+    crAmount  +
     "</td>" +
     "<td>" +
     isNull(searchData["otherCost"]) +
@@ -1037,14 +1042,25 @@ function showSearchDataAPI() {
     var e = new Date(endDate);
 
 
+    var data =[];
 
     for (var i = 0; i < response.length; i++) {
       // response[i]['amount'] = response[i]['amount'].toString();
       var date = new Date(response[i]["date"]);
       if(date.getTime() >= s.getTime() && date.getTime() <= e.getTime()){
-        showSearchData(response[i]);
+        data.push(response[i]);
       }
     }
+
+    data.sort(function(a,b){
+      return new Date(b["date"]) - new Date(a["date"]);
+    });    
+
+    for (var i = 0; i < data.length; i++) {
+        showSearchData(data[i]);
+    }
+    
+
     filterDataFormat(response);
   });
 }
@@ -1060,7 +1076,6 @@ function filterDataFormat(data) {
   var cause = new Set();
   var carrier = new Set();
   var referBy = new Set();
-  var amount = new Set();
 
   for (var i = 0; i < data.length; i++) {
     var row = data[i];
@@ -1072,7 +1087,6 @@ function filterDataFormat(data) {
     cause.add(row["cause"]);
     carrier.add(row["carrier"]);
     referBy.add(row["referBy"]);
-    amount.add(row["amount"]);
   }
   for (let value of company) {
     $("#company-filter").append($("<option>").text(value).val(value));
@@ -1103,10 +1117,6 @@ function filterDataFormat(data) {
   for (let value of referBy) {
     $("#refer-filter").append($("<option>").text(value).val(value));
   }
-
-  for (let value of amount) {
-    $("#amount-filter").append($("<option>").text(value).val(value));
-  }
 }
 
 var filters = {
@@ -1120,7 +1130,7 @@ var filters = {
   carrier: null,
   refer: null,
   edited: null,
-  amount: null,
+  amount: 0,
 };
 
 function updateFilters() {
@@ -1190,15 +1200,16 @@ $("#edited-filter").on("change", function () {
   changeFilter.call(this, "edited");
 });
 
-$("#amount-filter").on("change", function () {
-  changeFilter.call(this, "amount");
+$("#amount-filter").on("change", function() {
+  var searchAmount = parseFloat($("#amount-filter").val());
+  changeFilter.call(searchAmount, "amount");
 });
 
 // future use for a text input filter
-// $('.search-portal-search-button').on('click', function() {
-//     $('.search-data-tr').hide().filter(function() {
-//         return $(this).data('search_amount') == $('#amount-filter').val().trim();
-//     }).show();
+// $("#amount-filter").on("change", function() {
+//   $('.search-data-tr').hide().filter(function() {
+//     return $(this).data('amount') == $('#amount-filter').val();
+// }).show();
 // });
 
 // print Button
