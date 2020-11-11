@@ -1064,20 +1064,20 @@ function filterDataFormat(data) {
 
   for (var i = 0; i < data.length; i++) {
     var row = data[i];
-    company.add(row["company"].toLowerCase());
-    coco.add(row["coco"].toLowerCase());
-    site.add(row["site"].toLowerCase());
-    personWhoWillGet.add(row["person"].toLowerCase());
-    department.add(row["department"].toLowerCase());
-    cause.add(row["cause"].toLowerCase());
-    carrier.add(row["carrier"].toLowerCase());
-    referBy.add(row["referBy"].toLowerCase());
+    company.add(row["company"]);
+    coco.add(row["coco"]);
+    site.add(row["site"]);
+    personWhoWillGet.add(row["person"]);
+    department.add(row["department"]);
+    cause.add(row["cause"]);
+    carrier.add(row["carrier"]);
+    referBy.add(row["referBy"]);
     amount.add(row["amount"]);
   }
   for (let value of company) {
     $("#company-filter").append($("<option>").text(value).val(value));
   }
-  for (let value of co_co) {
+  for (let value of coco) {
     $("#coco-filter").append($("<option>").text(value).val(value));
   }
   for (let value of site) {
