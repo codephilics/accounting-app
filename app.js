@@ -52,5 +52,5 @@ app.get("/home",(req, res) =>
 
 
 app.listen(port, () => {
-    console.log("Example app listening on port port!");
+    console.log(`Server start on port : ${port}`);
 });
