@@ -274,10 +274,10 @@ function entryDataShowAPI() {
       if (date == response[i]["date"]) {
         if (response[i]["type"] == "Debit") {
           showDebitData(response[i]);
-          debitTotal+=response[i]["total"];
+          debitTotal=debitTotal+response[i]["amount"]+response[i]["otherCost"];
         } else {
           showCreditData(response[i]);
-          creditTotal+=response[i]["total"];
+          creditTotal=creditTotal+response[i]["amount"]+response[i]["otherCost"];
         }
 
       }
@@ -285,9 +285,9 @@ function entryDataShowAPI() {
       if(pDate.getTime() >= d.getTime()){
         console.log("Pre : "+response[i]["total"]);
         if (response[i]["type"] == "Debit") {
-          preDebitTotal+=response[i]["total"];      
+          preDebitTotal=preDebitTotal+response[i]["amount"]+response[i]["otherCost"];      
         } else {
-          preCreditTotal+=response[i]["total"];
+          preCreditTotal=preCreditTotal+response[i]["amount"]+response[i]["otherCost"];
         }
       }
 
@@ -744,6 +744,26 @@ function showAccountData(accountData) {
   $("#crCarrier-Driver").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
   $("#crRefer-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
   $("#crEdited-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+
+  $("#d-edit-Company").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-CO_CO").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-Site").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-Person-Car-Who-will-Get").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-Department").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-Cause").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-Carrier-Driver").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-Refer-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#d-edit-Edited-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  
+  $("#c-edit-Company").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-CO_CO").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-Site").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-Person-Car-Who-will-Get").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-Department").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-Cause").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-Carrier-Driver").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-Refer-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
+  $("#c-edit-Edited-By").append($("<option>").text(accountData["full_name"]).val(accountData["full_name"]));
 }
 var accountData = [];
 function accountDataShowAPI() {
@@ -1032,25 +1052,33 @@ function showSearchDataAPI() {
 // Set
 
 function filterDataFormat(data) {
+  var company = new Set();
+  var coco = new Set ();
   var site = new Set();
   var personWhoWillGet = new Set();
   var department = new Set();
   var cause = new Set();
   var carrier = new Set();
   var referBy = new Set();
-  var editBy = new Set();
   var amount = new Set();
 
   for (var i = 0; i < data.length; i++) {
     var row = data[i];
+    company.add(row["company"].toLowerCase());
+    coco.add(row["coco"].toLowerCase());
     site.add(row["site"].toLowerCase());
     personWhoWillGet.add(row["person"].toLowerCase());
     department.add(row["department"].toLowerCase());
     cause.add(row["cause"].toLowerCase());
     carrier.add(row["carrier"].toLowerCase());
     referBy.add(row["referBy"].toLowerCase());
-    editBy.add(row["editedBy"].toLowerCase());
     amount.add(row["amount"]);
+  }
+  for (let value of company) {
+    $("#company-filter").append($("<option>").text(value).val(value));
+  }
+  for (let value of co_co) {
+    $("#coco-filter").append($("<option>").text(value).val(value));
   }
   for (let value of site) {
     $("#site-filter").append($("<option>").text(value).val(value));
@@ -1076,10 +1104,6 @@ function filterDataFormat(data) {
     $("#refer-filter").append($("<option>").text(value).val(value));
   }
 
-  for (let value of editBy) {
-    $("#edited-filter").append($("<option>").text(value).val(value));
-  }
-
   for (let value of amount) {
     $("#amount-filter").append($("<option>").text(value).val(value));
   }
@@ -1087,6 +1111,8 @@ function filterDataFormat(data) {
 
 var filters = {
   type: null,
+  company: null,
+  coco: null,
   site: null,
   person: null,
   department: null,
@@ -1126,6 +1152,14 @@ function changeFilter(filterName) {
 
 $("#type-filter").on("change", function () {
   changeFilter.call(this, "type");
+});
+
+$("#company-filter").on("change", function () {
+  changeFilter.call(this, "company");
+});
+
+$("#coco-filter").on("change", function () {
+  changeFilter.call(this, "coco");
 });
 
 $("#site-filter").on("change", function () {
