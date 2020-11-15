@@ -4,6 +4,7 @@ A highly customizable accounting application for large engineering construction 
 # Development: Getting Started
 
 # Requirement
+
 You will need 
 * Nodejs
 * MongoDB
@@ -19,6 +20,7 @@ Clone Project
 $ git clone https://github.com/codephilics/accounting-app.git
 $ cd accounting-app
 ```
+
 Install the dependencies
 
 ```bash
