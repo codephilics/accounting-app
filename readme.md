@@ -1,22 +1,36 @@
-# Requirement
-* Nodejs14.9.0
+# Accounting App
+A highly customizable accounting application for large engineering construction company.
 
-# Installation
+# Development: Getting Started
+
+# Requirement
+You will need 
+* Nodejs
+* MongoDB
+* Docker
+# Prepare Workspace
+## Installation
 * Clone Project
 ```bash
-$ git clone git@gitlab.com:ibrahimnsu15/accounting-api-and-ui.git
-$ cd accounting-api-and-ui
+$ git clone https://github.com/codephilics/accounting-app.git
+$ cd accounting-app
+```
+```bash
+$ npm install
 ```
 
-* First create Environment : 
-
+First create .env file for example-env.txt: 
+```bash
+$ cp example-env.txt .env
+```
+Set .env values  
+```bash 
+DB_CONNECTION=mongodb://mongo:27017/accountapp
+PORT=3000
+TOKEN_SECRET=bA2xcjpf8y5aSUFsNB2qN5yymUBSs6es3qHoFpGkec75RCeBb8cpKauGefw5qy4
+```
+Start App
 ```bash
 $ npm start
 ```
 
-# Env 
-```bash 
-DB_CONNECTION = 
-PORT = 3000
-TOKEN_SECRET = jhsfdbh8798f
-```
