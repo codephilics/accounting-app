@@ -16,7 +16,7 @@ $ npm start
 
 # Env 
 ```bash 
-DB_CONNECTION = 'mongodb+srv://test1:abc12345!@account-app-db.wndww.mongodb.net/accounting-app-db?retryWrites=true&w=majority'
+DB_CONNECTION = 
 PORT = 3000
 TOKEN_SECRET = jhsfdbh8798f
 ```
