@@ -19,7 +19,7 @@ $ cd accounting-app
 $ npm install
 ```
 
-First create .env file for example-env.txt: 
+First create .env file from example-env.txt: 
 ```bash
 $ cp example-env.txt .env
 ```
