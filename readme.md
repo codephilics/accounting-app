@@ -39,5 +39,5 @@ $ npm start
 If you are interested to make the package better please send pull requests or create an issue so that others can fix.
 
 ## License
-The **matterhook** is an open-source software licensed under the [MIT License](LICENSE).
+The **accounting-app** is an open-source software licensed under the [MIT License](LICENSE).
 
